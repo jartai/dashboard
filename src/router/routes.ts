@@ -45,4 +45,9 @@ export const routes: RouteRecordRaw[] = [
     component: Placeholder,
     children: [{ path: '', name: '404 Error', component: Placeholder }],
   },
+  {
+    path: '/kitchen-sink',
+    name: 'KitchenSink',
+    component: () => import('@/views/_KitchenSink.vue'),
+  },
 ]
