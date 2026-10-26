@@ -19,10 +19,16 @@ Vue 2 + Vuetify 2 + JS + Vue CLI + Vuex.
 **Reason:** Vue 2 and Vuetify 2 are both EOL. Full rewrite was required regardless.
 **Date:** 2026-10-26
 
-**Deviation:** `app.scss` is not ported verbatim; it is rebuilt in two passes
-(global primitives after Phase 6, screen-specific at Phase 10).
+**Deviation:** Vuetify 4's lowered breakpoints are adopted rather than restoring v3
+thresholds (md 960→840, lg 1280→1145, xl 1920→1545, xxl 2560→2138).
+**Reason:** Keeps JS and CSS thresholds consistent without a partial Sass override.
+**Status:** revisit at P10 if fidelity matters
+**Date:** 2026-10-26
+
+**Deviation:** `app.scss` is not ported verbatim; rebuilt in two passes
+(global primitives at P6b, screen-specific at P10).
 **Reason:** 36KB of MD2-era patchwork; Vuetify 4's MD3 defaults cover much of it.
-**Status:** pending — P6b / P10
+**Status:** P6b done, P10 pending
 **Date:** —
 
 **Deviation:** Fonts are self-hosted via `@fontsource/roboto` instead of a CDN.
@@ -40,20 +46,18 @@ Vue 2 + Vuetify 2 + JS + Vue CLI + Vuex.
 **Date:** —
 
 **Deviation:** i18n setup pulled forward from P9.7 to Phase 5.
-**Reason:** `AppBar.vue` and `Drawer.vue` both call `$t()`, which requires vue-i18n.
-`en.json` was ported early so nav labels render as text, not raw keys.
-**Reason for `globalInjection: true`:** keeps every original `$t()` call working
-unchanged, rather than rewriting all of them to `t()`.
+**Reason:** `AppBar.vue` and `Drawer.vue` both call `$t()`. `globalInjection: true`
+keeps every original `$t()` call working unchanged.
 **Status:** `ar.json` and RTL still deferred to P9.7–P9.8
 **Date:** 2026-10-26
 
-## Global
+**Deviation:** `lodash` dropped entirely.
+**Reason:** Only `kebabCase` was used, by `ItemGroup`'s `genGroup`, which became
+redundant once `navigation.ts` pre-resolved `to` paths.
+**Date:** 2026-10-26
 
-**Deviation:** Vuetify 4's lowered breakpoints are adopted rather than restoring v3
-thresholds (md 960→840, lg 1280→1145, xl 1920→1545, xxl 2560→2138).
-**Reason:** Keeps JS and CSS thresholds consistent without a partial Sass override.
-Responsive behaviour therefore shifts a few dozen pixels from the original.
-**Status:** revisit at P10 if fidelity matters
+**Deviation:** `sass-embedded` used instead of `sass`.
+**Reason:** Faster; Vite's preferred compiler. Dev-only dependency.
 **Date:** 2026-10-26
 
 ---
@@ -73,6 +77,10 @@ identical to the original keeps both file trees navigable during the port.
 **Reason:** Dropped as a theme key in Vuetify 3+. Inert in v4.
 **Date:** 2026-10-26
 
+**Deviation:** `defaultTheme: 'light'`.
+**Reason:** The original had no `dark: true`; Vuetify 2 defaulted to light.
+**Date:** 2026-10-26
+
 ---
 
 ## src/plugins/vuetify.js
@@ -82,10 +90,9 @@ identical to the original keeps both file trees navigable during the port.
 **Status:** pending — P9.8
 **Date:** —
 
-**Deviation:** Drawer `:dark` prop replaced with `theme="dark"`.
+**Deviation:** Drawer `:dark` prop replaced with `:theme`.
 **Reason:** `dark` prop removed in Vuetify 3+.
-**Status:** pending — P5.5
-**Date:** —
+**Date:** 2026-10-26
 
 ---
 
@@ -108,13 +115,11 @@ identical to the original keeps both file trees navigable during the port.
 **Reason:** Avoids prop-drilling through the layout to AppBar, Drawer and Settings.
 **Date:** 2026-10-26
 
-**Deviation:** Vuex mutations (`SET_DRAWER`, `SET_BAR_IMAGE`, `SET_SCRIM`) replaced
-with plain Pinia functions.
+**Deviation:** Vuex mutations replaced with plain Pinia functions.
 **Reason:** Pinia has no mutations/actions split.
 **Date:** 2026-10-26
 
 **Deviation:** `barImage` still points at an external creative-tim URL.
-**Reason:** Local asset deferred to P11.1.
 **Status:** pending — P11.1
 **Date:** —
 
@@ -127,16 +132,21 @@ with plain Pinia functions.
 (original concatenated a `group` prefix in `ItemGroup.vue`).
 **Date:** 2026-10-26
 
-**Deviation:** Nav item `register` pointed to route `pricing`.
-**Reason:** Bug in the original. Corrected to `/pages/register`.
+**Deviation:** Nav item `register` pointed to route `pricing`. Corrected.
+**Reason:** Bug in the original.
 **Date:** 2026-10-26
+
+**Deviation:** `profileNav` children kept as empty-string stubs from the original.
+**Status:** pending — P11.2
+**Date:** —
 
 ---
 
 ## components/core/Footer.vue
 
-**Deviation:** `lang="sass"` converted to plain CSS; Vuetify 2 Sass path removed.
-**Reason:** Avoids adding a Sass dependency for one rule block.
+**Deviation:** `lang="sass"` converted to plain CSS.
+**Reason:** Avoids a Sass dependency for one rule block (superseded by the
+`legacy.scss` decision, which does use Sass).
 **Date:** 2026-10-26
 
 **Deviation:** `no-gutters` mapped to `gap="0"`.
@@ -144,32 +154,23 @@ with plain Pinia functions.
 **Date:** 2026-10-26
 
 **Deviation:** `v-text` on `v-icon` replaced with the `icon` prop.
-**Reason:** Slot → prop is the v3+ idiom.
 **Date:** 2026-10-26
 
-**Note:** Footer links render flush until P6b. Spacing comes from
-`.v-footer a { padding: 15px 18px 15px 16px }` in the global `app.scss`.
-**Status:** resolves at P6b
-
-**Note:** Copyright div uses `text-body-large` (was `body-1`). The `app.scss` pass
-must target the new class name.
-**Status:** pending — P6b
+**Note:** Footer links render flush until the `.v-footer a` padding rule in
+`legacy.scss` applies.
+**Status:** resolves at P6b — done
 
 ---
 
 ## components/core/AppBarItem.vue
 
 **Deviation:** Extracted from an inline `render(h)` component into an SFC.
-**Reason:** `scopedSlots` → `slots` in Vue 3; an SFC is clearer than a render function.
+**Reason:** `scopedSlots` → `slots` in Vue 3.
 **Date:** 2026-10-26
 
-**Deviation:** Hover slot prop `hover` → `isHovering`.
-**Reason:** Renamed in Vuetify 3+.
-**Date:** 2026-10-26
-
-**Deviation:** `black--text` → `text-black`; `white--text secondary elevation-12` →
-`text-white bg-secondary elevation-4`.
-**Reason:** Colour utility rename; v4 ships only elevation 0–5, so 12 → 4.
+**Deviation:** `hover` → `isHovering`; `black--text` → `text-black`;
+`white--text secondary elevation-12` → `text-white bg-secondary elevation-4`.
+**Reason:** Renames; v4 ships elevation 0–5.
 **Date:** 2026-10-26
 
 **Deviation:** `title` passed as a prop instead of a `v-list-item-title` child.
@@ -180,141 +181,160 @@ must target the new class name.
 
 ## components/core/AppBar.vue
 
-**Deviation:** `app` prop removed.
-**Reason:** Replaced by `<v-layout>` in Vuetify 3+.
+**Deviation:** `app` prop removed; `fab` → `icon`; `text` → `variant="text"`.
 **Date:** 2026-10-26
 
-**Deviation:** `$vuetify.breakpoint.smAndDown` / `.mdAndUP` → `useDisplay()`.
-**Reason:** Global breakpoint object removed in v3+.
+**Deviation:** `$vuetify.breakpoint.*` → `useDisplay()`.
 **Date:** 2026-10-26
 
-**Deviation:** `value` prop + `$emit('input')` removed; toggles write to the Pinia store.
-**Reason:** `expandOnHover` now lives in the store, so the v-model round-trip is
-unnecessary. Vue 3 also renamed the `input` event to `update:modelValue`.
+**Deviation:** `value` prop + `$emit('input')` removed; writes to the store.
 **Date:** 2026-10-26
 
-**Deviation:** `fab` → `icon`; `text` → `variant="text"`.
-**Reason:** `fab` removed and variant props unified in v3+.
+**Deviation:** `v-slot:activator="{ attrs, on }"` → `#activator="{ props }"`.
 **Date:** 2026-10-26
 
-**Deviation:** `v-slot:activator="{ attrs, on }"` + `v-bind="attrs"` + `v-on="on"`
-→ `#activator="{ props }"` + `v-bind="props"`.
-**Reason:** Activator slot contract changed in v3+.
+**Deviation:** `caption` → `text-body-small`; `hidden-sm-and-down` → `d-none d-md-block`.
 **Date:** 2026-10-26
 
-**Deviation:** `caption` → `text-body-small`.
-**Reason:** MD2 → MD3 typography.
+**Deviation:** `v-text` on `v-toolbar-title` → interpolation.
 **Date:** 2026-10-26
 
-**Deviation:** `hidden-sm-and-down` → `d-none d-md-block`.
-**Reason:** `hidden-*` classes replaced by `d-*` in v3+.
-**Date:** 2026-10-26
-
-**Deviation:** `v-text="route.name"` on `v-toolbar-title` → interpolation.
-**Reason:** `vue/no-v-text-v-html-on-component`.
-**Date:** 2026-10-26
-
-**Status:** pending — verify at P5.9
-
-- `append-outer` → `append-inner` (fallback: `append`)
-- `transition="scale-transition"` may not exist in v4
-- `offset-y` dropped entirely (v3 uses `offset`)
-- `:tile="false"` on `v-list` dropped
+**Deviation:** `offset-y` dropped; `append-outer` → `append-inner`; `:tile="false"` dropped.
+**Status:** verify at P8 when screens exist
+**Date:** —
 
 ---
 
-## P10 prep — app.scss selector renames
+## components/core/Drawer.vue
 
-`app.scss` needs a mechanical selector pass before any other styling work. Mapping:
+**Deviation:** `mobile-break-point="960"` → `mobile-breakpoint="md"`.
+**Reason:** v4 lowered breakpoints; 960 sits between md and lg. Semantic value follows
+whatever thresholds are configured.
+**Date:** 2026-10-26
 
-| app.scss selector                                                  | Vuetify 4                            |
-| ------------------------------------------------------------------ | ------------------------------------ |
-| `.v-content__wrap`                                                 | `.v-main__wrap`                      |
-| `.theme--light` / `.theme--dark`                                   | `.v-theme--light` / `.v-theme--dark` |
-| `.v-application--is-ltr` / `--is-rtl`                              | `.v-locale--is-ltr` / `--is-rtl`     |
-| `.v-btn--flat` / `--text` / `--outlined` / `--contained`           | `variant` classes                    |
-| `.v-input__slot`                                                   | `.v-field`                           |
-| `.v-text-field--solo`                                              | `.v-field--variant-solo`             |
-| `.v-expansion-panel-header`                                        | `-title`                             |
-| `.v-list-item__content` / `__title` / `__subtitle`                 | flat `v-list-item`                   |
-| `.v-navigation-drawer--mini-variant`                               | `--rail`                             |
-| `.v-snack__content`                                                | `.v-snackbar__content`               |
-| `.body-1`, `.display-2`, `.headline`, `.subtitle-1`, `.caption`    | MD3 classes                          |
-| `.v-tabs-bar`, `.v-calendar-weekly`, `.v-picker`, `.v-select-list` | restructured                         |
+**Deviation:** `:expand-on-hover` kept (not mapped to `rail`).
+**Reason:** The prop still exists in v4 with the same behaviour.
+**Date:** 2026-10-26
 
-ID-based rules also present, targeting `#app`, `#pages`, `#login`, `#register`,
-`#settings`, `.error-page`. These map to screen components — handle in P10.
+**Deviation:** `#image` slot dropped; `:image` prop used instead.
+**Reason:** The v4 slot is wrapped in a `VDefaultsProvider` and threw during render.
+**Status:** gradient overlay pending — P10
+**Date:** —
 
-Other notable global rules to carry over: `.theme--light.v-content { background-color: #eee }`,
-`.v-footer` border-top, `.v-card` border-radius and shadows.
+**Deviation:** `:right="$vuetify.rtl"` → `:location="isRtl ? 'end' : 'start'"`.
+**Date:** 2026-10-26
+
+**Note:** Vuetify warns `Multiple nodes with the same ID` for the profile nav group.
+Non-fatal; the drawer renders.
+**Status:** pending — investigate at P10
+
+---
+
+## components/base/Item.vue, ItemGroup.vue, ItemSubGroup.vue
+
+**Deviation:** Moved from Phase 7 to Phase 5.
+**Reason:** The drawer cannot render without them.
+**Date:** 2026-10-26
+
+**Deviation:** `genGroup` deleted; `v-list-group :group` → `:value="item.title"`.
+**Reason:** `to` paths are pre-resolved, so child-path concatenation is redundant.
+**Status:** auto-expand-on-active-child needs verification
+**Date:** —
+
+**Deviation:** `Themeable` mixin → `useTheme()`; `mapState(['barColor'])` → store.
+**Date:** 2026-10-26
+
+**Deviation:** `v-list-item-icon` / `-content` / `-title` children → `#prepend` slot
+plus `title` / `subtitle` props.
+**Date:** 2026-10-26
+
+**Deviation:** `v-list-item-avatar` → `<v-avatar>` in the activator's `#prepend`.
+**Date:** 2026-10-26
+
+**Deviation:** Activator slot now wraps an explicit `<v-list-item v-bind="activatorProps">`.
+**Reason:** In v2 the slot content _was_ the item; v3 requires the wrapper.
+**Date:** 2026-10-26
+
+---
 
 ## components/core/Settings.vue
 
-**Deviation:** Theme mutation uses `theme.themes.value[name]!` with a non-null assertion.
-**Reason:** `noUncheckedIndexedAccess` makes computed-key record access `| undefined`;
-both themes are defined in `plugins/vuetify.ts` so the key always exists.
+**Deviation:** `Proxyable` mixin dropped; `expandOnHover` read from the store.
 **Date:** 2026-10-26
 
-## layouts/DashboardLayout.vue
+**Deviation:** `$vuetify.theme.dark` → `isDark` computed over `theme.global.name`;
+theme mutation uses `theme.themes.value[name]!`.
+**Reason:** Global instance removed; `noUncheckedIndexedAccess` requires the assertion.
+**Date:** 2026-10-26
 
-**Deviation:** Replaces `src/views/dashboard/Index.vue`.
-**Reason:** Layouts consolidated under `src/layouts/`.
+**Deviation:** `dark` prop → `theme="dark"`; `v-icon large` → `size="large"`;
+`left` → `location="start"`; `active` slot prop → `isSelected`; `default` dropped.
+**Date:** 2026-10-26
+
+**Deviation:** `showImg` watcher keeps the original's boolean-as-image quirk.
+**Status:** pending — tidy at P10
 **Date:** —
 
-**Deviation:** `v-app` moved from the layout to `App.vue`; the layout renders `v-layout`.
+---
+
+## layouts/DashboardLayout.vue / AuthLayout.vue
+
+**Deviation:** Replace `views/dashboard/Index.vue` and `views/pages/Index.vue`.
+**Date:** 2026-10-26
+
+**Deviation:** `v-app` moved to `App.vue`; layouts render `v-layout`.
 **Reason:** `v-app` belongs at the root in Vuetify 3+; `v-layout` supplies the app
-layout context that the `app` prop used to provide.
-**Date:** —
-
-**Deviation:** No `expandOnHover` prop plumbing — all three children read the store.
-**Reason:** Removes `v-model` / `.sync` chains from the original.
+layout context the `app` prop used to provide.
 **Date:** 2026-10-26
 
-## layouts/AuthLayout.vue
-
-**Deviation:** Replaces `src/views/pages/Index.vue`.
-**Reason:** Layouts consolidated under `src/layouts/`.
+**Deviation:** No `expandOnHover` prop plumbing.
 **Date:** 2026-10-26
 
-**Deviation:** `v-app` moved to `App.vue`; the layout renders `v-layout`.
-**Reason:** `v-app` belongs at the root in Vuetify 3+.
+**Deviation:** AuthLayout restores the _previous_ theme on unmount rather than
+hardcoding `dark = false`.
+**Reason:** The original discarded a dark-mode choice made on the dashboard.
 **Date:** 2026-10-26
 
-**Deviation:** On unmount, the previous theme is restored rather than hardcoding
-`dark = false`.
-**Reason:** The original reset to light unconditionally, which discarded a dark-mode
-choice made on the dashboard.
+---
+
+## components/auth/*
+
+**Deviation:** `require(\`@/assets/${src}\`)`→ static imports in a lookup map.
+**Reason:**`require` is not defined in Vite's ESM runtime.
 **Date:** 2026-10-26
 
-## components/auth/View.vue
-
-**Deviation:** `require(\`@/assets/${src}\`)`replaced with static`import`s in a lookup map.
-**Reason:** `require` is not defined in Vite's ESM runtime.
+**Deviation:** `:src` lookup uses `?? clintMckoy` fallback.
+**Reason:** `noUncheckedIndexedAccess` types the lookup as `string | undefined`.
 **Date:** 2026-10-26
 
-**Deviation:** `:src` lookup uses `?? clintMckoy` as a fallback.
-**Reason:** `noUncheckedIndexedAccess` types the record lookup as `string | undefined`.
+**Deviation:** `v-content` → `v-main`; `grey lighten-3` → `grey-lighten-3`;
+`left` → `start`; `text` → `variant="text"`.
 **Date:** 2026-10-26
 
-**Deviation:** `$vuetify.theme.dark` → `useTheme()`; `$vuetify.breakpoint.*` → `useDisplay()`.
-**Reason:** Global instances removed in Vuetify 3+.
+---
+
+## src/styles/legacy.scss
+
+**Deviation:** `app.scss` copied verbatim, then renamed in two `sed` passes.
+**Reason:** Bulk selector renames; keeps the file diffable against the original.
 **Date:** 2026-10-26
 
-**Deviation:** `v-content` → `v-main`; `grey lighten-3` → `grey-lighten-3`.
-**Reason:** Component and colour-class renames.
+**Deviation:** Imported **unlayered** so it beats Vuetify's `@layer` blocks.
+**Reason:** Preserves original specificity behaviour. Consequence: it overrides
+Vuetify aggressively.
 **Date:** 2026-10-26
 
-## components/auth/Footer.vue
+**Deviation:** File is temporary; dissolves into scoped component styles and is
+deleted at P10.
+**Status:** pending — P10
 
-**Deviation:** `dark` prop dropped.
-**Reason:** `AuthLayout` forces the dark theme for the whole subtree.
+**Deviation:** `.v-btn.v-size--*` renamed rather than `.v-size--*` globally.
+**Reason:** `.v-size--small` also appears on chips, which need `.v-chip--size-small`.
 **Date:** 2026-10-26
 
-## components/auth/AppBar.vue
-
-**Deviation:** `left` on `v-icon` → `start`; `text` on `v-btn` → `variant="text"`.
-**Reason:** Prop renames in Vuetify 3+.
-**Date:** 2026-10-26
+**Status:** parked selectors needing judgement — P10
+`.v-list-item__content` (gone in v3, breaks middle-selector chains),
+`.v-tabs-bar`, `.v-calendar-weekly`, `.v-picker`, `.v-select-list`.
 
 ---
 

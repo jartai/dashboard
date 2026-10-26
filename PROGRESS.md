@@ -5,58 +5,62 @@
 
 ## Current position
 
-**Step:** P5.1 complete — next P5.2
-**Branch:** `p5-shell`
+**Step:** P6b complete — next P7.1
+**Branch:** `p7-base`
 **Last session:** 2026-10-26
 
 ## Working
 
-- Phase 0–4 complete: scaffold, Vuetify 4 + theme, route skeleton, ui store, nav data
-- `components/core/Footer.vue` ported
+- Phases 0–6 complete: scaffold, Vuetify 4, routes, store, nav data, i18n, shell
+  (dashboard + auth), layouts, global styles
+- Shell renders: app bar, drawer, footer, settings card, both layouts
+- `legacy.scss` loaded and renamed
 
 ## Broken / blocked
 
-- Footer links render flush — expected, spacing comes from `app.scss` at P6b
-- Shell renders doubled alerts and footers — expected, `_Placeholder` is the parent
-  component for both `/` and `/pages`. Resolves at P5.6 / P6.4.
+- Most of `app.scss` still targets components that don't exist yet — expected
+- Screens are all `_Placeholder.vue` — expected until Phase 8
+- Vuetify warns duplicate node ID for the profile nav group (non-fatal)
 
 ## Next up
 
-- P5.2 `src/components/core/View.vue` (`v-content` → `v-main`)
+- P7.1 `components/base/Card.vue`
 
 ---
 
 ## Locked decisions — do not re-litigate
 
 - Target is **Vuetify 4**, not 3. Vuetify 3 is LTS/maintenance only (LTS ends Jul 2027).
-- Package manager is **pnpm**.
-- **One app**, not separate apps per screen. Screens are added as isolated routes and
-  wired into navigation only once they work.
-- This app has **no backend** and no API. All data is hardcoded. PHP comes later, separately.
-- Do **not** port `app.scss` verbatim. Rebuild it in two passes: P6b (global primitives),
-  P10 (screen-specific).
+- Package manager is **pnpm**. Sass is **`sass-embedded`**.
+- **One app**, not separate apps per screen. Screens are isolated routes until they work.
+- This app has **no backend** and no API. PHP comes later, separately.
+- Do **not** port `app.scss` verbatim. Two passes: P6b (done), P10 (pending).
+- `legacy.scss` is **temporary** and **unlayered on purpose**. Deleted at P10.
+- Vuetify 4's **lowered breakpoints are adopted**. Don't restore v3 thresholds.
 - Typography class mapping (v2 → v4) is in `PLAN.md`. Use it; don't guess.
-- The `register → pricing` nav bug in the original is **fixed**, logged in `PORTING.md`.
-- Vuetify 2 reached EOL Jan 2025. Vue 2 reached EOL Dec 2023. Neither gets patches.
-- TypeScript **yes**, from the start, on all new code. No `.js` files added.
-- Fonts are **self-hosted** via `@fontsource/roboto` — no Google Fonts CDN.
-- `noUncheckedIndexedAccess` stays **on**. Fix errors with `?.` / `??` / `!`, don't disable.
+- The `register → pricing` nav bug is **fixed**, logged in `PORTING.md`.
+- TypeScript **yes**, from the start. No `.js` files added.
+- Fonts **self-hosted** via `@fontsource/roboto`.
+- `noUncheckedIndexedAccess` stays **on**. Fix with `?.` / `??` / `!`.
 - `vue/multi-word-component-names` stays **off**.
+- `lodash` is **not** a dependency.
 - Old app is a **read-only** reference at `~/ref/md-pro-v2`.
 
 ## Conventions
 
 - **Green gate:** dev server compiles AND the step's verify passes before the next step.
-- **One branch per phase:** `p0-scaffold`, `p5-shell`, `p8-screens`…
+- **One branch per phase:** `p0-scaffold`, `p7-base`, `p8-screens`…
 - **Commit every 1–2 steps.** Conventional commits.
 - **Never more than two uncommitted files.**
-- If a step balloons, split it. Step IDs are a checklist, not a contract.
-- **2-minute rule:** if something looks visually off and isn't resolved in two minutes,
-  park it in `PORTING.md` with `Status: pending — <step>` and move on.
-- Every deviation from the original goes in `PORTING.md` with a reason.
-- Read a file before replacing it. `create-vue` ships good defaults.
-- Paths: config files live at the **repo root**; app code lives in `src/`.
+- If a step balloons, split it.
+- **2-minute rule:** unresolved visual oddity → park in `PORTING.md` with
+  `Status: pending — <step>`, move on.
+- Every deviation goes in `PORTING.md` with a reason.
+- Read a file before replacing it.
+- Paths: config files at the **repo root**; app code in `src/`. Folders lowercase,
+  `.vue` files PascalCase.
 - **Doubled output = placeholder nesting** (temporary). **Missing output = real bug.**
+- Dead CSS rules are **harmless**. Only fix rules that match wrongly.
 
 ## References
 
@@ -70,8 +74,7 @@
 
 ## Screens deliberately skipped
 
-`src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical
-duplicates of the `views/dashboard/pages/` versions (same git SHAs).
+`src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted duplicates.
 
 ---
 
@@ -79,5 +82,19 @@ duplicates of the `views/dashboard/pages/` versions (same git SHAs).
 
 Newest first. Two lines max per entry.
 
-- 2026-10-26 — Phases 0–4 complete. Started shell: footer ported.
-- 2026-10-26 — Scaffold, GitHub repo, Vuetify 4 + theme, `vite.config.ts`.
+- 2026-10-26 — Phases 5–6b: shell, auth shell, layouts, global styles.
+- 2026-10-26 — Phases 0–4: scaffold, Vuetify 4, routes, store, nav data, i18n.
+
+---
+
+## Handoff prompt
+
+Copy this into a new chat:
+
+    Repo: https://github.com/jartai/dashboard
+
+    Read PLAN.md, PROGRESS.md and PORTING.md from that repo before answering.
+    We're at <step id>. Old app reference is
+    github.com/kathirr007/Vuetify-md-pro-clone.
+
+    Don't re-litigate the locked decisions in PROGRESS.md.
