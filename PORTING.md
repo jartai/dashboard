@@ -75,3 +75,20 @@ Vue 2 + Vuetify 2 + JS + Vue CLI + Vuex.
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical
 duplicates of the `views/dashboard/pages/` versions (same git SHAs).
 **Date:** 2026-10-26
+
+## eslint.config.ts
+
+**Deviation:** `vue/multi-word-component-names` disabled.
+**Reason:** The original has ~16 single-word screen filenames. Keeping filenames
+identical to the original makes the two trees navigable during the port.
+**Date:** 2026-10-26
+
+## src/router/routes.ts
+
+**Deviation:** Route name `'Data Tabels'` corrected to `'Data Tables'`.
+**Reason:** Typo in the original.
+**Date:** —
+
+**Deviation:** Catch-all path `'*'` replaced with `'/:pathMatch(.*)*'`.
+**Reason:** vue-router 4 syntax.
+**Date:** —

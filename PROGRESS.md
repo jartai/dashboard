@@ -76,4 +76,4 @@ duplicates of the `views/dashboard/pages/` versions (same git SHAs).
 
 Newest first. Two lines max per entry.
 
-- 2026-10-26 — P0.27 complete — Phase 0 done, next P1.1
+- 2026-10-26 — P2.5 complete — next P3.1
