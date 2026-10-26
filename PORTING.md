@@ -262,3 +262,18 @@ Other notable global rules to carry over: `.theme--light.v-content { background-
 **Reason:** `noUncheckedIndexedAccess` makes computed-key record access `| undefined`;
 both themes are defined in `plugins/vuetify.ts` so the key always exists.
 **Date:** 2026-10-26
+
+## layouts/DashboardLayout.vue
+
+**Deviation:** Replaces `src/views/dashboard/Index.vue`.
+**Reason:** Layouts consolidated under `src/layouts/`.
+**Date:** —
+
+**Deviation:** `v-app` moved from the layout to `App.vue`; the layout renders `v-layout`.
+**Reason:** `v-app` belongs at the root in Vuetify 3+; `v-layout` supplies the app
+layout context that the `app` prop used to provide.
+**Date:** —
+
+**Deviation:** No `expandOnHover` prop plumbing — all three children read the store.
+**Reason:** Removes `v-model` / `.sync` chains from the original.
+**Date:** 2026-10-26

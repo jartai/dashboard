@@ -1,11 +1,12 @@
 import type { RouteRecordRaw } from 'vue-router'
 
-// Placeholder until layouts exist (P5.6 dashboard, P6.4 auth).
+// Placeholder until screens are ported (Phase 8) and the auth layout exists (P6.4).
 const Placeholder = () => import('@/views/_Placeholder.vue')
 
 export const routes: RouteRecordRaw[] = [
   {
     path: '/pages',
+    // Swapped for AuthLayout at P6.4.
     component: Placeholder,
     children: [
       { path: 'lock', name: 'Lock', component: Placeholder },
@@ -16,7 +17,7 @@ export const routes: RouteRecordRaw[] = [
   },
   {
     path: '/',
-    component: Placeholder,
+    component: () => import('@/layouts/DashboardLayout.vue'),
     children: [
       { path: '', name: 'Dashboard', component: Placeholder },
       { path: 'pages/rtl', name: 'RTL', component: Placeholder },
