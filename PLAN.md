@@ -12,6 +12,7 @@ Baby-step port plan. One file per step. ~230 steps.
 - **Never more than two uncommitted files.**
 - If a step balloons, split it. Step IDs are a checklist, not a contract.
 - **Read a file before replacing it.** `create-vue` ships good defaults.
+- **2-minute rule:** unresolved visual oddity → park in `PORTING.md`, move on.
 
 ## Reference: typography mapping (v2 → v4)
 
@@ -39,6 +40,7 @@ Baby-step port plan. One file per step. ~230 steps.
 | ------------------------------------- | ------------------------------ |
 | `app` prop                            | removed — use `<v-layout>`     |
 | `outlined`/`text`/`plain`/`depressed` | single `variant` prop          |
+| `fab`                                 | `icon` prop                    |
 | `v-content`                           | `v-main`                       |
 | `v-simple-table`                      | `v-table`                      |
 | `v-list-item-content/title/subtitle`  | flat `v-list-item` props/slots |
@@ -47,86 +49,101 @@ Baby-step port plan. One file per step. ~230 steps.
 | `v-expansion-panel-header/content`    | `-title` / `-text`             |
 | `v-tab-item`                          | `v-tabs-window-item`           |
 | `close` on chips                      | `closable`                     |
+| `hidden-*-and-*`                      | `d-*` classes                  |
+| `$vuetify.breakpoint.*`               | `useDisplay()`                 |
+| `$vuetify.rtl`                        | `v-locale-provider`            |
+| `v-slot:activator="{ attrs, on }"`    | `#activator="{ props }"`       |
 | global component registration         | removed — needs vite plugin    |
 | Sass variable names                   | almost all renamed             |
+
+## Reference: `v-text` on components
+
+| Target                                  | Use                   |
+| --------------------------------------- | --------------------- |
+| Plain element (`span`, `a`, `div`, `p`) | `v-text` is fine      |
+| Vuetify component                       | `{{ }}` interpolation |
 
 ---
 
 ## Phase 0 — Environment & scaffold
 
-- [ ] P0.1 Install Node LTS via nvm — `node -v` → 22.x
-- [ ] P0.2 `corepack enable && corepack prepare pnpm@latest --activate`
-- [ ] P0.3 VS Code extensions: Vue (Official), ESLint, Prettier, Error Lens
-- [ ] P0.4 Install Vue DevTools browser extension
-- [ ] P0.5 `git clone https://github.com/kathirr007/Vuetify-md-pro-clone ~/ref/md-pro-v2`
-- [ ] P0.6 Open live demo in a pinned tab
-- [ ] P0.7 `pnpm create vue@latest dashboard` — TS yes, JSX no, Router yes, Pinia yes,
+- [x] P0.1 Install Node LTS via nvm
+- [x] P0.2 `corepack enable && corepack prepare pnpm@latest --activate`
+- [x] P0.3 VS Code extensions: Vue (Official), ESLint, Prettier, Error Lens
+- [x] P0.4 Install Vue DevTools browser extension
+- [x] P0.5 `git clone https://github.com/kathirr007/Vuetify-md-pro-clone ~/ref/md-pro-v2`
+- [x] P0.6 Open live demo in a pinned tab
+- [x] P0.7 `pnpm create vue@latest dashboard` — TS yes, JSX no, Router yes, Pinia yes,
       Vitest yes, E2E no, ESLint yes, Prettier yes, no experimental features
-- [ ] P0.8 `pnpm install`
-- [ ] P0.9 `pnpm dev` — localhost:5173 loads
-- [ ] P0.10 `git init` + first commit
-- [ ] P0.11 Create empty public GitHub repo `dashboard`, add remote, push
-- [ ] P0.12 Verify `.gitignore` — create-vue's is already complete
-- [ ] P0.13 Create `.nvmrc` containing `22`
-- [ ] P0.14 Add `root = true` to top of `.editorconfig` + `[*.md]` trailing-space exception
-- [ ] P0.15 Create `PLAN.md`, `PROGRESS.md`, `PORTING.md`; commit `chore: scaffold + port plan`
-- [ ] P0.16 `pnpm add vuetify @mdi/font @fontsource/roboto`
-- [ ] P0.17 `pnpm add -D vite-plugin-vuetify`
-- [ ] P0.18 Edit `vite.config.ts` — vuetify plugin, optimizeDeps for overlays
-- [ ] P0.19 Create `src/plugins/vuetify.ts` — theme, `defaultTheme: 'dark'`, mdi icon set
-- [ ] P0.20 Edit `src/main.ts` — Roboto 300/400/500/700, mdi font CSS, vuetify/styles,
-      `app.use(vuetify)`
-- [ ] P0.21 Edit `src/App.vue` — `v-app` + `router-view`
-- [ ] P0.22 Delete demo files: `src/components/`, `src/assets/`, `src/__tests__/App.spec.ts`
-- [ ] P0.23 Temp `v-btn` + `v-icon` — styled pink button, Roboto in Computed styles
-- [ ] P0.24 Commit `feat: vuetify 4 and theme`
-- [ ] P0.25 Create `PORTING.md` global entries
-- [ ] P0.26 Replace `README.md` with project-specific content
-- [ ] P0.27 Commit `docs: porting notes and readme`
+- [x] P0.8 `pnpm install`
+- [x] P0.9 `pnpm dev` — localhost:5173 loads
+- [x] P0.10 `git init` + first commit
+- [x] P0.11 Create empty public GitHub repo `dashboard`, add remote, push
+- [x] P0.12 Verify `.gitignore` — create-vue's is already complete
+- [x] P0.13 Create `.nvmrc` containing `22`
+- [x] P0.14 Add `root = true` to top of `.editorconfig` + `[*.md]` exception
+- [x] P0.15 Create `PLAN.md`, `PROGRESS.md`, `PORTING.md`; commit
+- [x] P0.16 `pnpm add vuetify @mdi/font @fontsource/roboto`
+- [x] P0.17 `pnpm add -D vite-plugin-vuetify`
+- [x] P0.18 Edit `vite.config.ts` — vuetify plugin, optimizeDeps for overlays
+- [x] P0.19 Create `src/plugins/vuetify.ts` — theme, `defaultTheme: 'light'`, mdi icons
+- [x] P0.20 Edit `src/main.ts` — Roboto weights, mdi font CSS, vuetify plugin
+- [x] P0.21 Edit `src/App.vue` — `v-app` + `router-view`
+- [x] P0.22 Delete demo files
+- [x] P0.23 Verify styled pink button + Roboto
+- [x] P0.24 Commit `feat: vuetify 4 and theme`
+- [x] P0.25 Create `PORTING.md` global entries
+- [x] P0.26 Replace `README.md`
+- [x] P0.27 Commit `docs: porting notes and readme`
 
 ## Phase 1 — Learning spike (throwaway)
 
-- [ ] P1.1 Create `src/views/Spike.vue` — card, list, buttons, hardcoded
-- [ ] P1.2 Convert to `script setup` + `ref` + `computed`
-- [ ] P1.3 Add `v-data-table`, 5 hardcoded rows — sorts
-- [ ] P1.4 Add `v-form` with one validated field — errors show
-- [ ] P1.5 Add `/spike` route
-- [ ] P1.6 Commit `chore: spike`
-- [ ] P1.7 Delete `Spike.vue`, remove route, commit
+- [x] P1.1–P1.7 Card, list, table, form, route; then delete
 
 ## Phase 2 — Router skeleton
 
-- [ ] P2.1 Create `src/views/_Placeholder.vue`
-- [ ] P2.2 Create `src/router/routes.ts` — full route table, paths preserved
-- [ ] P2.3 Edit `src/router/index.ts` to consume `routes.ts`
-- [ ] P2.4 Visit 5 routes manually — all resolve
-- [ ] P2.5 Add catch-all 404 route
-- [ ] P2.6 Commit `feat: route skeleton`
+- [x] P2.1 Create `src/views/_Placeholder.vue`
+- [x] P2.2 Create `src/router/routes.ts`
+- [x] P2.3 Edit `src/router/index.ts`; delete `HomeView`/`AboutView`
+- [x] P2.4 Verify 5 routes + 404
+- [x] P2.5 Commit `feat: route skeleton`
 
 ## Phase 3 — UI store
 
-- [ ] P3.1 Create `src/stores/ui.ts` — `barColor`, `barImage`, `drawer`, `expandOnHover`
-- [ ] P3.2 Read `drawer` in `_Placeholder` — value prints
-- [ ] P3.3 Delete `src/stores/counter.ts`
-- [ ] P3.4 Commit `feat: ui store`
+- [x] P3.1 Create `src/stores/ui.ts`
+- [x] P3.2 Verify store read
+- [x] P3.3 Delete `src/stores/counter.ts`
+- [x] P3.4 Commit `feat: ui store`
 
 ## Phase 4 — Navigation data
 
-- [ ] P4.1 Create `src/config/navigation.ts` — nav tree from `Drawer.vue`, typed
-- [ ] P4.2 Fix `register → pricing` bug, log in `PORTING.md`
-- [ ] P4.3 Commit `feat: navigation data`
+- [x] P4.1 Create `src/config/navigation.ts`
+- [x] P4.2 Fix `register → pricing` bug, log it
+- [x] P4.3 Commit `feat: navigation data`
+
+## Phase 5 — i18n setup (pulled forward from P9)
+
+- [x] P5.0.1 `pnpm add vue-i18n@^11`
+- [x] P5.0.2 Create `src/locales/en.json` (verbatim from the original)
+- [x] P5.0.3 Create `src/plugins/i18n.ts` — `legacy: false`, `globalInjection: true`
+- [x] P5.0.4 Register i18n in `src/main.ts`
+- [x] P5.0.5 Add `resolveJsonModule: true` to `tsconfig.app.json` if needed
+- [x] P5.0.6 Verify `$t('dashboard')` renders "Dashboard"
+- [x] P5.0.7 Commit `feat: i18n setup`
 
 ## Phase 5 — Dashboard shell
 
-- [ ] P5.1 `src/components/core/Footer.vue` — renders
-- [ ] P5.2 `src/components/core/View.vue` — `v-content` → `v-main`
-- [ ] P5.3 `src/components/core/AppBar.vue` — drop `app` prop, `useDisplay()`
-- [ ] P5.4 `src/components/core/Drawer.vue` — `mobile-breakpoint`, `rail`, nav data
-- [ ] P5.5 `src/components/core/Settings.vue`
-- [ ] P5.6 `src/layouts/DashboardLayout.vue`
-- [ ] P5.7 Route dashboard routes through `DashboardLayout`
-- [ ] P5.8 Verify drawer toggle, nav highlight, theme toggle, footer
-- [ ] P5.9 Commit `feat: dashboard shell`
+- [x] P5.1 `src/components/core/Footer.vue`
+- [x] P5.2 `src/components/core/View.vue` — `v-content` → `v-main`
+- [x] P5.3 `src/components/core/AppBarItem.vue` — SFC replacing the render function
+- [x] P5.4 `src/components/core/AppBar.vue`
+- [ ] P5.5 `src/components/core/Drawer.vue` — `mobile-breakpoint`, `rail`, nav data,
+      `theme="dark"`, fix the Vuetify 2 Sass `@import`
+- [ ] P5.6 `src/components/core/Settings.vue`
+- [ ] P5.7 `src/layouts/DashboardLayout.vue`
+- [ ] P5.8 Route dashboard routes through `DashboardLayout`
+- [ ] P5.9 Verify drawer toggle, nav highlight, theme toggle, app bar, footer
+- [ ] P5.10 Commit `feat: dashboard shell`
 
 ## Phase 6 — Auth shell
 
@@ -146,7 +163,7 @@ Pulled forward from Phase 10 so screens aren't built against unstyled chrome.
 - [ ] P6b.2 Import it in `main.ts`; screenshot the damage
 - [ ] P6b.3 Delete the Vuetify 2 Sass `@import` block
 - [ ] P6b.4 Run the selector rename pass using the table in `PORTING.md`
-- [ ] P6b.5 Strip `!important` where Vuetify 4 layers make it unnecessary
+- [ ] P6b.5 Strip `!important` where v4 layers make it unnecessary
 - [ ] P6b.6 Verify shell: footer spacing, drawer, app bar, cards
 - [ ] P6b.7 Commit `refactor: global styles`
 
@@ -225,15 +242,13 @@ After each screen: merge branch, open a new one.
 - [ ] P9.4 Decide world-map replacement
 - [ ] P9.5 Port the map widget in `Dashboard.vue`
 - [ ] P9.6 Replace `vue-world-map` plugin file
-- [ ] P9.7 Add `vue-i18n@^11`, create `plugins/i18n.ts`
-- [ ] P9.8 Port `locales/en.json` verbatim
-- [ ] P9.9 Port `locales/ar.json` verbatim
-- [ ] P9.10 Wire `v-locale-provider` for RTL
-- [ ] P9.11 Port `Rtl.vue`
-- [ ] P9.12 Decide vee-validate v4 vs Vuetify `rules`
-- [ ] P9.13 Rebuild validation in `ValidationForms.vue`
-- [ ] P9.14 Rebuild the Wizard form
-- [ ] P9.15 Commit `feat: hard parts`
+- [ ] P9.7 Port `locales/ar.json` verbatim
+- [ ] P9.8 Wire `v-locale-provider` for RTL; add the Vuetify locale adapter
+- [ ] P9.9 Port `Rtl.vue`
+- [ ] P9.10 Decide vee-validate v4 vs Vuetify `rules`
+- [ ] P9.11 Rebuild validation in `ValidationForms.vue`
+- [ ] P9.12 Rebuild the Wizard form
+- [ ] P9.13 Commit `feat: hard parts`
 
 ## Phase 10 — Styles: screen-specific
 
@@ -246,7 +261,7 @@ After each screen: merge branch, open a new one.
 ## Phase 11 — Polish & cutover
 
 - [ ] P11.1 Add `barImage` as a local asset, update store
-- [ ] P11.2 Fix remaining `href="#"` nav stubs
+- [ ] P11.2 Fix remaining `href="#"` / empty `to` nav stubs
 - [ ] P11.3 Vitest tests for 3 shared components
 - [ ] P11.4 Tests for the store
 - [ ] P11.5 `pnpm lint` clean

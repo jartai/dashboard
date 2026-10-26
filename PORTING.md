@@ -31,13 +31,21 @@ Vue 2 + Vuetify 2 + JS + Vue CLI + Vuex.
 
 **Deviation:** `vee-validate` 2 is not being ported as-is.
 **Reason:** v4 is a complete API rewrite.
-**Status:** pending — decision at P9.12
+**Status:** pending — decision at P9.10
 **Date:** —
 
 **Deviation:** `chartist` / `vue-chartist` and `vue-world-map` are being replaced.
 **Reason:** Both are Vue 2-era packages.
 **Status:** pending — decision at P9.1 / P9.4
 **Date:** —
+
+**Deviation:** i18n setup pulled forward from P9.7 to Phase 5.
+**Reason:** `AppBar.vue` and `Drawer.vue` both call `$t()`, which requires vue-i18n.
+`en.json` was ported early so nav labels render as text, not raw keys.
+**Reason for `globalInjection: true`:** keeps every original `$t()` call working
+unchanged, rather than rewriting all of them to `t()`.
+**Status:** `ar.json` and RTL still deferred to P9.7–P9.8
+**Date:** 2026-10-26
 
 ---
 
@@ -62,12 +70,12 @@ identical to the original keeps both file trees navigable during the port.
 
 **Deviation:** `lang.t` i18n bridge not carried over.
 **Reason:** Vuetify 4 uses a locale adapter instead.
-**Status:** pending — P9.7
+**Status:** pending — P9.8
 **Date:** —
 
 **Deviation:** Drawer `:dark` prop replaced with `theme="dark"`.
 **Reason:** `dark` prop removed in Vuetify 3+.
-**Status:** pending — P5.4
+**Status:** pending — P5.5
 **Date:** —
 
 ---
@@ -126,14 +134,83 @@ with plain Pinia functions.
 **Reason:** Direct v4 equivalent; v4's grid is gap-based.
 **Date:** 2026-10-26
 
-**Note:** Footer links render flush against each other until Phase 6b. The spacing
-comes from `.v-footer a { padding: 15px 18px 15px 16px }` in the global `app.scss`,
-which is not ported yet. Not a bug.
+**Deviation:** `v-text` on `v-icon` replaced with the `icon` prop.
+**Reason:** Slot → prop is the v3+ idiom.
+**Date:** 2026-10-26
+
+**Note:** Footer links render flush until P6b. Spacing comes from
+`.v-footer a { padding: 15px 18px 15px 16px }` in the global `app.scss`.
 **Status:** resolves at P6b
 
 **Note:** Copyright div uses `text-body-large` (was `body-1`). The `app.scss` pass
 must target the new class name.
 **Status:** pending — P6b
+
+---
+
+## components/core/AppBarItem.vue
+
+**Deviation:** Extracted from an inline `render(h)` component into an SFC.
+**Reason:** `scopedSlots` → `slots` in Vue 3; an SFC is clearer than a render function.
+**Date:** 2026-10-26
+
+**Deviation:** Hover slot prop `hover` → `isHovering`.
+**Reason:** Renamed in Vuetify 3+.
+**Date:** 2026-10-26
+
+**Deviation:** `black--text` → `text-black`; `white--text secondary elevation-12` →
+`text-white bg-secondary elevation-4`.
+**Reason:** Colour utility rename; v4 ships only elevation 0–5, so 12 → 4.
+**Date:** 2026-10-26
+
+**Deviation:** `title` passed as a prop instead of a `v-list-item-title` child.
+**Reason:** `v-text` on a component triggers `vue/no-v-text-v-html-on-component`.
+**Date:** 2026-10-26
+
+---
+
+## components/core/AppBar.vue
+
+**Deviation:** `app` prop removed.
+**Reason:** Replaced by `<v-layout>` in Vuetify 3+.
+**Date:** 2026-10-26
+
+**Deviation:** `$vuetify.breakpoint.smAndDown` / `.mdAndUP` → `useDisplay()`.
+**Reason:** Global breakpoint object removed in v3+.
+**Date:** 2026-10-26
+
+**Deviation:** `value` prop + `$emit('input')` removed; toggles write to the Pinia store.
+**Reason:** `expandOnHover` now lives in the store, so the v-model round-trip is
+unnecessary. Vue 3 also renamed the `input` event to `update:modelValue`.
+**Date:** 2026-10-26
+
+**Deviation:** `fab` → `icon`; `text` → `variant="text"`.
+**Reason:** `fab` removed and variant props unified in v3+.
+**Date:** 2026-10-26
+
+**Deviation:** `v-slot:activator="{ attrs, on }"` + `v-bind="attrs"` + `v-on="on"`
+→ `#activator="{ props }"` + `v-bind="props"`.
+**Reason:** Activator slot contract changed in v3+.
+**Date:** 2026-10-26
+
+**Deviation:** `caption` → `text-body-small`.
+**Reason:** MD2 → MD3 typography.
+**Date:** 2026-10-26
+
+**Deviation:** `hidden-sm-and-down` → `d-none d-md-block`.
+**Reason:** `hidden-*` classes replaced by `d-*` in v3+.
+**Date:** 2026-10-26
+
+**Deviation:** `v-text="route.name"` on `v-toolbar-title` → interpolation.
+**Reason:** `vue/no-v-text-v-html-on-component`.
+**Date:** 2026-10-26
+
+**Status:** pending — verify at P5.9
+
+- `append-outer` → `append-inner` (fallback: `append`)
+- `transition="scale-transition"` may not exist in v4
+- `offset-y` dropped entirely (v3 uses `offset`)
+- `:tile="false"` on `v-list` dropped
 
 ---
 

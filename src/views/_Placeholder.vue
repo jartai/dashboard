@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
-
-import CoreView from '@/components/core/View.vue'
+// TEMP until P5.7/P6.4 — the layouts will replace these.
+import CoreAppBar from '@/components/core/AppBar.vue'
+import CoreFooter from '@/components/core/Footer.vue'
 
 const route = useRoute()
 </script>
@@ -14,8 +15,11 @@ const route = useRoute()
     >
       Placeholder — <strong>{{ route.name }}</strong> ({{ route.path }})
     </v-alert>
+
+    <CoreAppBar />
+
     <router-view />
 
-    <CoreView />
+    <CoreFooter />
   </v-container>
 </template>
