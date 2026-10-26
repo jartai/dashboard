@@ -92,3 +92,20 @@ identical to the original makes the two trees navigable during the port.
 **Deviation:** Catch-all path `'*'` replaced with `'/:pathMatch(.*)*'`.
 **Reason:** vue-router 4 syntax.
 **Date:** —
+
+## src/stores/ui.ts
+
+**Deviation:** `expandOnHover` moved from component-local `data` in
+`dashboard/Index.vue` into the store.
+**Reason:** Avoids prop-drilling through the layout to AppBar, Drawer and Settings.
+**Date:** —
+
+**Deviation:** Vuex mutations (`SET_DRAWER`, `SET_BAR_IMAGE`, `SET_SCRIM`) replaced
+with plain Pinia functions.
+**Reason:** Pinia has no mutations/actions split.
+**Date:** —
+
+**Deviation:** `barImage` still points at an external creative-tim URL.
+**Reason:** Local asset deferred to P11.1.
+**Status:** pending — P11.1
+**Date:** —
