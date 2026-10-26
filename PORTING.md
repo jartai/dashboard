@@ -68,6 +68,11 @@ Vue 2 + Vuetify 2 + JS + Vue CLI + Vuex.
 **Reason:** Bug in the original. Corrected to `register`.
 **Date:** 2026-10-26
 
+**Deviation:** Nav tree moved out of `Drawer.vue` into `src/navigation.ts`.
+**Reason:** Separates data from presentation; `to` paths pre-resolved to absolute
+(original concatenated a `group` prefix in `ItemGroup.vue`).
+**Date:** —
+
 ---
 
 ## Skipped files
