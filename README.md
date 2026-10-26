@@ -1,54 +1,26 @@
 # dashboard
 
-This template should help get you started developing with Vue 3 in Vite.
+A Vue 3 + Vuetify 4 port of
+[Vuetify-md-pro-clone](https://github.com/kathirr007/Vuetify-md-pro-clone),
+itself a clone of Creative Tim's Vuetify Material Dashboard PRO.
 
-## Recommended IDE Setup
+Built as a learning exercise in migrating a Vue 2 / Vuetify 2 / JavaScript codebase
+to Vue 3 / Vuetify 4 / TypeScript / Vite / Pinia.
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## Status
 
-## Recommended Browser Setup
+Phase 0 complete. See [PLAN.md](./PLAN.md) for the full plan and
+[PROGRESS.md](./PROGRESS.md) for current position.
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+## Stack
 
-## Type Support for `.vue` Imports in TS
+Vue 3 · Vuetify 4 · TypeScript · Vite · Pinia · Vue Router
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+## Dev
 
-## Customize configuration
+    pnpm install
+    pnpm dev
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+## Notes
 
-## Project Setup
-
-```sh
-pnpm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-pnpm dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-pnpm build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-pnpm test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-pnpm lint
-```
+Deviations from the original are documented in [PORTING.md](./PORTING.md).
