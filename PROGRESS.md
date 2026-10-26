@@ -5,21 +5,27 @@
 
 ## Current position
 
-**Step:** P0.1 — not started
-**Branch:** `p0-scaffold`
-**Last session:** —
+**Step:** P0.19 — next (P0.16–P0.18 complete)
+**Branch:** `main`
+**Last session:** 2026-10-26
 
 ## Working
 
-- nothing yet
+- Vue 3 + TS scaffold, committed and pushed
+- Vuetify 4 installed, theme wired, `vite.config.ts` configured
+- `PLAN.md`, `PORTING.md`, `PROGRESS.md` in repo root
 
 ## Broken / blocked
 
-- nothing yet
+- Confirm `@fontsource/roboto` actually installed (`pnpm add vuetify @mdi/font @fontsource/roboto`)
+- `vite-plugin-vuetify` must be a dev dependency (`pnpm add -D`)
 
 ## Next up
 
-- P0.1 install Node LTS via nvm
+- P0.19 create `src/plugins/vuetify.ts`
+- P0.20 edit `src/main.ts` — Roboto imports, vuetify/styles, `app.use(vuetify)`
+- P0.21 edit `src/App.vue`
+- P0.22 delete demo files
 
 ---
 
@@ -35,6 +41,8 @@
 - The `register → pricing` nav bug in the original is **fixed**, logged in `PORTING.md`.
 - Vuetify 2 reached EOL Jan 2025. Vue 2 reached EOL Dec 2023. Neither gets patches.
 - TypeScript **yes**, from the start, on all new code. No `.js` files added.
+- Fonts are **self-hosted** via `@fontsource/roboto` — no Google Fonts CDN.
+- `noUncheckedIndexedAccess` stays **on**. Fix errors with `?.` / `??` / `!`, don't disable.
 - Old app is a **read-only** reference at `~/ref/md-pro-v2`.
 
 ## Conventions
@@ -45,6 +53,8 @@
 - **Never more than two uncommitted files.**
 - If a step balloons, split it. Step IDs are a checklist, not a contract.
 - Every deviation from the original goes in `PORTING.md` with a reason.
+- Read a file before replacing it. `create-vue` ships good defaults.
+- Paths: config files live at the **repo root**; app code lives in `src/`.
 
 ## References
 
@@ -66,18 +76,4 @@ duplicates of the `views/dashboard/pages/` versions (same git SHAs).
 
 Newest first. Two lines max per entry.
 
-- —
-
----
-
-## Handoff prompt
-
-Copy this into a new chat:
-
-    Repo: https://github.com/<you>/md-pro-vue3
-
-    Read PLAN.md, PROGRESS.md and PORTING.md from that repo before answering.
-    We're at <step id>. Old app reference is
-    github.com/kathirr007/Vuetify-md-pro-clone.
-
-    Don't re-litigate the locked decisions in PROGRESS.md.
+- 2026-10-26 — scaffold, GitHub repo, Vuetify 4 + theme, `vite.config.ts`. At P0.19.

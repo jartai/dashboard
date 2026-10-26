@@ -26,3 +26,9 @@ Vue 2 + Vuetify 2 + JS + Vue CLI + Vuex.
 **Deviation:** Nav item `register` pointed to route `pricing`.
 **Reason:** Bug in the original. Corrected to `register`.
 **Date:** 2026-10-26
+
+## src/plugins/vuetify.ts
+
+**Deviation:** `accent` theme colour removed.
+**Reason:** Dropped as a theme key in Vuetify 3+. Inert in v4.
+**Date:** 2026-10-26

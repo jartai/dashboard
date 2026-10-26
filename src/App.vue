@@ -1,11 +1,11 @@
 <script setup lang="ts"></script>
 
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <v-app>
+    <!-- <router-view /> -->
+    <v-container>
+      <v-btn color="primary">Primary</v-btn>
+      <v-icon icon="mdi-home" />
+    </v-container>
+  </v-app>
 </template>
-
-<style scoped></style>
