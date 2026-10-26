@@ -1,8 +1,9 @@
 // Navigation tree, extracted from the original Drawer.vue.
-// `title` values are i18n keys — they render as raw keys until i18n lands at P9.7.
+// `title` values are i18n keys — translated via $t() in the components.
 
 export interface NavItem {
   title: string
+  subtitle?: string
   icon?: string
   to?: string
   href?: string
@@ -20,7 +21,7 @@ export const navItems: NavItem[] = [
       { title: 'rtl', to: '/pages/rtl' },
       { title: 'timeline', to: '/pages/timeline' },
       { title: 'login', to: '/pages/login' },
-      { title: 'register', to: '/pages/pricing' },
+      { title: 'register', to: '/pages/register' },
       { title: 'lock', to: '/pages/lock' },
       { title: 'user', to: '/pages/user' },
       { title: 'error', to: '/pages/404' },
