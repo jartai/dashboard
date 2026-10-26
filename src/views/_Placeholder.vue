@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 
-import CoreFooter from '@/components/core/Footer.vue'
+import CoreView from '@/components/core/View.vue'
 
 const route = useRoute()
 </script>
@@ -16,6 +16,6 @@ const route = useRoute()
     </v-alert>
     <router-view />
 
-    <CoreFooter />
+    <CoreView />
   </v-container>
 </template>
