@@ -223,14 +223,6 @@ unnecessary. Vue 3 also renamed the `input` event to `update:modelValue`.
 
 ---
 
-## Skipped files
-
-`src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical
-duplicates of the `views/dashboard/pages/` versions (same git SHAs).
-**Date:** 2026-10-26
-
----
-
 ## P10 prep — app.scss selector renames
 
 `app.scss` needs a mechanical selector pass before any other styling work. Mapping:
@@ -276,4 +268,58 @@ layout context that the `app` prop used to provide.
 
 **Deviation:** No `expandOnHover` prop plumbing — all three children read the store.
 **Reason:** Removes `v-model` / `.sync` chains from the original.
+**Date:** 2026-10-26
+
+## layouts/AuthLayout.vue
+
+**Deviation:** Replaces `src/views/pages/Index.vue`.
+**Reason:** Layouts consolidated under `src/layouts/`.
+**Date:** 2026-10-26
+
+**Deviation:** `v-app` moved to `App.vue`; the layout renders `v-layout`.
+**Reason:** `v-app` belongs at the root in Vuetify 3+.
+**Date:** 2026-10-26
+
+**Deviation:** On unmount, the previous theme is restored rather than hardcoding
+`dark = false`.
+**Reason:** The original reset to light unconditionally, which discarded a dark-mode
+choice made on the dashboard.
+**Date:** 2026-10-26
+
+## components/auth/View.vue
+
+**Deviation:** `require(\`@/assets/${src}\`)`replaced with static`import`s in a lookup map.
+**Reason:** `require` is not defined in Vite's ESM runtime.
+**Date:** 2026-10-26
+
+**Deviation:** `:src` lookup uses `?? clintMckoy` as a fallback.
+**Reason:** `noUncheckedIndexedAccess` types the record lookup as `string | undefined`.
+**Date:** 2026-10-26
+
+**Deviation:** `$vuetify.theme.dark` → `useTheme()`; `$vuetify.breakpoint.*` → `useDisplay()`.
+**Reason:** Global instances removed in Vuetify 3+.
+**Date:** 2026-10-26
+
+**Deviation:** `v-content` → `v-main`; `grey lighten-3` → `grey-lighten-3`.
+**Reason:** Component and colour-class renames.
+**Date:** 2026-10-26
+
+## components/auth/Footer.vue
+
+**Deviation:** `dark` prop dropped.
+**Reason:** `AuthLayout` forces the dark theme for the whole subtree.
+**Date:** 2026-10-26
+
+## components/auth/AppBar.vue
+
+**Deviation:** `left` on `v-icon` → `start`; `text` on `v-btn` → `variant="text"`.
+**Reason:** Prop renames in Vuetify 3+.
+**Date:** 2026-10-26
+
+---
+
+## Skipped files
+
+`src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical
+duplicates of the `views/dashboard/pages/` versions (same git SHAs).
 **Date:** 2026-10-26

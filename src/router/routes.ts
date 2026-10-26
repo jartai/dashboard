@@ -6,8 +6,7 @@ const Placeholder = () => import('@/views/_Placeholder.vue')
 export const routes: RouteRecordRaw[] = [
   {
     path: '/pages',
-    // Swapped for AuthLayout at P6.4.
-    component: Placeholder,
+    component: () => import('@/layouts/AuthLayout.vue'),
     children: [
       { path: 'lock', name: 'Lock', component: Placeholder },
       { path: 'login', name: 'Login', component: Placeholder },
