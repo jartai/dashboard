@@ -47,13 +47,6 @@ watch(smAndDown, (val) => {
     width="260"
     v-bind="$attrs"
   >
-    <template #image="{ image }">
-      <v-img
-        :src="image"
-        :gradient="`to bottom, ${ui.barColor}`"
-      />
-    </template>
-
     <v-list-item class="text-uppercase font-weight-regular text-display-medium">
       <span class="logo-mini">{{ $t('ct') }}</span>
       <span class="logo-normal">{{ $t('tim') }}</span>
