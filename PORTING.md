@@ -19,9 +19,10 @@ Vue 2 + Vuetify 2 + JS + Vue CLI + Vuex.
 **Reason:** Vue 2 and Vuetify 2 are both EOL. Full rewrite was required regardless.
 **Date:** 2026-10-26
 
-**Deviation:** `app.scss` is not being ported.
-**Reason:** 36KB of MD2-era patchwork; Vuetify 4's MD3 defaults cover most of it.
-**Status:** pending — P10
+**Deviation:** `app.scss` is not ported verbatim; it is rebuilt in two passes
+(global primitives after Phase 6, screen-specific at Phase 10).
+**Reason:** 36KB of MD2-era patchwork; Vuetify 4's MD3 defaults cover much of it.
+**Status:** pending — P6b / P10
 **Date:** —
 
 **Deviation:** Fonts are self-hosted via `@fontsource/roboto` instead of a CDN.
@@ -37,6 +38,15 @@ Vue 2 + Vuetify 2 + JS + Vue CLI + Vuex.
 **Reason:** Both are Vue 2-era packages.
 **Status:** pending — decision at P9.1 / P9.4
 **Date:** —
+
+---
+
+## eslint.config.ts
+
+**Deviation:** `vue/multi-word-component-names` disabled.
+**Reason:** The original has ~16 single-word screen filenames. Keeping filenames
+identical to the original keeps both file trees navigable during the port.
+**Date:** 2026-10-26
 
 ---
 
@@ -62,16 +72,68 @@ Vue 2 + Vuetify 2 + JS + Vue CLI + Vuex.
 
 ---
 
-## src/views/dashboard/components/core/Drawer.vue
+## src/router/routes.ts
 
-**Deviation:** Nav item `register` pointed to route `pricing`.
-**Reason:** Bug in the original. Corrected to `register`.
+**Deviation:** Route name `'Data Tabels'` corrected to `'Data Tables'`.
+**Reason:** Typo in the original.
 **Date:** 2026-10-26
 
-**Deviation:** Nav tree moved out of `Drawer.vue` into `src/navigation.ts`.
+**Deviation:** Catch-all path `'*'` replaced with `'/:pathMatch(.*)*'`.
+**Reason:** vue-router 4 syntax.
+**Date:** 2026-10-26
+
+---
+
+## src/stores/ui.ts
+
+**Deviation:** `expandOnHover` moved from component-local `data` in
+`dashboard/Index.vue` into the store.
+**Reason:** Avoids prop-drilling through the layout to AppBar, Drawer and Settings.
+**Date:** 2026-10-26
+
+**Deviation:** Vuex mutations (`SET_DRAWER`, `SET_BAR_IMAGE`, `SET_SCRIM`) replaced
+with plain Pinia functions.
+**Reason:** Pinia has no mutations/actions split.
+**Date:** 2026-10-26
+
+**Deviation:** `barImage` still points at an external creative-tim URL.
+**Reason:** Local asset deferred to P11.1.
+**Status:** pending — P11.1
+**Date:** —
+
+---
+
+## src/config/navigation.ts
+
+**Deviation:** Nav tree moved out of `Drawer.vue` into `src/config/navigation.ts`.
 **Reason:** Separates data from presentation; `to` paths pre-resolved to absolute
 (original concatenated a `group` prefix in `ItemGroup.vue`).
-**Date:** —
+**Date:** 2026-10-26
+
+**Deviation:** Nav item `register` pointed to route `pricing`.
+**Reason:** Bug in the original. Corrected to `/pages/register`.
+**Date:** 2026-10-26
+
+---
+
+## components/core/Footer.vue
+
+**Deviation:** `lang="sass"` converted to plain CSS; Vuetify 2 Sass path removed.
+**Reason:** Avoids adding a Sass dependency for one rule block.
+**Date:** 2026-10-26
+
+**Deviation:** `no-gutters` mapped to `gap="0"`.
+**Reason:** Direct v4 equivalent; v4's grid is gap-based.
+**Date:** 2026-10-26
+
+**Note:** Footer links render flush against each other until Phase 6b. The spacing
+comes from `.v-footer a { padding: 15px 18px 15px 16px }` in the global `app.scss`,
+which is not ported yet. Not a bug.
+**Status:** resolves at P6b
+
+**Note:** Copyright div uses `text-body-large` (was `body-1`). The `app.scss` pass
+must target the new class name.
+**Status:** pending — P6b
 
 ---
 
@@ -81,36 +143,29 @@ Vue 2 + Vuetify 2 + JS + Vue CLI + Vuex.
 duplicates of the `views/dashboard/pages/` versions (same git SHAs).
 **Date:** 2026-10-26
 
-## eslint.config.ts
+---
 
-**Deviation:** `vue/multi-word-component-names` disabled.
-**Reason:** The original has ~16 single-word screen filenames. Keeping filenames
-identical to the original makes the two trees navigable during the port.
-**Date:** 2026-10-26
+## P10 prep — app.scss selector renames
 
-## src/router/routes.ts
+`app.scss` needs a mechanical selector pass before any other styling work. Mapping:
 
-**Deviation:** Route name `'Data Tabels'` corrected to `'Data Tables'`.
-**Reason:** Typo in the original.
-**Date:** —
+| app.scss selector                                                  | Vuetify 4                            |
+| ------------------------------------------------------------------ | ------------------------------------ |
+| `.v-content__wrap`                                                 | `.v-main__wrap`                      |
+| `.theme--light` / `.theme--dark`                                   | `.v-theme--light` / `.v-theme--dark` |
+| `.v-application--is-ltr` / `--is-rtl`                              | `.v-locale--is-ltr` / `--is-rtl`     |
+| `.v-btn--flat` / `--text` / `--outlined` / `--contained`           | `variant` classes                    |
+| `.v-input__slot`                                                   | `.v-field`                           |
+| `.v-text-field--solo`                                              | `.v-field--variant-solo`             |
+| `.v-expansion-panel-header`                                        | `-title`                             |
+| `.v-list-item__content` / `__title` / `__subtitle`                 | flat `v-list-item`                   |
+| `.v-navigation-drawer--mini-variant`                               | `--rail`                             |
+| `.v-snack__content`                                                | `.v-snackbar__content`               |
+| `.body-1`, `.display-2`, `.headline`, `.subtitle-1`, `.caption`    | MD3 classes                          |
+| `.v-tabs-bar`, `.v-calendar-weekly`, `.v-picker`, `.v-select-list` | restructured                         |
 
-**Deviation:** Catch-all path `'*'` replaced with `'/:pathMatch(.*)*'`.
-**Reason:** vue-router 4 syntax.
-**Date:** —
+ID-based rules also present, targeting `#app`, `#pages`, `#login`, `#register`,
+`#settings`, `.error-page`. These map to screen components — handle in P10.
 
-## src/stores/ui.ts
-
-**Deviation:** `expandOnHover` moved from component-local `data` in
-`dashboard/Index.vue` into the store.
-**Reason:** Avoids prop-drilling through the layout to AppBar, Drawer and Settings.
-**Date:** —
-
-**Deviation:** Vuex mutations (`SET_DRAWER`, `SET_BAR_IMAGE`, `SET_SCRIM`) replaced
-with plain Pinia functions.
-**Reason:** Pinia has no mutations/actions split.
-**Date:** —
-
-**Deviation:** `barImage` still points at an external creative-tim URL.
-**Reason:** Local asset deferred to P11.1.
-**Status:** pending — P11.1
-**Date:** —
+Other notable global rules to carry over: `.theme--light.v-content { background-color: #eee }`,
+`.v-footer` border-top, `.v-card` border-radius and shadows.

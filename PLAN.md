@@ -138,6 +138,18 @@ Baby-step port plan. One file per step. ~230 steps.
 - [ ] P6.6 Verify all 4 auth routes render
 - [ ] P6.7 Commit `feat: auth shell`
 
+## Phase 6b — Styles: global primitives
+
+Pulled forward from Phase 10 so screens aren't built against unstyled chrome.
+
+- [ ] P6b.1 Copy `app.scss` → `src/styles/legacy.scss` untouched
+- [ ] P6b.2 Import it in `main.ts`; screenshot the damage
+- [ ] P6b.3 Delete the Vuetify 2 Sass `@import` block
+- [ ] P6b.4 Run the selector rename pass using the table in `PORTING.md`
+- [ ] P6b.5 Strip `!important` where Vuetify 4 layers make it unnecessary
+- [ ] P6b.6 Verify shell: footer spacing, drawer, app bar, cards
+- [ ] P6b.7 Commit `refactor: global styles`
+
 ## Phase 7 — Base components (one file per step)
 
 - [ ] P7.1 `components/base/Card.vue`
@@ -223,17 +235,13 @@ After each screen: merge branch, open a new one.
 - [ ] P9.14 Rebuild the Wizard form
 - [ ] P9.15 Commit `feat: hard parts`
 
-## Phase 10 — Styles
+## Phase 10 — Styles: screen-specific
 
-- [ ] P10.1 Copy `app.scss` → `src/styles/legacy.scss` untouched
-- [ ] P10.2 Import it, screenshot the damage
-- [ ] P10.3 Delete the Vuetify 2 Sass import block
-- [ ] P10.4 Convert remaining rules to plain CSS
-- [ ] P10.5 Split into `base.css`, `drawer.css`, `cards.css`
-- [ ] P10.6 Move component rules into scoped style blocks
-- [ ] P10.7 Delete anything MD3 defaults already handle
-- [ ] P10.8 Verify each screen vs live demo
-- [ ] P10.9 Commit `refactor: styles`
+- [ ] P10.1 Extract remaining screen rules from `legacy.scss` into scoped blocks
+- [ ] P10.2 Delete anything MD3 defaults already handle
+- [ ] P10.3 Verify each screen vs live demo
+- [ ] P10.4 Delete `src/styles/legacy.scss`
+- [ ] P10.5 Commit `refactor: screen styles`
 
 ## Phase 11 — Polish & cutover
 

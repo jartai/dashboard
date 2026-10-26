@@ -3,5 +3,6 @@
   "semi": false,
   "singleQuote": true,
   "printWidth": 100,
-  "objectWrap": "preserve"
+  "objectWrap": "preserve",
+  "singleAttributePerLine": true
 }
