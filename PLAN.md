@@ -112,7 +112,7 @@ Baby-step port plan. One file per step. ~230 steps.
 
 ## Phase 4 — Navigation data
 
-- [ ] P4.1 Create `src/navigation.ts` — nav tree from `Drawer.vue`, typed
+- [ ] P4.1 Create `src/config/navigation.ts` — nav tree from `Drawer.vue`, typed
 - [ ] P4.2 Fix `register → pricing` bug, log in `PORTING.md`
 - [ ] P4.3 Commit `feat: navigation data`
 

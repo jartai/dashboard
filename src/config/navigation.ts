@@ -20,7 +20,7 @@ export const navItems: NavItem[] = [
       { title: 'rtl', to: '/pages/rtl' },
       { title: 'timeline', to: '/pages/timeline' },
       { title: 'login', to: '/pages/login' },
-      { title: 'register', to: '/pages/register' },
+      { title: 'register', to: '/pages/pricing' },
       { title: 'lock', to: '/pages/lock' },
       { title: 'user', to: '/pages/user' },
       { title: 'error', to: '/pages/404' },
@@ -66,12 +66,13 @@ export const navItems: NavItem[] = [
   { icon: 'mdi-calendar-range', title: 'calendar', to: '/calendar' },
 ]
 
+// Stub links (empty href/to in the original) — fixed at P11.2.
 export const profileNav: NavItem = {
   avatar: true,
   title: 'avatar',
   children: [
-    { title: 'my-profile', href: '#' },
-    { title: 'edit-profile', href: '#' },
-    { title: 'settings', href: '#' },
+    { title: 'my-profile', href: '' },
+    { title: 'edit-profile', to: '' },
+    { title: 'settings', to: '' },
   ],
 }
