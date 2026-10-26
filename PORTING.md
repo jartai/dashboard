@@ -47,6 +47,15 @@ unchanged, rather than rewriting all of them to `t()`.
 **Status:** `ar.json` and RTL still deferred to P9.7–P9.8
 **Date:** 2026-10-26
 
+## Global
+
+**Deviation:** Vuetify 4's lowered breakpoints are adopted rather than restoring v3
+thresholds (md 960→840, lg 1280→1145, xl 1920→1545, xxl 2560→2138).
+**Reason:** Keeps JS and CSS thresholds consistent without a partial Sass override.
+Responsive behaviour therefore shifts a few dozen pixels from the original.
+**Status:** revisit at P10 if fidelity matters
+**Date:** 2026-10-26
+
 ---
 
 ## eslint.config.ts
