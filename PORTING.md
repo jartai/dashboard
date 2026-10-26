@@ -255,3 +255,10 @@ ID-based rules also present, targeting `#app`, `#pages`, `#login`, `#register`,
 
 Other notable global rules to carry over: `.theme--light.v-content { background-color: #eee }`,
 `.v-footer` border-top, `.v-card` border-radius and shadows.
+
+## components/core/Settings.vue
+
+**Deviation:** Theme mutation uses `theme.themes.value[name]!` with a non-null assertion.
+**Reason:** `noUncheckedIndexedAccess` makes computed-key record access `| undefined`;
+both themes are defined in `plugins/vuetify.ts` so the key always exists.
+**Date:** 2026-10-26
