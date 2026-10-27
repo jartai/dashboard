@@ -5,27 +5,29 @@
 
 ## Current position
 
-**Step:** Phase 7 complete — next P8.1 (`views/pages/Error.vue`)
-**Branch:** `p7-base` → merge, then cut `p8-screens`
+**Step:** Phase 8 in progress — 5/28 screens (Error, Lock, Login, Register, Pricing)
+**Branch:** `p8-screens`
 **Last session:** 2026-10-27
 
 ## Working
 
 - Phases 0–7 complete: scaffold, Vuetify 4, routes, store, nav data, i18n, shells,
   layouts, global styles, all 14 base components, glob barrel (`plugins/base.ts`)
-- Shell renders: app bar, drawer, footer, settings card, both layouts
-- Every base component renders on demand via its `<Base*>` global name
+- Phase 8: 5 auth screens ported and rendering (Error, Lock, Login, Register, Pricing)
+  plus local components `views/pages/components/{Btn,Heading,PlanCard}.vue`
+- Auth chrome, catch-all route, and `v-layout` stacking all correct
 
 ## Broken / blocked
 
+- 23 screens still `_Placeholder.vue` — expected until Phase 8 finishes
+- Auth backdrop photo not painting (`View.vue`) — parked for P10
 - Most of `app.scss` still targets components that don't exist yet — expected
-- Screens are all `_Placeholder.vue` — expected until Phase 8
 - Vuetify warns duplicate node ID for the profile nav group (non-fatal)
 - Parked for P10: `card-title`, `body-3`, `elevation-12`, `scoped` vs unscoped
 
 ## Next up
 
-- P8.1 `views/pages/Error.vue` — first screen, five sub-steps
+- P8.6 `views/dashboard/Dashboard.vue`
 
 ---
 
@@ -58,6 +60,10 @@
   `string` / `number`.
 - Base components auto-register as `Base<Name>` from `plugins/base.ts`.
   `types/global-components.d.ts` is a **manual** list — update it when adding one.
+- **Never nest a route under a catch-all parent** (vue-router 4). Use a leaf route
+  and let the screen render its own layout.
+- **Transition components keep the `v-` prefix** (`v-slide-y-transition`). Dropping it
+  breaks auto-import.
 - Old app is a **read-only** reference at `~/ref/md-pro-v2`.
 
 ## Conventions
@@ -97,6 +103,7 @@
 
 Newest first. Two lines max per entry.
 
+- 2026-10-27 — Phase 8: 5 auth screens; fixed catch-all routing, CoreView slot, v-footer stacking, transition prefix.
 - 2026-10-27 — Phase 7: 14 base components, glob barrel, scss + block-order conventions.
 - 2026-10-26 — Phases 5–6b: shell, auth shell, layouts, global styles.
 - 2026-10-26 — Phases 0–4: scaffold, Vuetify 4, routes, store, nav data, i18n.
@@ -110,7 +117,7 @@ Copy this into a new chat:
     Repo: https://github.com/jartai/dashboard
 
     Read PLAN.md, PROGRESS.md and PORTING.md from that repo before answering.
-    We're at P8.1. Old app reference is
+    We're at P8.6. Old app reference is
     github.com/kathirr007/Vuetify-md-pro-clone.
 
     Don't re-litigate the locked decisions in PROGRESS.md.
