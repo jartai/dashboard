@@ -513,6 +513,17 @@ Status: done
 
 ---
 
+## P7.14 — kitchen sink removed
+
+Status: done
+
+- Deleted src/views/_KitchenSink.vue and its route. Phase 7 closed.
+- Phase 7 ran 14 components plus the glob barrel and three .d.ts files.
+- Findings worth carrying: `$` in MaterialDropdown was an undefined method (latent bug, ported as an `action` emit); MaterialStatsCard's `...Card.props` spread silently swallowed avatar/color/hoverReveal/inline/text; `text--primary` in v2 is text emphasis, not the primary colour.
+- v3+ removals encountered: v-tabs-slider, v-tabs-items, v-list-item-content, dense, offset-y, background-color, display-*, headline, caption, --text suffix, v-card__text/__actions.
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical

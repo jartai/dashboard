@@ -5,26 +5,27 @@
 
 ## Current position
 
-**Step:** P6b complete — next P7.1
-**Branch:** `p7-base`
-**Last session:** 2026-10-26
+**Step:** Phase 7 complete — next P8.1 (`views/pages/Error.vue`)
+**Branch:** `p7-base` → merge, then cut `p8-screens`
+**Last session:** 2026-10-27
 
 ## Working
 
-- Phases 0–6 complete: scaffold, Vuetify 4, routes, store, nav data, i18n, shell
-  (dashboard + auth), layouts, global styles
+- Phases 0–7 complete: scaffold, Vuetify 4, routes, store, nav data, i18n, shells,
+  layouts, global styles, all 14 base components, glob barrel (`plugins/base.ts`)
 - Shell renders: app bar, drawer, footer, settings card, both layouts
-- `legacy.scss` loaded and renamed
+- Every base component renders on demand via its `<Base*>` global name
 
 ## Broken / blocked
 
 - Most of `app.scss` still targets components that don't exist yet — expected
 - Screens are all `_Placeholder.vue` — expected until Phase 8
 - Vuetify warns duplicate node ID for the profile nav group (non-fatal)
+- Parked for P10: `card-title`, `body-3`, `elevation-12`, `scoped` vs unscoped
 
 ## Next up
 
-- P7.1 `components/base/Card.vue`
+- P8.1 `views/pages/Error.vue` — first screen, five sub-steps
 
 ---
 
@@ -43,7 +44,20 @@
 - Fonts **self-hosted** via `@fontsource/roboto`.
 - `noUncheckedIndexedAccess` stays **on**. Fix with `?.` / `??` / `!`.
 - `vue/multi-word-component-names` stays **off**.
-- `lodash` is **not** a dependency.
+- `lodash` is **not** a dependency. String helpers are hand-rolled.
+- `chartist` + `vue-chartist` **are** dependencies (chartist is unmaintained;
+  swapping it touches only `MaterialChartCard.vue`).
+- SFC block order is **script → template → style**. Every `<style>` is `lang="scss"`.
+  Enforced by `vue/block-order` and `vue/block-lang`.
+- Component styles stay **inline** in the SFC. `src/styles/` is cross-cutting only.
+- `.ts` files never sit beside `.vue` files. Barrel is `plugins/base.ts`; shared
+  types are in `types/`.
+- **Exactly one** file augments `declare module 'vue'`, and it must be a module
+  (top-level `import`/`export`). Never from a script `.d.ts`.
+- When re-declaring a wrapped Vuetify prop, copy **Vuetify's** type — never
+  `string` / `number`.
+- Base components auto-register as `Base<Name>` from `plugins/base.ts`.
+  `types/global-components.d.ts` is a **manual** list — update it when adding one.
 - Old app is a **read-only** reference at `~/ref/md-pro-v2`.
 
 ## Conventions
@@ -52,6 +66,7 @@
 - **One branch per phase:** `p0-scaffold`, `p7-base`, `p8-screens`…
 - **Commit every 1–2 steps.** Conventional commits.
 - **Never more than two uncommitted files.**
+- Run `pnpm lint` before every commit — it enforces block order and style lang.
 - If a step balloons, split it.
 - **2-minute rule:** unresolved visual oddity → park in `PORTING.md` with
   `Status: pending — <step>`, move on.
@@ -82,6 +97,7 @@
 
 Newest first. Two lines max per entry.
 
+- 2026-10-27 — Phase 7: 14 base components, glob barrel, scss + block-order conventions.
 - 2026-10-26 — Phases 5–6b: shell, auth shell, layouts, global styles.
 - 2026-10-26 — Phases 0–4: scaffold, Vuetify 4, routes, store, nav data, i18n.
 
@@ -94,7 +110,7 @@ Copy this into a new chat:
     Repo: https://github.com/jartai/dashboard
 
     Read PLAN.md, PROGRESS.md and PORTING.md from that repo before answering.
-    We're at <step id>. Old app reference is
+    We're at P8.1. Old app reference is
     github.com/kathirr007/Vuetify-md-pro-clone.
 
     Don't re-litigate the locked decisions in PROGRESS.md.
