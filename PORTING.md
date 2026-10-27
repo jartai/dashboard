@@ -299,7 +299,7 @@ hardcoding `dark = false`.
 
 ## components/auth/*
 
-**Deviation:** `require(\`@/assets/${src}\`)`→ static imports in a lookup map.
+**Deviation:** ``require(`@/assets/${src}`)``→ static imports in a lookup map.
 **Reason:**`require` is not defined in Vite's ESM runtime.
 **Date:** 2026-10-26
 
@@ -612,18 +612,6 @@ Status: done
 
 ---
 
-## P8.6 — views/dashboard/Dashboard.vue
-
-Status: done
-
-- Largest screen. v-simple-table → v-table; v-tooltip bottom → location; activator scope {attrs,on} → {props}; small → size="small"; light dropped.
-- this.$chartist → import Chartist from 'chartist' + types/chartist.d.ts shim (chartist ships no types).
-- Deleted unreferenced data: headers, items, tabs, list, complete() — leftovers from a data-table version.
-- PENDING (Phase 9): <v-world-map> is unresolved. vue-world-map is a Vue 2 component; needs a replacement or adapter.
-- `card-title` kept verbatim (not a v4 class) — P10.
-
----
-
 ## P8.7 — views/dashboard/Widgets.vue
 
 Status: done
@@ -635,6 +623,32 @@ Status: done
 - v-menu bottom/offset-y/right → location="bottom end"; v-icon left/right → start/end; v-timeline align-top/dense → align="start"/density="compact"; large → size="large".
 - Renames: background-color → bg-color, display-2 → text-h3, subtitle-1/subheading → text-subtitle-1, body-2 → text-body-2, overline → text-overline.
 - No style block in the original.
+
+---
+
+## P8.7 fix — Widgets.vue headers type
+
+Status: done
+
+- `align: 'end'` widened to `string` inside an unannotated array literal; VDataTable's `headers` prop wants the literal union `'start' | 'center' | 'end'`.
+- Fix: `const headers: DataTableHeader[]` with `import type { DataTableHeader } from 'vuetify'`.
+- RULE: any array of Vuetify header/option objects needs an explicit annotation — literal values otherwise widen to `string` and the prop type rejects them. Expect this again in RegularTables, ExtendedTables and DataTables.
+
+---
+
+## P8.8 — views/dashboard/Charts.vue
+
+Status: done
+
+- Original file is `Charts.vue` (plural). The original router imports it as `Chart` (singular) — a latent mismatch in the source repo, not a port artefact. Route name `Charts` kept as-is.
+- `this.$chartist` → `import * as Chartist from 'chartist'`; both `this.$chartist.Interpolation.none()` calls → `Chartist.Interpolation.none()`.
+- `types/chartist.d.ts` declared the key as `monone` — a typo conflating `none` and `monotone`. Renamed to `none`; `monotone` added alongside it.
+- `v-slot:after-heading` → `#after-heading`.
+- Renames: display-1 → text-h4, grey--text → text-grey, subtitle-1 → text-subtitle-1, body-2 → text-body-2, `orange darken-1` → `orange-darken-1`.
+- `lang="sass"` → `lang="scss"`. Left **unscoped** so the `#coloured-line` / `#multiple-bar` / `#pie` ID selectors still reach chartist's generated DOM. The duplicate `id="coloured-line"` is retained as in the original.
+- Dropped unreferenced data: `headers`, `items`, `tabs`, `list`, `complete()`. Same leftovers as Dashboard.vue; no `v-data-table` on this screen, so no `DataTableHeader` annotation was needed here.
+- CONVENTION: in `<script setup>`, a binding counts as unused unless the **template** references it. Data carried over from the original will trip `@typescript-eslint/no-unused-vars` even when the original used it — delete it rather than underscore-prefixing.
+- `src/router/routes.ts`: `charts` route swapped from `Placeholder` to a lazy import of the screen.
 
 ---
 
