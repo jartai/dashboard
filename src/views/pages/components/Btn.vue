@@ -1,11 +1,14 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+
 defineOptions({ name: 'PagesBtn', inheritAttrs: false })
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
     color?: string
     depressed?: boolean
     rounded?: boolean
+    variant?: 'elevated' | 'flat' | 'text' | 'outlined' | 'plain' | 'tonal'
   }>(),
   {
     color: 'success',
@@ -13,6 +16,8 @@ withDefaults(
     rounded: true,
   },
 )
+
+const resolvedVariant = computed(() => props.variant ?? (props.depressed ? 'flat' : 'elevated'))
 </script>
 
 <template>
@@ -20,7 +25,7 @@ withDefaults(
     v-bind="$attrs"
     :color="color"
     :rounded="rounded ? 'pill' : undefined"
-    :variant="depressed ? 'flat' : 'elevated'"
+    :variant="resolvedVariant"
   >
     <slot />
   </v-btn>

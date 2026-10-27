@@ -557,6 +557,18 @@ Status: done
 
 ---
 
+## P8.3 — views/pages/Login.vue
+
+Status: done
+
+- PagesBtn extended with a `variant` prop; `resolvedVariant` falls back to depressed ? 'flat' : 'elevated'. Needed because the login button is a text variant and the old wrapper hard-coded it.
+- Renames: fill-height → class, display-2 → text-h3, grey--text body-1 → text-grey text-body-1, `large` → size="large".
+- v2 `class="v-btn--text success--text"` has no v4 class equivalent (v-btn--text doesn't exist) — replaced with variant="text" color="success".
+- BaseMaterialCard used via its global name; no import.
+- No style block in the original.
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical
