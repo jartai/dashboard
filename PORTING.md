@@ -444,6 +444,21 @@ Status: done
 
 ---
 
+## P7.11 — MaterialWizard.vue
+
+Status: done
+
+- v-tabs-slider REMOVED in v3+: element deleted, color moved to v-tabs slider-color, mt-1 replaced with CSS on .v-tabs__slider.
+- v-tabs-items → v-tabs-window. Consumers must rename v-tab-item → v-tabs-window-item in Phase 8.
+- background-color → bg-color; 'green lighten-5' → 'green-lighten-5'.
+- Proxyable → computed get/set; accepts modelValue or value, emits update:modelValue + change.
+- Dropped unused ref="tabs".
+- Style selectors: .v-tabs-bar → .v-slide-group__container, .v-tabs-slider → .v-tabs__slider, two .v-slide-group__wrapper rules merged.
+- Verified MaterialTabs is unaffected (uses hide-slider, not the slider component).
+- Last base component.
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical
