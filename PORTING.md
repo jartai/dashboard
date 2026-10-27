@@ -544,6 +544,19 @@ Status: done
 
 ---
 
+## P8.2 — views/pages/Lock.vue + components/Btn.vue
+
+Status: done
+
+- PagesBtn is extends:VBtn with prop defaults; ported as a thin wrapper with $attrs passthrough + inheritAttrs:false.
+- TRAP: v2 `rounded` on a button = pill (28px). v3+ boolean `rounded` = 4px; `rounded="pill"` is the equivalent. Mapped explicitly.
+- Dropped v2 `default` prop (= raised style = v3+ `elevated`, already the default).
+- Lock.vue: fill-height → class, `light` on v-card dropped, v-slide-y-transition → slide-y-transition, display-2 → text-h3, `grey--text text--darken-2` → `text-grey-darken-2`.
+- No style block in the original.
+- Avatar image still remote (demos.creative-tim.com).
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical
