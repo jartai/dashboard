@@ -459,6 +459,28 @@ Status: done
 
 ---
 
+## P7.12/P7.13 — components/base/index.ts
+
+Status: done
+
+- Replaces src/plugins/base.js (webpack require.context → import.meta.glob, eager).
+- Names follow the original scheme: Base + PascalCase(filename), so <base-material-card> resolves as before.
+- Hand-rolled the name derivation instead of adding lodash (the original imported lodash/upperFirst + camelCase for just this). Revisit at P9 if screens turn out to use lodash elsewhere.
+- global.d.ts augments GlobalComponents so Volar accepts the global names. MANUAL LIST — must be updated when a base component is added.
+- toGlobalName exported for the P11 Vitest test.
+
+---
+
+## P7.9 fix — conflicting declare module 'vue'
+
+Status: done
+
+- src/types/vue-chartist.d.ts declared `declare module 'vue'` from a SCRIPT file (ambient), while components/base/global.d.ts did it from a MODULE file (augmentation). The ambient form won, and its self-referential import('vue').Component hid vue's real exports → "Module 'vue' has no exported member 'createApp'" plus cascading errors.
+- Fix: removed the block from vue-chartist.d.ts; global.d.ts rewritten as a module via a top-level import type, with chartist folded in.
+- RULE: exactly one file augments `declare module 'vue'`, and it must be a module (top-level import or export {}).
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical

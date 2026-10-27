@@ -4,9 +4,3 @@ declare module 'vue-chartist' {
   const vueChartist: Plugin
   export default vueChartist
 }
-
-declare module 'vue' {
-  export interface GlobalComponents {
-    chartist: import('vue').Component
-  }
-}

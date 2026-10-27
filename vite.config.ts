@@ -25,7 +25,7 @@ export default defineConfig({
       'vuetify/components/VMenu',
       'vuetify/components/VSelect',
       'vuetify/components/VTooltip',
-      include: ['vue-chartist'],
+      'vue-chartist',
     ],
   },
 })
