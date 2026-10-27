@@ -624,6 +624,20 @@ Status: done
 
 ---
 
+## P8.7 — views/dashboard/Widgets.vue
+
+Status: done
+
+- `tasks` moved to reactive() — plain objects aren't reactive in Vue 3, so the v-model checkboxes would not re-render.
+- tasks[tabs] → computed currentTasks with ?? [] (noUncheckedIndexedAccess).
+- v-tabs-items/v-tab-item → v-tabs-window/v-tabs-window-item; v-list-item-action dropped (removed in v3+).
+- Data-table headers: `text` key → `title` (silent blank columns otherwise); align 'right' → 'end'.
+- v-menu bottom/offset-y/right → location="bottom end"; v-icon left/right → start/end; v-timeline align-top/dense → align="start"/density="compact"; large → size="large".
+- Renames: background-color → bg-color, display-2 → text-h3, subtitle-1/subheading → text-subtitle-1, body-2 → text-body-2, overline → text-overline.
+- No style block in the original.
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical

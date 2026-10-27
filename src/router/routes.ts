@@ -35,7 +35,11 @@ export const routes: RouteRecordRaw[] = [
       { path: 'tables/regular-tables', name: 'Regular Tables', component: Placeholder },
       { path: 'tables/extended-tables', name: 'Extended Tables', component: Placeholder },
       { path: 'tables/data-tables', name: 'Data Tables', component: Placeholder },
-      { path: 'widgets', name: 'Widgets', component: Placeholder },
+      {
+        path: 'widgets',
+        name: 'Widgets',
+        component: () => import('@/views/dashboard/Widgets.vue'),
+      },
       { path: 'charts', name: 'Charts', component: Placeholder },
       { path: 'calendar', name: 'Calendar', component: Placeholder },
     ],
