@@ -10,7 +10,7 @@ export const routes: RouteRecordRaw[] = [
     children: [
       { path: 'lock', name: 'Lock', component: () => import('@/views/pages/Lock.vue') },
       { path: 'login', name: 'Login', component: () => import('@/views/pages/Login.vue') },
-      { path: 'pricing', name: 'Pricing', component: Placeholder },
+      { path: 'pricing', name: 'Pricing', component: () => import('@/views/pages/Pricing.vue') },
       { path: 'register', name: 'Register', component: () => import('@/views/pages/Register.vue') },
     ],
   },

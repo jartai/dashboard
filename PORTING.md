@@ -577,6 +577,19 @@ Status: done
 
 ---
 
+## P8.5 — views/pages/Pricing.vue + components/PlanCard.vue
+
+Status: done
+
+- v2 `light` prop → v3+ `theme` prop (PlanCard's "best" card forces theme="light").
+- v2 allowed classes inside the `color` prop ("transparent elevation-0") — v3+ does not; split into :color + :elevation.
+- v-for key moved from the child v-col onto the <template> (Vue 3 requirement).
+- hidden-sm-and-down → d-none d-md-block; $vuetify.breakpoint.smAndDown → useDisplay().smAndDown.
+- Renames: fill-height → class, display-1 → text-h4, display-2 → text-h3, body-1/2 → text-body-1/2, grey--text text--lighten-2 → text-grey-lighten-2.
+- $t('plan') relies on globalInjection; verify the key exists in the locale file.
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical
