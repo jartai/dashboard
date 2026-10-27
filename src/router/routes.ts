@@ -21,7 +21,11 @@ export const routes: RouteRecordRaw[] = [
       { path: '', name: 'Dashboard', component: () => import('@/views/dashboard/Dashboard.vue') },
       { path: 'pages/rtl', name: 'RTL', component: Placeholder },
       { path: 'pages/user', name: 'User Profile', component: Placeholder },
-      { path: 'pages/timeline', name: 'Timeline', component: Placeholder },
+      {
+        path: 'pages/timeline',
+        name: 'Timeline',
+        component: () => import('@/views/dashboard/pages/Timeline.vue'),
+      },
       { path: 'components/buttons', name: 'Buttons', component: Placeholder },
       { path: 'components/grid-system', name: 'Grid System', component: Placeholder },
       { path: 'components/tabs', name: 'Tabs', component: Placeholder },

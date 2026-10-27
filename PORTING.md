@@ -704,6 +704,25 @@ Status: done
 
 ---
 
+## P8.10 — views/dashboard/pages/Timeline.vue
+
+Status: done
+
+- No style block in the original.
+- Added a `Timeline` interface for the `timelines` array. Items differ in shape
+  (some have `action`/`actionIcon`/`actions`, one has `subtext`), so TS infers a
+  union and `timeline.action` errors on members lacking it.
+- v-timeline `align-top` → `align="start"`; timeline-item `large` → `size="large"`;
+  v-chip `small` → `size="small"`.
+- Renames: overline → text-overline, subtitle-1 → text-subtitle-1, body-2 → text-body-2.
+- v-menu bottom/offset-y/right → location="bottom end" + origin="top left";
+  transition="scale-transition" kept (same as P8.7).
+- #activator="{ attrs, on }" → #activator="{ props }"; v-on="on" dropped.
+- v-icon left/right → start/end; v-text on v-icon and v-list-item-title →
+  interpolation (plain p/div keep v-text).
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical
