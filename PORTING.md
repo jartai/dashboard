@@ -430,6 +430,20 @@ Status: done
 
 ---
 
+## P7.10 — MaterialDropdown.vue
+
+Status: done
+
+- FINDING: the original's @click="$(`click:action-${item.id}`)" calls a method `$` that is defined nowhere (checked main.js, App.vue, plugins/base.js, plugins/vuetify.js, no global mixin). Latent bug — throws on item click while the menu still closes.
+- Ported as an explicit `action` emit carrying item.id. Screens listening for click:action-N, if any exist, will surface in Phase 8.
+- Proxyable mixin replaced with a computed get/set on modelValue. Also accepts a `value` prop and emits `change`, because Proxyable's model was value/change and ported screens may use v-model against that.
+- activator slot: v2 { attrs, on } → v3+ { props }. v-on="on" dropped.
+- Dropped: offset-y (no v3+ equivalent, default offset used), `default` on v-btn (v3+ default is elevated).
+- dense → density="compact"; v-list-item-content wrapper removed; v-list-item-title uses interpolation.
+- No style block in the original.
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical
