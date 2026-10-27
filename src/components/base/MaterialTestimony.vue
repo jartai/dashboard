@@ -1,3 +1,23 @@
+<script setup lang="ts">
+defineOptions({ name: 'BaseMaterialTestimony' })
+
+withDefaults(
+  defineProps<{
+    author?: string
+    avatar?: string
+    blurb?: string
+    handle?: string
+  }>(),
+  {
+    author: '',
+    avatar:
+      'https://demos.creative-tim.com/material-dashboard-pro/assets/img/faces/card-profile1-square.jpg',
+    blurb: '',
+    handle: '',
+  },
+)
+</script>
+
 <template>
   <v-card class="text-center v-card--testimony">
     <div class="pt-6">
@@ -36,26 +56,6 @@
     <div />
   </v-card>
 </template>
-
-<script setup lang="ts">
-defineOptions({ name: 'BaseMaterialTestimony' })
-
-withDefaults(
-  defineProps<{
-    author?: string
-    avatar?: string
-    blurb?: string
-    handle?: string
-  }>(),
-  {
-    author: '',
-    avatar:
-      'https://demos.creative-tim.com/material-dashboard-pro/assets/img/faces/card-profile1-square.jpg',
-    blurb: '',
-    handle: '',
-  },
-)
-</script>
 
 <style lang="sass">
 .v-card--testimony

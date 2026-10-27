@@ -1,3 +1,26 @@
+<script setup lang="ts">
+import MaterialCard from './MaterialCard.vue'
+
+defineOptions({ name: 'MaterialChartCard', inheritAttrs: false })
+
+withDefaults(
+  defineProps<{
+    data?: Record<string, unknown>
+    eventHandlers?: unknown[]
+    options?: Record<string, unknown>
+    ratio?: string
+    responsiveOptions?: unknown[]
+    type: 'Bar' | 'Line' | 'Pie'
+  }>(),
+  {
+    data: () => ({}),
+    eventHandlers: () => [],
+    options: () => ({}),
+    responsiveOptions: () => [],
+  },
+)
+</script>
+
 <template>
   <MaterialCard
     v-bind="$attrs"
@@ -26,29 +49,6 @@
     </template>
   </MaterialCard>
 </template>
-
-<script setup lang="ts">
-import MaterialCard from './MaterialCard.vue'
-
-defineOptions({ name: 'MaterialChartCard', inheritAttrs: false })
-
-withDefaults(
-  defineProps<{
-    data?: Record<string, unknown>
-    eventHandlers?: unknown[]
-    options?: Record<string, unknown>
-    ratio?: string
-    responsiveOptions?: unknown[]
-    type: 'Bar' | 'Line' | 'Pie'
-  }>(),
-  {
-    data: () => ({}),
-    eventHandlers: () => [],
-    options: () => ({}),
-    responsiveOptions: () => [],
-  },
-)
-</script>
 
 <style lang="sass">
 .v-card--material-chart

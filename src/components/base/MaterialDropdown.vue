@@ -1,38 +1,3 @@
-<template>
-  <v-menu
-    v-model="open"
-    v-bind="$attrs"
-    :transition="transition"
-  >
-    <template #activator="{ props: activatorProps }">
-      <v-btn
-        v-bind="activatorProps"
-        :color="color"
-        min-width="200"
-        rounded
-      >
-        <slot />
-
-        <v-icon>
-          {{ open ? 'mdi-menu-up' : 'mdi-menu-down' }}
-        </v-icon>
-      </v-btn>
-    </template>
-
-    <v-sheet>
-      <v-list density="compact">
-        <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          @click="onItemClick(item)"
-        >
-          <v-list-item-title>{{ item.text }}</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-sheet>
-  </v-menu>
-</template>
-
 <script setup lang="ts">
 import { computed } from 'vue'
 
@@ -76,3 +41,38 @@ function onItemClick(item: DropdownItem) {
   emit('action', item.id)
 }
 </script>
+
+<template>
+  <v-menu
+    v-model="open"
+    v-bind="$attrs"
+    :transition="transition"
+  >
+    <template #activator="{ props: activatorProps }">
+      <v-btn
+        v-bind="activatorProps"
+        :color="color"
+        min-width="200"
+        rounded
+      >
+        <slot />
+
+        <v-icon>
+          {{ open ? 'mdi-menu-up' : 'mdi-menu-down' }}
+        </v-icon>
+      </v-btn>
+    </template>
+
+    <v-sheet>
+      <v-list density="compact">
+        <v-list-item
+          v-for="(item, i) in items"
+          :key="i"
+          @click="onItemClick(item)"
+        >
+          <v-list-item-title>{{ item.text }}</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-sheet>
+  </v-menu>
+</template>

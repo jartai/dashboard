@@ -1,3 +1,37 @@
+<script setup lang="ts">
+import { computed } from 'vue'
+
+defineOptions({ name: 'MaterialWizard' })
+
+const props = withDefaults(
+  defineProps<{
+    availableSteps?: number[]
+    items?: string[]
+    modelValue?: number
+    value?: number
+  }>(),
+  {
+    availableSteps: () => [],
+    items: () => [],
+  },
+)
+
+const emit = defineEmits<{
+  'update:modelValue': [value: number]
+  change: [value: number]
+  'click:next': []
+  'click:prev': []
+}>()
+
+const step = computed({
+  get: () => props.modelValue ?? props.value ?? 0,
+  set: (value) => {
+    emit('update:modelValue', value)
+    emit('change', value)
+  },
+})
+</script>
+
 <template>
   <v-card
     class="v-card--wizard"
@@ -62,40 +96,6 @@
     </v-card-actions>
   </v-card>
 </template>
-
-<script setup lang="ts">
-import { computed } from 'vue'
-
-defineOptions({ name: 'MaterialWizard' })
-
-const props = withDefaults(
-  defineProps<{
-    availableSteps?: number[]
-    items?: string[]
-    modelValue?: number
-    value?: number
-  }>(),
-  {
-    availableSteps: () => [],
-    items: () => [],
-  },
-)
-
-const emit = defineEmits<{
-  'update:modelValue': [value: number]
-  change: [value: number]
-  'click:next': []
-  'click:prev': []
-}>()
-
-const step = computed({
-  get: () => props.modelValue ?? props.value ?? 0,
-  set: (value) => {
-    emit('update:modelValue', value)
-    emit('change', value)
-  },
-})
-</script>
 
 <style lang="sass">
 .v-card--wizard

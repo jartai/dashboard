@@ -1,3 +1,33 @@
+<script setup lang="ts">
+import { computed, useSlots } from 'vue'
+
+defineOptions({ name: 'MaterialCard', inheritAttrs: false })
+
+const props = withDefaults(
+  defineProps<{
+    avatar?: string
+    color?: string
+    hoverReveal?: boolean
+    icon?: string
+    inline?: boolean
+    text?: string
+    title?: string
+  }>(),
+  {
+    avatar: '',
+    color: 'success',
+    hoverReveal: false,
+    inline: false,
+    text: '',
+    title: '',
+  },
+)
+
+const slots = useSlots()
+
+const hasHeading = computed(() => Boolean(slots.heading || props.title || props.icon))
+</script>
+
 <template>
   <v-card
     v-bind="$attrs"
@@ -92,36 +122,6 @@
     </template>
   </v-card>
 </template>
-
-<script setup lang="ts">
-import { computed, useSlots } from 'vue'
-
-defineOptions({ name: 'MaterialCard', inheritAttrs: false })
-
-const props = withDefaults(
-  defineProps<{
-    avatar?: string
-    color?: string
-    hoverReveal?: boolean
-    icon?: string
-    inline?: boolean
-    text?: string
-    title?: string
-  }>(),
-  {
-    avatar: '',
-    color: 'success',
-    hoverReveal: false,
-    inline: false,
-    text: '',
-    title: '',
-  },
-)
-
-const slots = useSlots()
-
-const hasHeading = computed(() => Boolean(slots.heading || props.title || props.icon))
-</script>
 
 <style lang="sass">
 .v-card--material

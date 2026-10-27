@@ -1,23 +1,5 @@
-<template>
-  <v-alert
-    v-bind="$attrs"
-    class="v-alert--material"
-    :type="type"
-    :closable="dismissible"
-  >
-    <template
-      v-if="type"
-      #prepend
-    >
-      <v-icon :color="type">{{ ICONS[type] }}</v-icon>
-    </template>
-
-    <slot />
-  </v-alert>
-</template>
-
 <script setup lang="ts">
-import type { AlertType } from './types'
+import type { AlertType } from '@/types/alert'
 
 defineOptions({ name: 'MaterialAlert', inheritAttrs: false })
 
@@ -38,6 +20,24 @@ withDefaults(
   },
 )
 </script>
+
+<template>
+  <v-alert
+    v-bind="$attrs"
+    class="v-alert--material"
+    :type="type"
+    :closable="dismissible"
+  >
+    <template
+      v-if="type"
+      #prepend
+    >
+      <v-icon :color="type">{{ ICONS[type] }}</v-icon>
+    </template>
+
+    <slot />
+  </v-alert>
+</template>
 
 <style lang="sass">
 .v-alert--material

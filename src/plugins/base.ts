@@ -1,14 +1,13 @@
 import type { App, Component } from 'vue'
 
-const modules = import.meta.glob('./*.vue', { eager: true }) as Record<
-  string,
-  { default: Component }
->
+const modules = import.meta.glob('../components/base/*.vue', {
+  eager: true,
+}) as Record<string, { default: Component }>
 
 export function toGlobalName(path: string): string {
-  const base = path.replace(/^\.\//, '').replace(/\.vue$/, '')
-  const pascal = base
-    .split(/[-_/]/)
+  const file = path.slice(path.lastIndexOf('/') + 1).replace(/\.vue$/, '')
+  const pascal = file
+    .split(/[-_]/)
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join('')
 

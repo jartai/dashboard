@@ -481,6 +481,26 @@ Status: done
 
 ---
 
+## Restructure — keep .ts out of component dirs
+
+Status: done
+
+- components/base/ is now .vue-only. Moved: index.ts → plugins/base.ts (also matches the original repo's plugins/base.js), types.ts → types/alert.ts, global.d.ts → types/global-components.d.ts.
+- Barrel glob changed from './_.vue' to '../components/base/_.vue'; toGlobalName now takes the basename.
+- CORRECTION to the earlier P7.12 note: Item.vue / ItemGroup.vue / ItemSubGroup.vue live in components/base/ (not components/core/) and are registered as BaseItem / BaseItemGroup / BaseItemSubGroup. Added to global-components.d.ts.
+
+---
+
+## Convention — SFC block order
+
+Status: done
+
+- Standardised on script → template → style, per the Vue style guide (Recommended) and the vue/block-order default.
+- Enforced via vue/block-order in eslint.config.ts; applied repo-wide with pnpm lint.
+- Applies to every .vue file, not just components/base/.
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical

@@ -1,3 +1,20 @@
+<script setup lang="ts">
+import MaterialCard from './MaterialCard.vue'
+
+defineOptions({ name: 'MaterialStatsCard', inheritAttrs: false })
+
+defineProps<{
+  icon: string
+  smallValue?: string
+  subIcon?: string
+  subIconColor?: string
+  subText?: string
+  subTextColor?: string
+  title?: string
+  value?: string
+}>()
+</script>
+
 <template>
   <MaterialCard
     v-bind="$attrs"
@@ -39,23 +56,6 @@
     />
   </MaterialCard>
 </template>
-
-<script setup lang="ts">
-import MaterialCard from './MaterialCard.vue'
-
-defineOptions({ name: 'MaterialStatsCard', inheritAttrs: false })
-
-defineProps<{
-  icon: string
-  smallValue?: string
-  subIcon?: string
-  subIconColor?: string
-  subText?: string
-  subTextColor?: string
-  title?: string
-  value?: string
-}>()
-</script>
 
 <style lang="sass">
 .v-card--material-stats

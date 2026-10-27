@@ -12,7 +12,7 @@ import App from './App.vue'
 import router from './router'
 import i18n from './plugins/i18n'
 import vuetify from './plugins/vuetify'
-import baseComponents from '@/components/base'
+import baseComponents from './plugins/base'
 import vueChartist from 'vue-chartist'
 import './styles/legacy.scss'
 

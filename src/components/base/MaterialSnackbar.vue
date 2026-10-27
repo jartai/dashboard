@@ -1,25 +1,6 @@
-<template>
-  <v-snackbar
-    v-bind="$attrs"
-    class="v-snackbar--material"
-    :model-value="modelValue"
-    color="transparent"
-    @update:model-value="$emit('update:modelValue', $event)"
-  >
-    <MaterialAlert
-      :color="color"
-      :dismissible="dismissible"
-      :type="type"
-      class="ma-0"
-    >
-      <slot />
-    </MaterialAlert>
-  </v-snackbar>
-</template>
-
 <script setup lang="ts">
 import MaterialAlert from './MaterialAlert.vue'
-import type { AlertType } from './types'
+import type { AlertType } from '@/types/alert'
 
 defineOptions({ name: 'MaterialSnackbar', inheritAttrs: false })
 
@@ -40,6 +21,25 @@ defineEmits<{
   'update:modelValue': [value: boolean]
 }>()
 </script>
+
+<template>
+  <v-snackbar
+    v-bind="$attrs"
+    class="v-snackbar--material"
+    :model-value="modelValue"
+    color="transparent"
+    @update:model-value="$emit('update:modelValue', $event)"
+  >
+    <MaterialAlert
+      :color="color"
+      :dismissible="dismissible"
+      :type="type"
+      class="ma-0"
+    >
+      <slot />
+    </MaterialAlert>
+  </v-snackbar>
+</template>
 
 <style lang="sass">
 .v-snackbar--material
