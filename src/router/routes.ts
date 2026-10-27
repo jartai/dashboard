@@ -11,7 +11,7 @@ export const routes: RouteRecordRaw[] = [
       { path: 'lock', name: 'Lock', component: () => import('@/views/pages/Lock.vue') },
       { path: 'login', name: 'Login', component: () => import('@/views/pages/Login.vue') },
       { path: 'pricing', name: 'Pricing', component: Placeholder },
-      { path: 'register', name: 'Register', component: Placeholder },
+      { path: 'register', name: 'Register', component: () => import('@/views/pages/Register.vue') },
     ],
   },
   {

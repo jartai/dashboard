@@ -569,6 +569,14 @@ Status: done
 
 ---
 
+## P8.4 fix — line-clamp vendor prefix
+
+Status: done
+
+- Added the standard `line-clamp: initial` alongside `-webkit-line-clamp: initial` to silence the vendorPrefix lint.
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical
