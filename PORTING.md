@@ -612,6 +612,18 @@ Status: done
 
 ---
 
+## P8.6 — views/dashboard/Dashboard.vue
+
+Status: done
+
+- Largest screen. v-simple-table → v-table; v-tooltip bottom → location; activator scope {attrs,on} → {props}; small → size="small"; light dropped.
+- this.$chartist → import Chartist from 'chartist' + types/chartist.d.ts shim (chartist ships no types).
+- Deleted unreferenced data: headers, items, tabs, list, complete() — leftovers from a data-table version.
+- PENDING (Phase 9): <v-world-map> is unresolved. vue-world-map is a Vue 2 component; needs a replacement or adapter.
+- `card-title` kept verbatim (not a v4 class) — P10.
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical

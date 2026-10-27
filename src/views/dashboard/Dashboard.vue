@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Chartist from 'chartist'
+import * as Chartist from 'chartist'
 import { computed } from 'vue'
 
 defineOptions({ name: 'DashboardDashboard' })
