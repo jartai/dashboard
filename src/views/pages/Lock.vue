@@ -11,7 +11,7 @@ defineOptions({ name: 'PagesLock' })
     tag="section"
   >
     <v-row justify="center">
-      <slide-y-transition appear>
+      <v-slide-y-transition appear>
         <v-card
           class="mt-6 mt-md-0"
           max-width="100%"
@@ -39,7 +39,7 @@ defineOptions({ name: 'PagesLock' })
             <PagesBtn> Unlock </PagesBtn>
           </v-card-text>
         </v-card>
-      </slide-y-transition>
+      </v-slide-y-transition>
     </v-row>
   </v-container>
 </template>

@@ -43,7 +43,7 @@ const socials = [
   >
     <v-row justify="center">
       <v-col cols="9">
-        <slide-y-transition appear>
+        <v-slide-y-transition appear>
           <v-card class="pa-3 pa-md-5 mx-auto">
             <PagesHeading class="text-center text-h2"> Register </PagesHeading>
 
@@ -144,7 +144,7 @@ const socials = [
               </v-col>
             </v-row>
           </v-card>
-        </slide-y-transition>
+        </v-slide-y-transition>
       </v-col>
     </v-row>
   </v-container>

@@ -17,7 +17,7 @@ const socials = [
     tag="section"
   >
     <v-row justify="center">
-      <slide-y-transition appear>
+      <v-slide-y-transition appear>
         <BaseMaterialCard
           class="px-5 py-3"
           color="success"
@@ -74,7 +74,7 @@ const socials = [
             </PagesBtn>
           </v-card-text>
         </BaseMaterialCard>
-      </slide-y-transition>
+      </v-slide-y-transition>
     </v-row>
   </v-container>
 </template>

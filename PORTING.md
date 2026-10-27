@@ -590,6 +590,16 @@ Status: done
 
 ---
 
+## CORRECTION — transition component prefix
+
+- Earlier note said v3+ dropped the `v-` prefix from transition components. WRONG.
+- Vuetify 3/4 keeps `v-slide-y-transition` / `v-fade-transition` / `v-expand-transition`.
+- Dropping the prefix breaks vite-plugin-vuetify auto-import, which resolves on the `v-` prefix.
+- Fixed in Lock, Login, Register, Pricing.
+- RULE: transitions keep the `v-` prefix. Other renamed things (v-content → v-main, v-simple-table → v-table) do not apply to transitions.
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical
