@@ -338,6 +338,98 @@ deleted at P10.
 
 ---
 
+## components/base/Subheading.vue
+
+**Deviation:** `col col-12` → `v-col-12`; `text-left` → `text-start`.
+**Reason:** Grid class prefix added; v3+ uses logical direction utilities.
+**Date:** —
+
+---
+
+## components/base/MaterialTabs.vue
+
+**Deviation:** `Proxyable` mixin replaced with a `modelValue` prop +
+`update:modelValue` emit, bridged by a writable `computed`.
+**Reason:** Vue 3 renamed `value`/`input` to `modelValue`/`update:modelValue`.
+**Date:** —
+
+---
+
+## components/base/*.vue
+
+**Deviation:** `extends: VX` replaced with render-and-wrap plus `v-bind="$attrs"`.
+**Reason:** `<script setup>` has no `extends`; unknown props pass through `$attrs`.
+**Date:** —
+
+---
+
+## P7.6 — MaterialTestimony.vue
+
+Status: done
+
+- Displayed card only; no state.
+- Class renames: display-1 → text-h4, display-2 → text-h3, body-2 → text-body-2, grey--text → text-grey
+- v-icon `x-large` prop → size="x-large"
+- v-card-text switched from v-text to interpolation
+- Style block kept as indented sass, unscoped, as in the original
+- Default avatar URL still points at demos.creative-tim.com (local asset deferred to P11)
+
+---
+
+## P7.4/P7.5 — MaterialAlert + MaterialSnackbar rework
+
+Status: done
+
+- Extracted AlertType to components/base/types.ts; both components import it.
+- inheritAttrs:false on both (explicit $attrs forwarding was double-attaching handlers).
+- MaterialAlert: added #prepend icon map — v4 renders type icons white, original's white icon box made them invisible.
+- Style selectors updated: v-alert__icon → v-alert__prepend, v-snack__* → v-snackbar__*; added position:relative for the -36px offset.
+- MaterialSnackbar: value → modelValue (v3 removed `value`), dropped dead `dark` prop and the v2 `change` event.
+- Divergence: close button now inherits alert colour via `closable` instead of the original's hardcoded white.
+
+---
+
+## P7.7 — MaterialCard.vue
+
+Status: done
+
+- 6 named slots: default, heading, image, after-heading, reveal-actions, actions.
+- Deleted dead code: hasAltHeading computed (never referenced), `image` prop (template checks $slots.image, prop never read).
+- $slots accessed via useSlots() since <script setup> has no $slots binding.
+- Classes computed folded into an inline :class object.
+- Renames: display-1 → text-h4, headline → text-h5. Dropped dead `dark` on v-sheet.
+- Pending: `card-title` is not a v4 typography class — kept verbatim, review at P10.
+- Pending: elevation-12 on the avatar — verify v4 supports >5; remap if flat.
+
+---
+
+## P7.8 — MaterialStatsCard.vue
+
+Status: done
+
+- Original spread ...Card.props; <script setup> has no props object to spread, so only the 8 props this component reads are declared.
+- Consequence (improvement): avatar/color/hoverReveal/inline/text were declared-but-unused in the original and therefore swallowed by $attrs. Now undeclared, they flow through to MaterialCard. color now works.
+- Dropped v-on="$listeners" (Vue 3 puts listeners in $attrs).
+- TRAP recorded: v2 `text--primary` is text emphasis, not the primary colour. Mapped to text-high-emphasis, NOT text-primary.
+- Renames: display-2 → text-h3, caption → text-caption, grey--text → text-grey, text-right → text-end, v-card__text/__actions → v-card-text/actions.
+- Pending: `body-3` is not a real Vuetify class (vestigial). Empty v-icon renders when subIcon is undefined.
+
+---
+
+## P7.9 — MaterialChartCard.vue
+
+Status: done
+
+- Dependency added: chartist@0.11 + vue-chartist@3 (the Vue 3 build; v2 was Vue 2 only).
+- vue-chartist ships Chartist JS but not its stylesheet → chartist installed separately for chartist.min.css, imported in main.ts.
+- vue-chartist is CJS and untyped → src/types/vue-chartist.d.ts shim (module decl + GlobalComponents entry for <chartist>).
+- optimizeDeps.include added in vite.config.ts (CJS-only dep).
+- type validator fn replaced with a 'Bar'|'Line'|'Pie' union.
+- v2 `slot="x"` pass-throughs rewritten as <template #x>.
+- Phase 9 note: chartist is unmaintained since 2019. Decision effectively made to keep it; swapping means touching this one file.
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical
