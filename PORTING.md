@@ -652,6 +652,24 @@ Status: done
 
 ---
 
+## P8.9 — views/dashboard/Calendar.vue
+
+Status: done
+
+- Local `CalendarBtn` dropped. It was `extends: VBtn` + `VBtn.options.computed.classes.call(this)`
+  — a v2 idiom with no v3+ equivalent. Replaced with `v-btn` carrying the same four
+  things it added: `color="secondary" rounded class="mx-1 text-lowercase"`.
+- `$refs.calendar.prev()` / `.next()` → template ref `calendarRef` + optional call.
+- `type` ref annotated as a `CalendarType` union; `ref('month')` alone widens to
+  `string`, which `VCalendar`'s `type` prop rejects. Same class of bug as the
+  P8.7 headers fix.
+- Dropped unreferenced `disabled` and `focus` from data().
+- `lang="sass"` → `lang="scss"`, unscoped, `#calendar` root preserved.
+- PENDING: the style block targets v2's `.v-calendar-weekly__*` markup — verify
+  against v4's DOM at P10.
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical
