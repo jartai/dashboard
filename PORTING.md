@@ -723,6 +723,20 @@ Status: done
 
 ---
 
+## P8.11 — views/dashboard/pages/UserProfile.vue
+
+Status: done
+
+- No style block, no state in the original (`export default { // }`).
+- v-textarea `value="..."` → `model-value="..."`. `value` is no longer a Vuetify prop, so it
+  landed in $attrs on the wrapper div and the About Me box rendered empty.
+- Renames: body-1 → text-body-1, display-1 → text-h4, display-2 → text-h3,
+  grey--text → text-grey, black--text → text-black, text-right → text-end.
+- `card-title`, `purple-input`, `v-card-profile` kept verbatim — app.scss-era hooks, not
+  Vuetify classes. Pending: their styling is a P10 item.
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical

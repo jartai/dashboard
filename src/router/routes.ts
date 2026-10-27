@@ -20,7 +20,11 @@ export const routes: RouteRecordRaw[] = [
     children: [
       { path: '', name: 'Dashboard', component: () => import('@/views/dashboard/Dashboard.vue') },
       { path: 'pages/rtl', name: 'RTL', component: Placeholder },
-      { path: 'pages/user', name: 'User Profile', component: Placeholder },
+      {
+        path: 'pages/user',
+        name: 'User Profile',
+        component: () => import('@/views/dashboard/pages/UserProfile.vue'),
+      },
       {
         path: 'pages/timeline',
         name: 'Timeline',
