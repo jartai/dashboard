@@ -12,18 +12,24 @@ const previousTheme = theme.global.name.value
 
 // The original forced dark on the auth pages and reset on leave.
 onMounted(() => {
-  theme.global.name.value = 'dark'
+  theme.change('dark')
 })
 
 onBeforeUnmount(() => {
-  theme.global.name.value = previousTheme
+  theme.change(previousTheme)
 })
 </script>
 
 <template>
-  <v-layout>
+  <v-layout class="flex-column">
     <CoreAppBar />
-    <CoreView />
+
+    <CoreView>
+      <slot>
+        <router-view />
+      </slot>
+    </CoreView>
+
     <CoreFooter />
   </v-layout>
 </template>

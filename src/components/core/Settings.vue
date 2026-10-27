@@ -34,7 +34,7 @@ const showImg = ref(true)
 const isDark = computed({
   get: () => theme.global.current.value.dark,
   set: (val: boolean) => {
-    theme.global.name.value = val ? 'dark' : 'light'
+    theme.change(val ? 'dark' : 'light')
   },
 })
 

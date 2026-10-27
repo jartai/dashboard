@@ -524,6 +524,26 @@ Status: done
 
 ---
 
+## P8.1 — views/pages/Error.vue
+
+Status: done
+
+- Only screen with hardcoded copy; no i18n, no state.
+- fill-height prop → class; depressed → variant="flat" + color="primary"; title → text-h6; display-3 → text-h2.
+- Catch-all is now a LEAF route to Error.vue; Error.vue renders <AuthLayout> around its content. Nesting under a catch-all parent never resolved a matching child.
+
+## P8.1 fixes along the way
+
+- <CoreView /> was self-closing in AuthLayout, discarding everything inside it — the single cause of the empty middle. Replaced with <CoreView><slot><router-view /></slot></CoreView>.
+- View.vue rebuilt: absolutely-positioned v-img backdrop + content sibling, instead of content nested inside v-img (the v2 sizer/absolute-content trick doesn't survive v3+).
+- AuthLayout v-layout got flex-column: v-footer was landing beside v-main, not below (v2's `app` prop is gone in v3+).
+- Settings.vue: theme.global.name.value = x → theme.change(x).
+- vue.config: define global → globalThis for the vue-chartist CJS dep.
+- CONVENTION: in vue-router 4, never nest under a catch-all parent. Use a leaf route and let the screen render its own layout.
+- PENDING: auth backdrop photo not painting. Element present and sized, paints nothing. Suspect inner .v-responsive collapse.
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical

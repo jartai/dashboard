@@ -18,6 +18,12 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+  // vue-chartist bundles Chartist as CommonJS, which references the Node
+  // `global`. Browsers don't have it, so the dependency throws at import time
+  // and takes app.mount() down with it.
+  define: {
+    global: 'globalThis',
+  },
   optimizeDeps: {
     include: [
       'vuetify/components/VOverlay',
@@ -26,6 +32,14 @@ export default defineConfig({
       'vuetify/components/VSelect',
       'vuetify/components/VTooltip',
       'vue-chartist',
+      'chartist',
     ],
+    // The throw happens inside the pre-bundled dependency, so the define has
+    // to reach esbuild's optimize pass too — not just the app transform.
+    esbuildOptions: {
+      define: {
+        global: 'globalThis',
+      },
+    },
   },
 })

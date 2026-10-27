@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { useDisplay, useTheme } from 'vuetify'
+import { useTheme } from 'vuetify'
 
 import clintMckoy from '@/assets/clint-mckoy.jpg'
 import lock from '@/assets/lock.jpg'
@@ -13,7 +13,6 @@ defineOptions({ name: 'PagesCoreView' })
 
 const route = useRoute()
 const theme = useTheme()
-const { smAndDown, mdAndDown } = useDisplay()
 
 const srcs: Record<string, string> = {
   '/pages/lock': lock,
@@ -23,11 +22,6 @@ const srcs: Record<string, string> = {
 }
 
 const src = computed(() => srcs[route.path] ?? clintMckoy)
-
-const imageClass = computed(() => ({
-  'v-image--sm': smAndDown.value,
-  'v-image--md': mdAndDown.value,
-}))
 </script>
 
 <template>
@@ -36,31 +30,41 @@ const imageClass = computed(() => ({
     :class="theme.global.current.value.dark ? undefined : 'grey-lighten-3'"
   >
     <v-img
-      :class="imageClass"
+      class="page-bg"
       :src="src"
       gradient="to top, rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)"
-      min-height="100%"
-    >
-      <router-view />
-    </v-img>
+    />
+
+    <div class="page-content">
+      <slot>
+        <router-view />
+      </slot>
+    </div>
   </v-main>
 </template>
 
 <style lang="scss">
-#pages > .v-main__wrap > .v-image {
-  padding-top: 64px;
-  padding-bottom: 88px;
+#pages {
+  position: relative;
 }
 
-#pages .v-responsive__sizer {
-  display: none;
+#pages .page-bg {
+  position: absolute;
+  inset: 0;
 }
 
-#pages .v-image--md {
-  padding: 188px 0;
+#pages .page-content {
+  position: relative;
+  padding: 64px 0 88px;
 }
 
-#pages .v-image--sm {
-  padding: 96px 0 188px;
+#pages .page-bg {
+  position: absolute;
+  inset: 0;
+
+  .v-responsive,
+  .v-responsive__content {
+    height: 100%;
+  }
 }
 </style>

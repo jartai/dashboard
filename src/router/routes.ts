@@ -42,7 +42,7 @@ export const routes: RouteRecordRaw[] = [
   },
   {
     path: '/:pathMatch(.*)*',
-    component: Placeholder,
-    children: [{ path: '', name: '404 Error', component: Placeholder }],
+    name: '404 Error',
+    component: () => import('@/views/pages/Error.vue'),
   },
 ]
