@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, reactive, ref } from 'vue'
+import type { DataTableHeader } from 'vuetify'
 import PagesPlanCard from '@/views/pages/components/PlanCard.vue'
 
 defineOptions({ name: 'Widgets' })
@@ -12,7 +13,7 @@ interface Task {
 const tabs = ref(0)
 const menu = ref(false)
 
-const headers = [
+const headers: DataTableHeader[] = [
   { sortable: false, title: 'ID', value: 'id' },
   { sortable: false, title: 'Name', value: 'name' },
   { align: 'end', sortable: false, title: 'Salary', value: 'salary' },
