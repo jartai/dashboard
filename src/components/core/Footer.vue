@@ -50,7 +50,7 @@ const links = [
   </v-footer>
 </template>
 
-<style scoped>
+<style lang="scss">
 #dashboard-core-footer a {
   color: #3c4858;
   font-size: 0.825rem;

@@ -41,16 +41,19 @@ defineEmits<{
   </v-snackbar>
 </template>
 
-<style lang="sass">
-.v-snackbar--material
-  margin-top: 32px
-  margin-bottom: 32px
+<style lang="scss">
+.v-snackbar--material {
+  margin-top: 32px;
+  margin-bottom: 32px;
 
   .v-alert--material,
-  .v-snackbar__wrapper
-    border-radius: 4px
+  .v-snackbar__wrapper {
+    border-radius: 4px;
+  }
 
-  .v-snackbar__content
-    overflow: visible
-    padding: 0
+  .v-snackbar__content {
+    overflow: visible;
+    padding: 0;
+  }
+}
 </style>

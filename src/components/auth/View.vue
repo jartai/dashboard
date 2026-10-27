@@ -46,7 +46,7 @@ const imageClass = computed(() => ({
   </v-main>
 </template>
 
-<style>
+<style lang="scss">
 #pages > .v-main__wrap > .v-image {
   padding-top: 64px;
   padding-bottom: 88px;

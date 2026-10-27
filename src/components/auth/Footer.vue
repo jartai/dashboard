@@ -54,7 +54,7 @@ const links = [
   </v-footer>
 </template>
 
-<style scoped>
+<style lang="scss">
 #pages-core-footer a {
   color: #ffffff;
   font-size: 0.825rem;

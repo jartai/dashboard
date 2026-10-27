@@ -39,20 +39,23 @@ withDefaults(
   </v-alert>
 </template>
 
-<style lang="sass">
-.v-alert--material
-  margin-top: 32px
+<style lang="scss">
+.v-alert--material {
+  margin-top: 32px;
 
-  .v-alert__prepend
-    position: relative
-    top: -36px
-    background-color: #FFFFFF
-    border-radius: 4px
-    height: 44px
-    min-width: 44px
+  .v-alert__prepend {
+    position: relative;
+    top: -36px;
+    background-color: #ffffff;
+    border-radius: 4px;
+    height: 44px;
+    min-width: 44px;
+  }
 
-  .v-alert__close
-    align-self: flex-start
-    margin: 0 !important
-    padding: 0 !important
+  .v-alert__close {
+    align-self: flex-start;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}
 </style>

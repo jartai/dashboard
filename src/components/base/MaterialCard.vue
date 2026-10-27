@@ -123,20 +123,25 @@ const hasHeading = computed(() => Boolean(slots.heading || props.title || props.
   </v-card>
 </template>
 
-<style lang="sass">
-.v-card--material
-  &__avatar
-    position: relative
-    top: -64px
-    margin-bottom: -32px
+<style lang="scss">
+.v-card--material {
+  &__avatar {
+    position: relative;
+    top: -64px;
+    margin-bottom: -32px;
+  }
 
-  &__heading
-    position: relative
-    top: -40px
-    transition: .3s ease
-    z-index: 1
+  &__heading {
+    position: relative;
+    top: -40px;
+    transition: 0.3s ease;
+    z-index: 1;
+  }
 
-  &.v-card--material--hover-reveal:hover
-    .v-card--material__heading
-      transform: translateY(-40px)
+  &.v-card--material--hover-reveal:hover {
+    .v-card--material__heading {
+      transform: translateY(-40px);
+    }
+  }
+}
 </style>

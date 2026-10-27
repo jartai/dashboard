@@ -81,7 +81,7 @@ watch(smAndDown, (val) => {
   </v-navigation-drawer>
 </template>
 
-<style>
+<style lang="scss">
 #core-navigation-drawer.v-navigation-drawer--rail .v-list-item {
   justify-content: flex-start !important;
 }

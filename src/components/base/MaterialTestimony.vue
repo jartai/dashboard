@@ -57,13 +57,15 @@ withDefaults(
   </v-card>
 </template>
 
-<style lang="sass">
-.v-card--testimony
-  padding-bottom: 72px
-  margin-bottom: 64px
+<style lang="scss">
+.v-card--testimony {
+  padding-bottom: 72px;
+  margin-bottom: 64px;
 
-  .v-avatar
-    position: absolute
-    left: calc(50% - 64px)
-    top: calc(100% - 64px)
+  .v-avatar {
+    position: absolute;
+    left: calc(50% - 64px);
+    top: calc(100% - 64px);
+  }
+}
 </style>

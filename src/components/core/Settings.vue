@@ -281,7 +281,7 @@ watch(showImg, (val) => {
   </div>
 </template>
 
-<style>
+<style lang="scss">
 .v-settings .v-item-group > * {
   cursor: pointer;
 }

@@ -26,6 +26,7 @@ export default defineConfigWithVueTs(
     rules: {
       'vue/multi-word-component-names': 'off',
       'vue/block-order': ['error', { order: ['script', 'template', 'style'] }],
+      'vue/block-lang': ['error', { style: { lang: 'scss' } }],
     },
   },
 

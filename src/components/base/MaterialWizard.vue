@@ -97,17 +97,20 @@ const step = computed({
   </v-card>
 </template>
 
-<style lang="sass">
-.v-card--wizard
-  overflow: visible
+<style lang="scss">
+.v-card--wizard {
+  overflow: visible;
 
-  .v-slide-group__container
-    height: 56px
-    padding: 0 8px
-    overflow: visible
-    contain: initial
+  .v-slide-group__container {
+    height: 56px;
+    padding: 0 8px;
+    overflow: visible;
+    contain: initial;
+  }
 
-  .v-tabs__slider
-    margin-top: 4px
-    border-radius: 4px
+  .v-tabs__slider {
+    margin-top: 4px;
+    border-radius: 4px;
+  }
+}
 </style>

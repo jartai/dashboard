@@ -501,6 +501,18 @@ Status: done
 
 ---
 
+## Convention — style block lang
+
+Status: done
+
+- Standardised on lang="scss" for every <style> block; enforced via vue/block-lang.
+- Converted 7 indented-sass blocks (MaterialAlert, MaterialCard, MaterialChartCard, MaterialSnackbar, MaterialStatsCard, MaterialTestimony, MaterialWizard).
+- Added lang to 4 plain <style> blocks (core/Settings, core/Drawer, auth/View, base/MaterialTabs); MaterialTabs body rewritten from indented nesting.
+- Why scss: global stylesheet is already scss, scss ≈ css, Vuetify docs/source are scss, one dialect repo-wide.
+- scoped vs unscoped left open — revisit at P10.
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical

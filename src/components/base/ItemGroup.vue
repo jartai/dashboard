@@ -76,7 +76,7 @@ const children = computed(() => props.item.children ?? [])
   </v-list-group>
 </template>
 
-<style scoped>
+<style lang="scss">
 .v-list-group__activator p {
   margin-bottom: 0;
 }
