@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import * as Chartist from 'chartist'
+import * as ChartistLib from 'chartist'
 
 defineOptions({ name: 'Charts' })
 
@@ -46,7 +46,7 @@ const emailsSubscriptionChart = {
     series: [[542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]],
   },
   options: {
-    lineSmooth: Chartist.Interpolation.none(),
+    lineSmooth: ChartistLib.Interpolation.none(),
     axisX: { showGrid: false },
     low: 0,
     high: 1000,
@@ -77,7 +77,7 @@ const multipleBar = {
   },
   options: {
     seriesBarDistance: 10,
-    lineSmooth: Chartist.Interpolation.none(),
+    lineSmooth: ChartistLib.Interpolation.none(),
     axisX: { showGrid: false },
     low: 0,
     high: 900,

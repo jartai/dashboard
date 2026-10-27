@@ -25,4 +25,10 @@ app.use(vuetify)
 app.use(baseComponents)
 app.use(vueChartist)
 
+const chartistComponent = app.component('Chartist')
+
+if (chartistComponent) {
+  app.component('chartist', chartistComponent)
+}
+
 app.mount('#app')

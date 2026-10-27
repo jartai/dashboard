@@ -652,6 +652,40 @@ Status: done
 
 ---
 
+## P8.8 fix — <chartist> shadowed by a script-setup binding
+
+Status: done
+
+- `<chartist>` in Charts.vue resolved to the _chartist library namespace_ instead
+  of vue-chartist's component, so Vue warned `Component is missing template or
+render function` and no chart drew.
+- Cause: the file had `import * as Chartist from 'chartist'`, and in
+  `<script setup>` the template compiler matches a tag against script bindings
+  BEFORE the global component registry. Tag `chartist` → capitalize → `Chartist`
+  → matched the import, so `resolveComponent()` was never called.
+- Fix: renamed the binding to `ChartistLib` (import + both
+  `Interpolation.none()` call sites). Two words.
+- Dashboard.vue also imports `Chartist` but only uses `<BaseMaterialChartCard>`,
+  so it was never affected.
+- RULE: never name a `<script setup>` binding the same as a global component you
+  use in that file's template. The binding silently wins.
+
+## P8.8 fix — explicit lowercase `chartist` alias
+
+Status: done
+
+- vue-chartist 3.0.0's install registers its component as `Chartist` (capital C);
+  templates use the lowercase `<chartist>` tag and rely on Vue's
+  capitalize fallback in `resolveComponent`.
+- Aliased it explicitly in main.ts so the lowercase name doesn't depend on that
+  fallback. Written as a `const` + `if` because `app.component(name)` returns
+  `Component | undefined` and the two-arg overload needs a non-undefined value.
+- NOTE: vue-chartist 3.0.0 is CJS with only a named `install` export and no
+  default — `import vueChartist from 'vue-chartist'` works purely via Vite's
+  interop. Second reason to keep `types/vue-chartist.d.ts` accurate.
+
+---
+
 ## P8.9 — views/dashboard/Calendar.vue
 
 Status: done
