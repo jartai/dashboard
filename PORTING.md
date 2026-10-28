@@ -1021,6 +1021,30 @@ Status: done
 
 ---
 
+## P8.24 — views/dashboard/forms/Wizard.vue
+
+Status: done
+
+- `v-tab-item` → `v-tabs-window-item` (MaterialWizard renders a `v-tabs-window` around its slot).
+- vee-validate 2 still absent: `v-validate` / `data-vv-*` carried verbatim; `$validator.validateAll`
+  replaced by a local `validationResults` map of scope → boolean, always `true` until P9.11.
+  Read directly (`validationResults[...] ?? []`) rather than via `collect()` — `next()` needs a
+  verdict, not messages.
+- `ref="file"` + `$refs.file.click()` → `fileInput` template ref + optional call;
+  `onChange(val)` typed against `Event` with a cast to `HTMLInputElement`.
+- `v-item` slot `{ active, toggle }` → `{ isSelected, toggle }`; `v-item-group class="row"` →
+  `class="v-row"` (bare `row` is not a v4 class and the `v-col` children need a flex parent).
+- `outlined` → `variant="outlined"`; `v-icon large v-text` → `size="large"` + interpolation.
+- `validate-on-blur` → `validate-on="blur"`.
+- Renames: display-1 → text-h4, subtitle-2 → text-subtitle-2, `text--primary` →
+  `text-high-emphasis` (emphasis, not colour), `success--text`/`grey--text` → `text-success`/`text-grey`.
+- `lang="sass"` → `lang="scss"`, unscoped, `.v-card--account` hooks preserved.
+- `name: 'DashboardFormsWizard'` → `defineOptions({ name: 'Wizard' })`.
+- PENDING: whole screen is unvalidated until P9.10/P9.11; step gating depends on it, so the
+  Next button currently only advances on filled fields.
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical

@@ -95,7 +95,11 @@ export const routes: RouteRecordRaw[] = [
         name: 'Validation Forms',
         component: () => import('@/views/dashboard/forms/ValidationForms.vue'),
       },
-      { path: 'forms/wizard', name: 'Wizard', component: Placeholder },
+      {
+        path: 'forms/wizard',
+        name: 'Wizard',
+        component: () => import('@/views/dashboard/forms/Wizard.vue'),
+      },
       {
         path: 'tables/regular-tables',
         name: 'Regular Tables',
