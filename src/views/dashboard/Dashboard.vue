@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import * as Chartist from 'chartist'
 import { computed } from 'vue'
+import WorldMap from '@/components/core/WorldMap.vue'
 
 defineOptions({ name: 'DashboardDashboard' })
 
@@ -143,7 +144,7 @@ const totalSales = computed(() => sales.reduce((acc, val) => acc + val.salesInM,
               cols="12"
               md="6"
             >
-              <v-world-map
+              <WorldMap
                 :country-data="countryData"
                 high-color="#838383"
                 low-color="#bbbbbb"

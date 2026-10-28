@@ -1063,6 +1063,41 @@ Status: done
 
 ---
 
+## vue-world-map replacement
+
+**Deviation:** `vue-world-map` is dropped. Replaced with `@svg-maps/world` (path data only) and a
+local `src/components/core/WorldMap.vue` that fills each location from a `countryData` prop,
+interpolating `lowColor` → `highColor`.
+**Reason:** The screen uses a static choropleth — ISO-2 keys in, two fill colours, no
+interaction. `vue-world-map` is a Vue 2 plugin; the alternatives (`jsvectormap`, `svgmap`,
+`vue-svg-map`) are all interactive libraries whose API and styling we would mostly discard.
+Data-only dependency keeps the Vue version out of it.
+**Status:** decided — P9.4. Component lands at P9.5. `@svg-maps/world` is CC-BY-4.0: attribution
+line required in the component header.
+**Date:** 2026-10-28
+
+---
+
+## P9.5 — Dashboard.vue map widget
+
+Status: done
+
+- `v-world-map` → `<WorldMap>` from `src/components/core/WorldMap.vue`, driven by
+  `@svg-maps/world` (data-only, CC-BY-4.0, attributed in the component header).
+- `src/types/svg-maps-world.d.ts` shims the untyped package — same pattern as `chartist.d.ts`.
+- Fill is a straight `lowColor` → `highColor` interpolation against the dataset peak; countries
+  absent from `countryData` keep `lowColor`. `<title>` per path gives hover labels for free.
+- Supersedes the P8.6 note: `v-world-map` is no longer unresolved.
+
+## P9.6 — vue-world-map plugin file
+
+Status: done, no file
+
+- The old `src/plugins/vue-world-map.js` (a `Vue.component('v-world-map', …)` call) was never
+  ported, so there is nothing to replace. `WorldMap.vue` is imported directly where used.
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical
