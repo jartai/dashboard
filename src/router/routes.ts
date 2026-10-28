@@ -69,7 +69,11 @@ export const routes: RouteRecordRaw[] = [
         name: 'Tabs',
         component: () => import('@/views/dashboard/component/Tabs.vue'),
       },
-      { path: 'components/notifications', name: 'Notifications', component: Placeholder },
+      {
+        path: 'components/notifications',
+        name: 'Notifications',
+        component: () => import('@/views/dashboard/component/Notifications.vue'),
+      },
       {
         path: 'components/icons',
         name: 'Icons',

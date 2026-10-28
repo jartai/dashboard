@@ -862,6 +862,31 @@ Status: done
 
 ---
 
+## P8.17 — views/dashboard/component/Notifications.vue
+
+Status: done
+
+- FIX: `parsedDirection` split on `''`, so `v-bind="{ [parsedDirection[0]]: true, [parsedDirection[1]]: true }"`
+  set `t` and `o` — neither a v2 nor a v4 prop. Replaced with `:location="direction"` and the
+  computed deleted; the snackbar now actually moves.
+- `dark` dropped on every BaseMaterialAlert — undeclared, so it fell through $attrs to v-alert
+  as a dead attribute; v4 derives the on-colour from `color`/`type`.
+- `dismissible` kept — that is the prop MaterialAlert declares (it maps to v-alert `closable`).
+- `v-btn default` dropped; `depressed` → `variant="flat"`; `text` → `variant="text"`;
+  `rounded` → `rounded="pill"`; `class="v-btn--block"` → the `block` prop (class kept alongside).
+- `color` ref annotated `AlertType` so it satisfies MaterialSnackbar's `type` prop;
+  `randomColor()` uses `?? 'info'` for `noUncheckedIndexedAccess`.
+- FIX: `v-for="color in colors"` shadowed the `color` ref used by the snackbar; loop binding
+  renamed `stateColor`.
+- Renames: body-1 → text-body-1, `grey--text` → `text-grey`,
+  `hidden-sm-and-down` → `d-none d-md-block`.
+- `name: 'DashboardNotifications'` → `defineOptions({ name: 'Notifications' })`.
+- Container id stays `alerts` (as in the original).
+- No style block in the original.
+- PENDING: dialog card images are still remote demos.creative-tim.com URLs. P11.
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical
