@@ -3,25 +3,17 @@ import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useTheme } from 'vuetify'
 
-import clintMckoy from '@/assets/clint-mckoy.jpg'
-import lock from '@/assets/lock.jpg'
-import login from '@/assets/login.jpg'
-import pricing from '@/assets/pricing.jpg'
-import register from '@/assets/register.jpg'
-
 defineOptions({ name: 'PagesCoreView' })
 
 const route = useRoute()
 const theme = useTheme()
 
-const srcs: Record<string, string> = {
-  '/pages/lock': lock,
-  '/pages/login': login,
-  '/pages/pricing': pricing,
-  '/pages/register': register,
-}
+// The local `src/assets/*.jpg` files are webpack module stubs, not images, and the
+// creative-tim demo host is unreachable. Interim source until the assets are
+// re-exported at P11.1.
+const seed = computed(() => route.path.replace(/^\//, '').replace(/\//g, '-'))
 
-const src = computed(() => srcs[route.path] ?? clintMckoy)
+const src = computed(() => `https://picsum.photos/seed/md-pro-${seed.value}/1600/1200`)
 </script>
 
 <template>
@@ -32,6 +24,9 @@ const src = computed(() => srcs[route.path] ?? clintMckoy)
     <v-img
       class="page-bg"
       :src="src"
+      cover
+      alt=""
+      aria-hidden="true"
       gradient="to top, rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)"
     />
 
@@ -51,20 +46,19 @@ const src = computed(() => srcs[route.path] ?? clintMckoy)
 #pages .page-bg {
   position: absolute;
   inset: 0;
+  overflow: hidden;
+}
+
+/* The image and the gradient layer are absolutely positioned by Vuetify with no
+   width or height of their own, so both collapse. */
+#pages .page-bg .v-img__img,
+#pages .page-bg .v-img__gradient {
+  width: 100%;
+  height: 100%;
 }
 
 #pages .page-content {
   position: relative;
   padding: 64px 0 88px;
-}
-
-#pages .page-bg {
-  position: absolute;
-  inset: 0;
-
-  .v-responsive,
-  .v-responsive__content {
-    height: 100%;
-  }
 }
 </style>

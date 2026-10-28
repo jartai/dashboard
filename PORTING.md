@@ -547,7 +547,7 @@ Status: done
 - Settings.vue: theme.global.name.value = x → theme.change(x).
 - vue.config: define global → globalThis for the vue-chartist CJS dep.
 - CONVENTION: in vue-router 4, never nest under a catch-all parent. Use a leaf route and let the screen render its own layout.
-- PENDING: auth backdrop photo not painting. Element present and sized, paints nothing. Suspect inner .v-responsive collapse.
+- RESOLVED at P10.0e: `src/assets/*.jpg` are webpack module stubs (68 bytes, containing `module.exports = ...`), so the import yields JS source, not a URL. Dead `.v-responsive` / `.v-responsive__content` selectors replaced too.
 
 ---
 
@@ -1282,6 +1282,29 @@ Status: done
   a Vuetify upgrade brings new keys automatically and no strings are hand-kept.
 - `$vuetify` is spread after the JSON import so it cannot be shadowed.
 - Closes the P9.8 "optional follow-up" note.
+
+---
+
+## P10.0e — auth backdrop
+
+Status: done
+
+- Root cause: every raster in `src/assets/` is a webpack module stub, not an image.
+  `login.jpg` is 68 bytes of `module.exports = __webpack_public_path__ + "img/login...jpg";`,
+  so `:src` received JS source text and the `<img>` was broken. `logo.svg` is the
+  only real asset.
+- Secondary: `VImg` renders the `v-responsive` class on its own root, so
+  `.page-bg .v-responsive` never matched, and `.v-responsive__content` only exists
+  when a default slot is passed — this `v-img` has none. `.v-img__img` and
+  `.v-img__gradient` are `absolute` with `top/left` but no dimensions, so both
+  collapsed to zero. Both selectors replaced by sizing those two layers to 100%.
+- Added `cover` (`object-fit: cover`), `overflow: hidden`, and `aria-hidden` + empty
+  `alt` since the backdrop is decorative.
+- Source is now `picsum.photos` with a per-route seed — deterministic per page and
+  independent of the dead host. `demos.creative-time.com` fails TLS and
+  `demos.creative-tim.com/material-dashboard-pro/...` 404s, so the remote URLs used
+  elsewhere in the app are suspect too.
+- All of this is interim; localising real assets stays at P11.1.
 
 ---
 
