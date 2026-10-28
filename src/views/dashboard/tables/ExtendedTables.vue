@@ -257,7 +257,7 @@ const selections: Selection[] = [
         hide-default-footer
         show-select
       >
-        <template #footer>
+        <template #bottom>
           <v-card-text>
             <v-row
               align="center"
@@ -321,7 +321,7 @@ const selections: Selection[] = [
           </tr>
         </template>
 
-        <template #footer>
+        <template #bottom>
           <v-divider />
 
           <v-card-text>

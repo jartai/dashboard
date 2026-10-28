@@ -950,14 +950,15 @@ Status: done
 - Headers: `text` → `title`, `align: 'right'` → `'end'`, both arrays annotated
   `DataTableHeader[]`; `items` arrays typed (`Product`, `Selection`).
 - `#item` slot kept; item objects are raw rows in v3+ as well, so `item.name` etc. are unchanged.
+- `#footer` → `#bottom`. v4's data table has no `footer` slot; `bottom` is the area under the
+  body, which is where both totals blocks belong. `hide-default-footer` kept — it suppresses
+  the pagination row without suppressing `bottom`.
 - `default` on v-btn dropped; `rounded` → `rounded="pill"`.
 - Renames: `purple--text` → `text-purple`, `headline` → `text-h5`, `title` class → `text-h6`,
   `display-1` → `text-h4`, `grey--text subtitle-1` → `text-grey text-subtitle-1`.
 - `name: 'DashboardExtendedTables'` → `defineOptions({ name: 'ExtendedTables' })`.
 - Original typo kept: `link="componetns/simple-tables"`.
 - No style block in the original.
-- PENDING: `#footer` slot and `hide-default-footer` are unverified in v4 — both totals rows
-  depend on them. P10.
 - PENDING: product images still remote demos.creative-tim.com URLs. P11.
 
 ---
