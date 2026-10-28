@@ -1128,6 +1128,20 @@ Status: done
 
 ---
 
+## P9.9 — Rtl.vue verification
+
+Status: done
+
+- `useLocale().current = 'ar'` mirrors correctly once the P9.8 adapter is in place — direction,
+  logical utilities and the drawer side all flip, and `onBeforeUnmount` restores `'en'`.
+- No `<v-locale-provider rtl>` fallback was needed.
+- Resolves the P8.12 pending ("RTL direction unverified until tested").
+- Note: the two assignments in `onMounted` are now the same underlying value — `current`
+  delegates to the vue-i18n locale. Left as-is; the duplication is harmless and makes the
+  intent readable.
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical
