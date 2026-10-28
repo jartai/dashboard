@@ -8,6 +8,12 @@ interface AccountType {
   type: string
 }
 
+interface ValidatableForm {
+  validate: () => Promise<{ valid: boolean }>
+}
+
+type Rule = (value: unknown) => boolean | string
+
 const tab = ref(0)
 
 const tabs = ['About', 'Account', 'Address']
@@ -30,6 +36,9 @@ const state = ref('')
 const street = ref('')
 
 const fileInput = ref<HTMLInputElement>()
+
+const aboutForm = ref<ValidatableForm>()
+const addressForm = ref<ValidatableForm>()
 
 const states = [
   'Alabama',
@@ -93,16 +102,10 @@ const states = [
   'Wyoming',
 ]
 
-// vee-validate 2 shim — P9.10 decides v4 vs Vuetify rules, P9.11 rebuilds against it.
-const validationErrors = ref<Record<string, string[]>>({})
+const requiredRule: Rule = (value) =>
+  value === null || value === undefined || value === '' ? 'This field is required' : true
 
 const stringAccount = computed(() => account.value.join(','))
-
-const scope = computed(() => {
-  if (tab.value === 0) return 'about'
-  if (tab.value === 2) return 'address'
-  return 'account'
-})
 
 const availableSteps = computed(() => {
   const steps = [0]
@@ -114,20 +117,26 @@ const availableSteps = computed(() => {
   return steps
 })
 
-function validateForm(stepScope: string) {
-  return Promise.resolve((validationErrors.value[stepScope]?.length ?? 0) === 0)
+async function validateCurrentStep() {
+  if (tab.value === 1) return account.value.length > 0
+
+  const form = tab.value === 0 ? aboutForm.value : addressForm.value
+
+  if (!form) return false
+
+  const { valid } = await form.validate()
+
+  return valid
 }
 
-function next() {
-  validateForm(scope.value).then((valid) => {
-    if (!valid) return
+async function next() {
+  if (!(await validateCurrentStep())) return
 
-    if (tab.value === tabs.length - 1) {
-      alert('Form finished')
-    } else {
-      tab.value++
-    }
-  })
+  if (tab.value === tabs.length - 1) {
+    alert('Form finished')
+  } else {
+    tab.value++
+  }
 }
 
 function onChange(event: Event) {
@@ -157,10 +166,7 @@ function onChange(event: Event) {
       @click:prev="tab--"
     >
       <v-tabs-window-item class="pb-12">
-        <form
-          action=""
-          data-vv-scope="about"
-        >
+        <v-form ref="aboutForm">
           <div class="text-center text-h4 font-weight-light mb-6">
             Let's start with basic information (with validation)
           </div>
@@ -214,10 +220,8 @@ function onChange(event: Event) {
             >
               <v-text-field
                 v-model="first"
-                v-validate="'required'"
-                :error-messages="validationErrors['about.first'] ?? []"
+                :rules="[requiredRule]"
                 color="secondary"
-                data-vv-name="first"
                 label="First Name*"
                 prepend-icon="mdi-face"
                 validate-on="blur"
@@ -225,10 +229,8 @@ function onChange(event: Event) {
 
               <v-text-field
                 v-model="last"
-                v-validate="'required'"
-                :error-messages="validationErrors['about.last'] ?? []"
+                :rules="[requiredRule]"
                 color="secondary"
-                data-vv-name="last"
                 label="Last Name*"
                 prepend-icon="mdi-account"
                 validate-on="blur"
@@ -238,74 +240,60 @@ function onChange(event: Event) {
             <v-col cols="12">
               <v-text-field
                 v-model="email"
-                v-validate="'required'"
-                :error-messages="validationErrors['about.email'] ?? []"
+                :rules="[requiredRule]"
                 color="secondary"
-                data-vv-name="email"
                 label="Email*"
                 prepend-icon="mdi-email"
                 validate-on="blur"
               />
             </v-col>
           </v-row>
-        </form>
+        </v-form>
       </v-tabs-window-item>
 
       <v-tabs-window-item class="pb-12">
-        <form
-          action=""
-          data-vv-scope="account"
+        <v-responsive
+          class="mx-auto"
+          max-width="500"
         >
-          <v-responsive
-            class="mx-auto"
-            max-width="500"
+          <div class="text-center text-h4 text-grey font-weight-light mb-6">
+            What are you doing? (checkboxes)
+          </div>
+
+          <v-item-group
+            v-model="account"
+            class="v-row"
+            multiple
           >
-            <div class="text-center text-h4 text-grey font-weight-light mb-6">
-              What are you doing? (checkboxes)
-            </div>
-
-            <input
-              v-validate="'required'"
-              :value="stringAccount"
-              type="hidden"
-              data-vv-name="type"
-            />
-
-            <v-item-group
-              v-model="account"
-              class="v-row"
-              multiple
+            <v-item
+              v-for="(item, i) in accounts"
+              :key="i"
             >
-              <v-item
-                v-for="(account, i) in accounts"
-                :key="i"
-              >
-                <template #default="{ isSelected, toggle }">
-                  <v-col
-                    class="text-center"
-                    cols="4"
+              <template #default="{ isSelected, toggle }">
+                <v-col
+                  class="text-center"
+                  cols="4"
+                >
+                  <v-card
+                    :class="isSelected ? 'text-success' : 'text-grey'"
+                    class="mb-6 mx-auto pa-10 d-inline-block v-card--account"
+                    variant="outlined"
+                    @click="toggle"
                   >
-                    <v-card
-                      :class="isSelected ? 'text-success' : 'text-grey'"
-                      class="mb-6 mx-auto pa-10 d-inline-block v-card--account"
-                      variant="outlined"
-                      @click="toggle"
-                    >
-                      <v-icon size="large">
-                        {{ account.icon }}
-                      </v-icon>
-                    </v-card>
+                    <v-icon size="large">
+                      {{ item.icon }}
+                    </v-icon>
+                  </v-card>
 
-                    <div
-                      class="text-uppercase text-subtitle-2 text-high-emphasis"
-                      v-text="account.type"
-                    />
-                  </v-col>
-                </template>
-              </v-item>
-            </v-item-group>
-          </v-responsive>
-        </form>
+                  <div
+                    class="text-uppercase text-subtitle-2 text-high-emphasis"
+                    v-text="item.type"
+                  />
+                </v-col>
+              </template>
+            </v-item>
+          </v-item-group>
+        </v-responsive>
       </v-tabs-window-item>
 
       <v-tabs-window-item class="pb-12">
@@ -313,10 +301,7 @@ function onChange(event: Event) {
           Are you living in a nice area?
         </div>
 
-        <form
-          action=""
-          data-vv-scope="address"
-        >
+        <v-form ref="addressForm">
           <v-row
             class="mx-auto"
             justify="space-around"
@@ -328,10 +313,8 @@ function onChange(event: Event) {
             >
               <v-text-field
                 v-model="address"
-                v-validate="'required'"
-                :error-messages="validationErrors['address.address'] ?? []"
+                :rules="[requiredRule]"
                 color="secondary"
-                data-vv-name="address"
                 label="Street Name*"
                 validate-on="blur"
               />
@@ -343,10 +326,8 @@ function onChange(event: Event) {
             >
               <v-text-field
                 v-model="street"
-                v-validate="'required'"
-                :error-messages="validationErrors['address.street'] ?? []"
+                :rules="[requiredRule]"
                 color="secondary"
-                data-vv-name="street"
                 label="Street Number*"
                 validate-on="blur"
               />
@@ -358,10 +339,8 @@ function onChange(event: Event) {
             >
               <v-text-field
                 v-model="city"
-                v-validate="'required'"
-                :error-messages="validationErrors['address.city'] ?? []"
+                :rules="[requiredRule]"
                 color="secondary"
-                data-vv-name="city"
                 label="City*"
                 validate-on="blur"
               />
@@ -373,18 +352,16 @@ function onChange(event: Event) {
             >
               <v-autocomplete
                 v-model="state"
-                v-validate="'required'"
                 :autocomplete="String(Date.now())"
-                :error-messages="validationErrors['address.state'] ?? []"
                 :items="states"
+                :rules="[requiredRule]"
                 color="secondary"
-                data-vv-name="state"
                 label="State*"
                 validate-on="blur"
               />
             </v-col>
           </v-row>
-        </form>
+        </v-form>
       </v-tabs-window-item>
     </BaseMaterialWizard>
   </v-container>

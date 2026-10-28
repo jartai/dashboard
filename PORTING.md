@@ -1175,6 +1175,27 @@ Status: done
 
 ---
 
+## P9.12 — Wizard.vue rebuilt on Vuetify rules
+
+Status: done
+
+- The three `<form action="" data-vv-scope>` wrappers became `v-form` with `aboutForm` /
+  `addressForm` refs. `v-validate`, `data-vv-*`, the `validationErrors` map and the `scope`
+  computed are all gone.
+- The account step has no inputs, so `validateCurrentStep()` short-circuits on
+  `account.length > 0` and the hidden `<input v-validate="'required'">` is dropped.
+- `next()` is async and awaits validation before advancing or finishing.
+- `v-for="(account, i) in accounts"` renamed its binding to `item` — it no longer shadows the
+  `account` model ref, which is now read from script instead of the template.
+- Rules: one shared `requiredRule` per field; `validate-on="blur"` retained so errors appear on
+  blur rather than on every keystroke.
+- Email keeps `required` only, matching the original's `v-validate="'required'"` — it was never
+  format-validated.
+- `requiredRule` is duplicated between this file and ValidationForms.vue rather than extracted;
+  two call sites, one line each. Revisit if a third appears.
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical
