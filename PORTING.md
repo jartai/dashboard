@@ -887,6 +887,29 @@ Status: done
 
 ---
 
+## P8.18 — views/dashboard/forms/RegularForms.vue
+
+Status: done
+
+- `v-subheader` removed in v3+ → plain `div`; `display-1` → `text-h4`.
+- `input-value="true"` → `v-model` refs. The original's `checkbox`/`radioGroup`/`switch1`
+  data was dead (nothing bound it), so those are gone and the controls now hold real state.
+  Indeterminate model typed `boolean | null`.
+- `filled`/`outlined`/`solo` → `variant="filled"|"outlined"|"solo"`.
+- `no-gutters` → `gap="0"`; `no-wrap` kept (still a v4 prop).
+- `v-radio-group column` dropped (default); `row` → `inline`.
+- `text-right grey--text` → `text-end text-grey`; `track-color="secondary lighten-3"` →
+  `secondary-lighten-3`.
+- `v-textarea value="…"` → `model-value="…"` (same trap as P8.11).
+- `zoomOut`/`zoomIn` kept verbatim, including the `|| 0` / `|| 100` quirk that lets the value
+  go negative before clamping.
+- `name: 'DashboardFormsRegularForms'` → `defineOptions({ name: 'RegularForms' })`.
+- No style block in the original.
+- PENDING: `prepend-icon`/`append-icon` and `@click:prepend`/`@click:append` on v-slider are
+  unverified in v4. P10.
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical
