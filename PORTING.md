@@ -1122,8 +1122,9 @@ Status: done
   ps, sd, ug, ur, yi. Direction stays driven by this map — `useRtl().isRtl` is read-only.
 - Vuetify's _own_ strings (pagination labels, data-table "no data", etc.) still resolve in
   English: `ar.json` carries no `$vuetify` subtree. Adding one is optional follow-up work.
-- PENDING: `createVueI18nAdapter` is unverified in v4 — if the export moved, the build fails
-  loudly at import, not silently.
+- Adapter import is `vuetify/locale/adapters/vue-i18n`, not the `vuetify/locale` barrel — the
+  barrel only re-exports `createVuetifyAdapter`, and the failure is a runtime SyntaxError rather
+  than a build error.
 
 ---
 
