@@ -1098,6 +1098,20 @@ Status: done, no file
 
 ---
 
+## P9.7 — src/locales/ar.json
+
+Status: done
+
+- Copied verbatim from the original. Key set and order match `en.json` exactly (42 keys), so
+  nothing had to be added or dropped.
+- Re-indented 4 → 2 spaces to match `en.json`; content untouched.
+- Registered in `plugins/i18n.ts` alongside `en`. Nothing switches to it yet — that is P9.8
+  (`Rtl.vue` sets the locale, the adapter makes Vuetify follow).
+- `rtl` in `plugins/vuetify.ts` already maps `ar: true`, so direction flips as soon as the
+  locale is set.
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical
