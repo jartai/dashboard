@@ -963,6 +963,44 @@ Status: done
 
 ---
 
+## P8.22 — views/dashboard/forms/ExtendedForms.vue
+
+Status: done
+
+- `v-date-picker` is a labs component in v3+ and nothing registers labs, so it is imported
+  locally (`vuetify/labs/VDatePicker`) and used as `<VDatePicker>`. Three uses.
+- Date-picker actions moved into the `#actions` slot — the default slot no longer hosts them.
+- `:return-value.sync` + `$refs.menu.save()` dropped. The picker already writes through
+  `v-model`, so `save` only re-committed what was committed; OK now just closes.
+- `@input` on the third picker → `@update:model-value`.
+- `offset-y` → `location="bottom start"`; `#activator="{ on }"` → `{ props: activatorProps }`
+  with `v-bind`, `v-on` dropped.
+- `input-value` → `v-model` refs on the two switches; progress-linear `:value` → `:model-value`.
+- `outlined` → `variant="outlined"`; `close` on chip → `closable`; chip `small` → `size="small"`.
+- `#selection` slot props modernised: the combobox gives `{ item, index }` and a local
+  `removeItem`; the file input gives `{ fileNames, totalBytes, totalBytesReadable }`, so the
+  chips render from `fileNames.slice(0, 2)` and the overflow count uses `fileNames.length`.
+  The v2 `select` prop function is dropped — the chip no longer focuses the input on click.
+- `#item` slot on both selects rewritten to v4's `{ item, props }` + `v-bind="props"`. `item`
+  is the raw string here, so no `.title`; `v-list-item-title` takes interpolation, not `v-text`.
+  The multiple select's check icon keys off the bound model instead of `attrs.inputValue`.
+  `white--text` → `text-white`.
+- `v-row dense` → `density="compact"`; `info lighten-4` → `info-lighten-4`;
+  `deep-purple accent-4` → `deep-purple-accent-4`; `overline grey--text text--darken-3` →
+  `text-overline text-grey-darken-3`; display-1 → text-h4, body-1 → text-body-1.
+- MaterialDropdown: `top` → `location="top"`, `default` dropped.
+- Original bug kept: the second card's field binds `date2` while its picker binds `date`, so
+  the field never shows the picked value. Unreferenced `range` data dropped.
+- `name: 'DashboardFormsExtendedForms'` → `defineOptions({ name: 'ExtendedForms' })`.
+- `v-list-item-icon` dropped — removed in v3+, like `-content` and `-action`. The check is a
+  bare `v-icon` inside the item.
+- No style block in the original.
+- PENDING: `vuetify/labs/VDatePicker` path unverified in v4 — if it moved to core, swap the
+  import. Also `v-calendar` (Calendar.vue) has the same unregistered-labs gap. P10.
+- PENDING: `buffer-value` + `stream` on progress-linear unverified in v4. P10.
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical

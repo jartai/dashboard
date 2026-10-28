@@ -85,7 +85,11 @@ export const routes: RouteRecordRaw[] = [
         name: 'Regular Forms',
         component: () => import('@/views/dashboard/forms/RegularForms.vue'),
       },
-      { path: 'forms/extended', name: 'Extended Forms', component: Placeholder },
+      {
+        path: 'forms/extended',
+        name: 'Extended Forms',
+        component: () => import('@/views/dashboard/forms/ExtendedForms.vue'),
+      },
       { path: 'forms/validation', name: 'Validation Forms', component: Placeholder },
       { path: 'forms/wizard', name: 'Wizard', component: Placeholder },
       {
