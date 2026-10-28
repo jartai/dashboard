@@ -1044,6 +1044,25 @@ Status: done
 
 ---
 
+## P8.25 — views/dashboard/component/Typography.vue
+
+Status: done
+
+- Every entry key is the rendered class, so the map doubles as the v2 → v4 typography table:
+  display-4/3/2/1 → text-h1/h2/h3/h4, headline → text-h5, `title` → `text-h6 text-uppercase`,
+  `text--disabled` → `text-disabled`, `*--text` → `text-*`.
+- `text-danger` kept — `danger` was never a v2 theme colour either, so the class is dead in both.
+  Fixing it to `text-error` would change the label. P10.
+- FIX: the template tested `i === 'quote'`, but the key is `blockquote` — the quote branch, its
+  paragraph wrapper and the "Kanye West, Musician" attribution were all unreachable. Retargeted
+  to `blockquote`.
+- `<component :is="t[2]">` kept as-is; `typography` typed `Record<string, [string, string, string]>`.
+- Empty-string key left empty — it is the unstyled paragraph case.
+- `lang="scss"`, unscoped, `.tim-note` preserved.
+- No `name` in the original, so no `defineOptions`.
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical

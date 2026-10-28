@@ -1,8 +1,5 @@
 import type { RouteRecordRaw } from 'vue-router'
 
-// Placeholder until screens are ported (Phase 8) and the auth layout exists (P6.4).
-const Placeholder = () => import('@/views/_Placeholder.vue')
-
 export const routes: RouteRecordRaw[] = [
   {
     path: '/pages',
@@ -79,7 +76,11 @@ export const routes: RouteRecordRaw[] = [
         name: 'Icons',
         component: () => import('@/views/dashboard/component/Icons.vue'),
       },
-      { path: 'components/typography', name: 'Typography', component: Placeholder },
+      {
+        path: 'components/typography',
+        name: 'Typography',
+        component: () => import('@/views/dashboard/component/Typography.vue'),
+      },
       {
         path: 'forms/regular',
         name: 'Regular Forms',

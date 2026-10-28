@@ -5,32 +5,32 @@
 
 ## Current position
 
-**Step:** Phase 8 in progress — 12/28 screens. Next: P8.13 `views/dashboard/component/Buttons.vue`
-**Branch:** `main`
+**Step:** Phase 8 **complete** — 28/28 screens. Next: P9.4 world-map decision
+**Branch:** `main` (`p8-screens` merged)
 **Last session:** 2026-10-28
 
 ## Working
 
-- Phases 0–7 complete: scaffold, Vuetify 4, routes, store, nav data, i18n, shells,
-  layouts, global styles, all 14 base components, glob barrel (`plugins/base.ts`)
-- Phase 8 done: Error, Lock, Login, Register, Pricing, Dashboard, Widgets, Charts,
-  Calendar, Timeline, UserProfile, Rtl — all rendering, lint and type clean
+- Phases 0–8 complete: scaffold, Vuetify 4, routes, store, nav data, i18n, shells, layouts,
+  global styles, all 14 base components, all 28 screens — lint and type clean
+- Zero `_Placeholder` routes left
 - `locale.rtl` map added to `plugins/vuetify.ts`; Rtl.vue mirrors correctly
 
 ## Broken / blocked
 
-- 13 screens still `_Placeholder.vue` — expected until Phase 8 finishes
+- `src/views/_Placeholder.vue` now unreferenced — delete at P11
+- `v-validate` unresolved on ValidationForms / Wizard until P9.10–P9.11
+- `v-calendar` has nothing registering it — P10
+- `v-world-map` in Dashboard.vue unresolved — P9.4 / P9.5
 - Auth backdrop photo not painting (`View.vue`) — parked for P10
-- `v-world-map` in Dashboard.vue unresolved — Phase 9 decision
 - Most of `app.scss` still targets components that don't exist yet — expected
 - Vuetify warns duplicate node ID for the profile nav group (non-fatal)
-- Parked for P10: `card-title`, `body-3`, `elevation-12`, `scoped` vs unscoped,
-  duplicate `id="coloured-line"` in Charts.vue, `purple-input`/`v-card-profile`
-  styling, `.v-calendar-weekly__*` selectors
+- Parked for P10: `card-title`, `body-3`, `elevation-12`, `text-danger`, `scoped` vs unscoped,
+  duplicate `id="coloured-line"`, `purple-input`/`v-card-profile`, `.v-calendar-weekly__*`
 
 ## Next up
 
-- P8.13 `views/dashboard/component/Buttons.vue`
+- P9.4 Decide world-map replacement
 
 ---
 
@@ -85,6 +85,10 @@
 - **`v-text` on a Vuetify component → interpolation.** Plain elements keep `v-text`.
 - **In `<script setup>`, a binding is "unused" unless the template uses it.**
   Delete carried-over data rather than underscore-prefixing it.
+- **A closure that ignores a parameter is still an unused param** — `argsIgnorePattern`
+  is not configured. Consume the argument or use a method.
+- **`slice()` on a readonly tuple keeps the full element union.** Narrowing by slicing
+  does not narrow the type.
 
 ## Conventions
 
@@ -133,6 +137,8 @@
 
 Newest first. Two lines max per entry.
 
+- 2026-10-28 — Phase 8 closed: Buttons, Icons, Grid, Tabs, Notifications, RegularForms,
+  DataTables, ExtendedTables, ExtendedForms, ValidationForms, Wizard, Typography.
 - 2026-10-28 — Phase 8: Charts, Calendar, Timeline, UserProfile, Rtl. Added `locale.rtl`
   map; fixed `<chartist>` binding shadowing; logged four type traps.
 - 2026-10-27 — Phase 8: Dashboard, Widgets. `v-world-map` parked for Phase 9.
@@ -150,8 +156,8 @@ Copy this into a new chat:
     Repo: https://github.com/jartai/dashboard
 
     Read PLAN.md, PROGRESS.md and PORTING.md from that repo before answering.
-    We're at P8.13 (views/dashboard/component/Buttons.vue). Old app reference is
+    Phase 8 is closed; we're at P9.4 (world-map replacement). Old app reference is
     github.com/kathirr007/Vuetify-md-pro-clone, cloned read-only at ~/ref/md-pro-v2.
 
     Don't re-litigate the locked decisions in PROGRESS.md.
-    One file per step, full file content, explicit paths.
+    One file per step, full file content, explicit paths
