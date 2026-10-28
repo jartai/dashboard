@@ -1026,10 +1026,9 @@ Status: done
 Status: done
 
 - `v-tab-item` → `v-tabs-window-item` (MaterialWizard renders a `v-tabs-window` around its slot).
-- vee-validate 2 still absent: `v-validate` / `data-vv-*` carried verbatim; `$validator.validateAll`
-  replaced by a local `validationResults` map of scope → boolean, always `true` until P9.11.
-  Read directly (`validationResults[...] ?? []`) rather than via `collect()` — `next()` needs a
-  verdict, not messages.
+- vee-validate 2 still absent: `v-validate` / `data-vv-*` carried verbatim. `$validator.validateAll`
+  is replaced by a local `validationErrors` map of scope → `string[]` (empty until P9.11), and
+  `validateForm` reports a step valid when its message list is empty.
 - `ref="file"` + `$refs.file.click()` → `fileInput` template ref + optional call;
   `onChange(val)` typed against `Event` with a cast to `HTMLInputElement`.
 - `v-item` slot `{ active, toggle }` → `{ isSelected, toggle }`; `v-item-group class="row"` →

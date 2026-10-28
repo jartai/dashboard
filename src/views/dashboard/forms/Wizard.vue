@@ -94,7 +94,7 @@ const states = [
 ]
 
 // vee-validate 2 shim — P9.10 decides v4 vs Vuetify rules, P9.11 rebuilds against it.
-const validationResults = ref<Record<string, boolean>>({})
+const validationErrors = ref<Record<string, string[]>>({})
 
 const stringAccount = computed(() => account.value.join(','))
 
@@ -115,7 +115,7 @@ const availableSteps = computed(() => {
 })
 
 function validateForm(stepScope: string) {
-  return Promise.resolve(validationResults.value[stepScope] ?? true)
+  return Promise.resolve((validationErrors.value[stepScope]?.length ?? 0) === 0)
 }
 
 function next() {
@@ -215,7 +215,7 @@ function onChange(event: Event) {
               <v-text-field
                 v-model="first"
                 v-validate="'required'"
-                :error-messages="validationResults['about.first'] ?? []"
+                :error-messages="validationErrors['about.first'] ?? []"
                 color="secondary"
                 data-vv-name="first"
                 label="First Name*"
@@ -226,7 +226,7 @@ function onChange(event: Event) {
               <v-text-field
                 v-model="last"
                 v-validate="'required'"
-                :error-messages="validationResults['about.last'] ?? []"
+                :error-messages="validationErrors['about.last'] ?? []"
                 color="secondary"
                 data-vv-name="last"
                 label="Last Name*"
@@ -239,7 +239,7 @@ function onChange(event: Event) {
               <v-text-field
                 v-model="email"
                 v-validate="'required'"
-                :error-messages="validationResults['about.email'] ?? []"
+                :error-messages="validationErrors['about.email'] ?? []"
                 color="secondary"
                 data-vv-name="email"
                 label="Email*"
@@ -329,7 +329,7 @@ function onChange(event: Event) {
               <v-text-field
                 v-model="address"
                 v-validate="'required'"
-                :error-messages="validationResults['address.address'] ?? []"
+                :error-messages="validationErrors['address.address'] ?? []"
                 color="secondary"
                 data-vv-name="address"
                 label="Street Name*"
@@ -344,7 +344,7 @@ function onChange(event: Event) {
               <v-text-field
                 v-model="street"
                 v-validate="'required'"
-                :error-messages="validationResults['address.street'] ?? []"
+                :error-messages="validationErrors['address.street'] ?? []"
                 color="secondary"
                 data-vv-name="street"
                 label="Street Number*"
@@ -359,7 +359,7 @@ function onChange(event: Event) {
               <v-text-field
                 v-model="city"
                 v-validate="'required'"
-                :error-messages="validationResults['address.city'] ?? []"
+                :error-messages="validationErrors['address.city'] ?? []"
                 color="secondary"
                 data-vv-name="city"
                 label="City*"
@@ -374,8 +374,8 @@ function onChange(event: Event) {
               <v-autocomplete
                 v-model="state"
                 v-validate="'required'"
-                :autocomplete="Date.now()"
-                :error-messages="validationResults['address.state'] ?? []"
+                :autocomplete="String(Date.now())"
+                :error-messages="validationErrors['address.state'] ?? []"
                 :items="states"
                 color="secondary"
                 data-vv-name="state"
