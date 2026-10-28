@@ -14,9 +14,10 @@ const show = ref(false)
 const show2 = ref(false)
 const show3 = ref(false)
 
-// vee-validate 2 shim — P9.10 decides v4 vs Vuetify rules, P9.11 rebuilds against it.
+const validationErrors = ref<Record<string, string[]>>({})
+
 const errors = {
-  collect: () => [] as string[],
+  collect: (scope: string) => validationErrors.value[scope] ?? [],
 }
 
 function validateForm() {

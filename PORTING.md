@@ -1005,9 +1005,10 @@ Status: done
 
 Status: done
 
-- vee-validate 2 is still not installed, so `v-validate` / `data-vv-*` are carried verbatim and
-  `errors.collect()` is served by a local shim returning `[]`. Expect one
-  "Failed to resolve directive: validate" warning per field until P9.11.
+- vee-validate 2 is still not installed, so `v-validate` / `data-vv-*` are carried verbatim.
+  `errors.collect(scope)` is served by a local shim backed by an empty
+  `Record<string, string[]>` keyed on scope — P9.11 fills it. Expect one
+  "Failed to resolve directive: validate" warning per field until then.
 - `validateForm(scope)` → `validateForm()`; the scope argument only existed to drive
   `$validator.validateAll`. Body is the original's `alert('Form Submitted!')`.
 - `\*` escapes → `*`; `body-2` → `text-body-2`; `body-1 grey--text` → `text-body-1 text-grey`;
