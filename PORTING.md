@@ -1121,7 +1121,7 @@ Status: done
 - `locale.rtl` extended from `ar` to the rest of the RTL locales Vuetify ships: dv, fa, he, ku,
   ps, sd, ug, ur, yi. Direction stays driven by this map — `useRtl().isRtl` is read-only.
 - Vuetify's _own_ strings (pagination labels, data-table "no data", etc.) still resolve in
-  English: `ar.json` carries no `$vuetify` subtree. Adding one is optional follow-up work.
+  English: `ar.json` carries no `$vuetify` subtree. Added at P10.0k.
 - Adapter import is `vuetify/locale/adapters/vue-i18n`, not the `vuetify/locale` barrel — the
   barrel only re-exports `createVuetifyAdapter`, and the failure is a runtime SyntaxError rather
   than a build error.
@@ -1267,6 +1267,21 @@ Status: done
 - Values are translated titles, so a locale file with two keys sharing a value
   would reintroduce the warning.
 - Stub `to: ''` / `href: ''` links are untouched; filling them in is P11.2.
+
+---
+
+## P10.0k — Vuetify locale strings mounted
+
+Status: done
+
+- `plugins/i18n.ts` now spreads `en` / `ar` from `vuetify/locale` under a
+  `$vuetify` key per locale. The P9.8 adapter resolves Vuetify's strings through
+  vue-i18n, so without this every badge rendered the literal `$vuetify.badge`
+  and logged a missing-key warning six times per mount.
+- Uses the shipped translations rather than copying keys into the JSON files, so
+  a Vuetify upgrade brings new keys automatically and no strings are hand-kept.
+- `$vuetify` is spread after the JSON import so it cannot be shadowed.
+- Closes the P9.8 "optional follow-up" note.
 
 ---
 
