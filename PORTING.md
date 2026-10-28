@@ -819,6 +819,24 @@ Status: done
 
 ---
 
+## P8.15 — views/dashboard/component/Grid.vue
+
+Status: done
+
+- Local `ParagraphHeading` kept, not inlined. It was `render(h)` in the original; ported as a
+  `FunctionalComponent` in the same file, since `<script setup>` slots are functions.
+  `this.$slots.default` → `slots.default?.()`.
+- `headline` → `text-h5`; `col cols-12` → `v-col-12` (v2 flex classes, v4 grid utilities).
+- `red--text text--darken-4` → `text-red-darken-4`.
+- FIX: `cols="12 pt-0"` on the paragraphs column was a class stuffed into the `cols` prop.
+  Split into `cols="12" class="pt-0"`.
+- `name: 'DashboardGrid'` → `defineOptions({ name: 'Grid' })`.
+- No style block in the original.
+- PENDING: the "Collapsed at 960px / 1280px / 1920px" subheading copy still quotes v2
+  thresholds; v4's are 840/1145/1545. Copy left verbatim. P10.
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical
