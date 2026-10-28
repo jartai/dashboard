@@ -64,7 +64,11 @@ export const routes: RouteRecordRaw[] = [
         name: 'Grid System',
         component: () => import('@/views/dashboard/component/Grid.vue'),
       },
-      { path: 'components/tabs', name: 'Tabs', component: Placeholder },
+      {
+        path: 'components/tabs',
+        name: 'Tabs',
+        component: () => import('@/views/dashboard/component/Tabs.vue'),
+      },
       { path: 'components/notifications', name: 'Notifications', component: Placeholder },
       {
         path: 'components/icons',

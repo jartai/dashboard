@@ -837,6 +837,31 @@ Status: done
 
 ---
 
+## P8.16 — views/dashboard/component/Tabs.vue
+
+Status: done
+
+- STRUCTURAL: v3+ `v-tabs` no longer hosts its own content, so every `v-tab-item` block became
+  a `v-tabs-window` / `v-tabs-window-item` pair placed as a **sibling** after
+  `BaseMaterialTabs`, sharing one model. `BaseMaterialTabs` only renders `<v-tabs>`, so
+  content cannot stay inside it without landing in the flex bar.
+- Each of the four uncontrolled tab sets gained a `v-model` ref (`nav1`–`nav3`) — the window
+  and the bar must share a value, which the original's implicit v2 pairing did for free.
+- `vertical` → `direction="vertical"`; `centered` → `align-tabs="center"`;
+  `background-color` → `bg-color`.
+- `v-expansion-panel-header` / `-content` → `-title` / `-text`.
+- `flat` on v-card → `variant="flat"`; `v-icon v-text="tab.icon"` → interpolation.
+- Renames: headline → text-h5, `grey--text body-2` → `text-grey text-body-2`.
+- FIX: the Help Center subheading passed `heading=`, which BaseSubheading does not declare —
+  changed to `subheading=`. Same for its siblings, which already used `subheading`.
+- FIX: `v-for="(tab, i) in tabs"` shadowed the `tab` model ref; the loop binding is `tabLabel`.
+- `name: 'DashboardPanels'` → `defineOptions({ name: 'Tabs' })`.
+- No style block in the original.
+- PENDING: `icons-and-text` on v-tabs is unverified in v4 — MaterialTabs' scss keys off
+  `v-tabs--icons-and-text`, so confirm the class still renders. P10.
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical
