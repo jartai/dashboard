@@ -1142,6 +1142,20 @@ Status: done
 
 ---
 
+## Validation approach — decision
+
+**Deviation:** vee-validate is not adopted at all. `v-validate` / `data-vv-*` are replaced with
+Vuetify `rules` arrays and `v-form` refs; both temporary shims (`errors.collect`,
+`validationErrors`) are deleted.
+**Reason:** v4 is a rewrite of v2, so the fields are rewritten either way. The screens need six
+trivial validators that `rules` expresses in a line each, and `v-form` already provides
+`validate()`/`reset()`/error display. vee-validate would add a dependency, its own error
+plumbing and a provider layer for capabilities the demo never uses.
+**Status:** decided — P9.10. Rebuilds land at P9.11 (ValidationForms) and P9.12 (Wizard).
+**Date:** 2026-10-28
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical
