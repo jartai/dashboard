@@ -800,6 +800,25 @@ Status: done
 
 ---
 
+## P8.14 — views/dashboard/component/Icons.vue
+
+Status: done
+
+- v-tooltip `top` → `location="top"`; `content-class="top"` kept verbatim (not a class, an
+  app.scss-era leftover) — P10.
+- `#activator="{ attrs, on }"` → `#activator="{ props: activatorProps }"`; `v-on="on"` dropped
+  and `v-bind="attrs"` → `v-bind="activatorProps"`.
+- `v-slot:heading` → `#heading`.
+- `v-icon left` → `start`; `v-btn large` → `size="large"`.
+- Renames: display-2 → text-h3, subtitle-1 → text-subtitle-1, `white--text` → `text-white`.
+- `name: 'DashboardIcons'` → `defineOptions({ name: 'Icons' })`.
+- `icons` left unannotated — it is a flat `string[]` with no index lookups, so no union needed.
+- No style block in the original.
+- PENDING: `content-class` on v-tooltip is unverified in v4; falls back to $attrs if the prop
+  is gone. P10.
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical

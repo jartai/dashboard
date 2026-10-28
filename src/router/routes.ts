@@ -62,7 +62,11 @@ export const routes: RouteRecordRaw[] = [
       { path: 'components/grid-system', name: 'Grid System', component: Placeholder },
       { path: 'components/tabs', name: 'Tabs', component: Placeholder },
       { path: 'components/notifications', name: 'Notifications', component: Placeholder },
-      { path: 'components/icons', name: 'Icons', component: Placeholder },
+      {
+        path: 'components/icons',
+        name: 'Icons',
+        component: () => import('@/views/dashboard/component/Icons.vue'),
+      },
       { path: 'components/typography', name: 'Typography', component: Placeholder },
       { path: 'forms/regular', name: 'Regular Forms', component: Placeholder },
       { path: 'forms/extended', name: 'Extended Forms', component: Placeholder },
