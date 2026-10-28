@@ -3,6 +3,12 @@ import { ref } from 'vue'
 
 defineOptions({ name: 'ValidationForms' })
 
+interface ValidatableForm {
+  validate: () => Promise<{ valid: boolean }>
+}
+
+type Rule = (value: unknown) => boolean | string
+
 const email = ref('')
 const max = ref('')
 const min = ref('')
@@ -14,14 +20,42 @@ const show = ref(false)
 const show2 = ref(false)
 const show3 = ref(false)
 
-const validationErrors = ref<Record<string, string[]>>({})
+const typeForm = ref<ValidatableForm>()
+const rangeForm = ref<ValidatableForm>()
 
-const errors = {
-  collect: (scope: string) => validationErrors.value[scope] ?? [],
+const requiredRule: Rule = (value) =>
+  value === null || value === undefined || value === '' ? 'This field is required' : true
+
+const emailRule: Rule = (value) => {
+  const text = String(value ?? '')
+
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(text) ? true : 'Must be a valid email'
 }
 
-function validateForm() {
-  alert('Form Submitted!')
+const numericRule: Rule = (value) => (/^\d+$/.test(String(value ?? '')) ? true : 'Must be a number')
+
+const urlRule: Rule = (value) => {
+  const text = String(value ?? '')
+
+  return /^https?:\/\/\S+$/i.test(text) ? true : 'Must be a valid URL'
+}
+
+const minLengthRule =
+  (length: number): Rule =>
+  (value) =>
+    String(value ?? '').length >= length ? true : `Must be at least ${length} characters`
+
+const maxLengthRule =
+  (length: number): Rule =>
+  (value) =>
+    String(value ?? '').length <= length ? true : `Must be at most ${length} characters`
+
+async function validateForm(form: ValidatableForm | undefined) {
+  if (!form) return
+
+  const { valid } = await form.validate()
+
+  if (valid) alert('Form Submitted!')
 }
 </script>
 
@@ -113,16 +147,15 @@ function validateForm() {
       </v-col>
 
       <v-col cols="12">
-        <form
-          action=""
-          data-vv-scope="form-1"
-          @submit.prevent="validateForm()"
+        <BaseMaterialCard
+          color="success"
+          inline
+          title="Type Validation"
+          class="px-5 py-3"
         >
-          <BaseMaterialCard
-            color="success"
-            inline
-            title="Type Validation"
-            class="px-5 py-3"
+          <v-form
+            ref="typeForm"
+            @submit.prevent="validateForm(typeForm)"
           >
             <v-row
               align="center"
@@ -138,10 +171,8 @@ function validateForm() {
               <v-col cols="8">
                 <v-text-field
                   v-model="required"
-                  v-validate="'required'"
-                  :error-messages="errors.collect('form-1.required')"
+                  :rules="[requiredRule]"
                   color="secondary"
-                  data-vv-name="required"
                 />
               </v-col>
 
@@ -164,10 +195,8 @@ function validateForm() {
               <v-col cols="8">
                 <v-text-field
                   v-model="email"
-                  v-validate="'required|email'"
-                  :error-messages="errors.collect('form-1.email')"
+                  :rules="[requiredRule, emailRule]"
                   color="secondary"
-                  data-vv-name="email"
                   type="email"
                 />
               </v-col>
@@ -191,9 +220,7 @@ function validateForm() {
               <v-col cols="8">
                 <v-text-field
                   v-model="number"
-                  v-validate="'required|numeric'"
-                  :error-messages="errors.collect('form-1.number')"
-                  data-vv-name="number"
+                  :rules="[requiredRule, numericRule]"
                   color="secondary"
                   type="number"
                 />
@@ -218,11 +245,9 @@ function validateForm() {
               <v-col cols="8">
                 <v-text-field
                   v-model="url"
-                  v-validate="'required|url'"
+                  :rules="[requiredRule, urlRule]"
                   color="secondary"
-                  data-vv-name="url"
                   type="url"
-                  :error-messages="errors.collect('form-1.url')"
                 />
               </v-col>
 
@@ -239,20 +264,19 @@ function validateForm() {
                 Validate Inputs
               </v-btn>
             </div>
-          </BaseMaterialCard>
-        </form>
+          </v-form>
+        </BaseMaterialCard>
       </v-col>
 
       <v-col cols="12">
-        <form
-          action=""
-          data-vv-scope="form-2"
-          @submit.prevent="validateForm()"
+        <BaseMaterialCard
+          color="success"
+          inline
+          title="Range Validation"
         >
-          <BaseMaterialCard
-            color="success"
-            inline
-            title="Range Validation"
+          <v-form
+            ref="rangeForm"
+            @submit.prevent="validateForm(rangeForm)"
           >
             <v-row
               align="center"
@@ -268,10 +292,8 @@ function validateForm() {
               <v-col cols="8">
                 <v-text-field
                   v-model="min"
-                  v-validate="'required|min:5'"
-                  :error-messages="errors.collect('form-2.min-length')"
+                  :rules="[requiredRule, minLengthRule(5)]"
                   color="secondary"
-                  data-vv-name="min-length"
                 />
               </v-col>
 
@@ -294,10 +316,8 @@ function validateForm() {
               <v-col cols="8">
                 <v-text-field
                   v-model="max"
-                  v-validate="'required|max:5'"
-                  :error-messages="errors.collect('form-2.max-length')"
+                  :rules="[requiredRule, maxLengthRule(5)]"
                   color="secondary"
-                  data-vv-name="max-length"
                 />
               </v-col>
 
@@ -314,8 +334,8 @@ function validateForm() {
                 Validate Inputs
               </v-btn>
             </div>
-          </BaseMaterialCard>
-        </form>
+          </v-form>
+        </BaseMaterialCard>
       </v-col>
     </v-row>
   </v-container>

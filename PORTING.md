@@ -1156,6 +1156,25 @@ plumbing and a provider layer for capabilities the demo never uses.
 
 ---
 
+## P9.11 — ValidationForms.vue rebuilt on Vuetify rules
+
+Status: done
+
+- `v-validate` directives, `data-vv-scope` and `data-vv-name` all removed. Each field carries a
+  `:rules` array instead; the `errors.collect` shim and `validationErrors` map are gone.
+- Rules: `requiredRule`, `emailRule`, `numericRule`, `urlRule`, and `minLengthRule`/`maxLengthRule`
+  factories. Local `Rule` type (`(value: unknown) => boolean | string`) — no Vuetify type import,
+  and structurally assignable to the `rules` prop.
+- The outer `<form action="">` wrappers were dropped: `v-form` already renders a `<form>`, so the
+  markup was nesting forms. `@submit.prevent` moved onto `v-form`, which also means
+  `type="submit"` on the buttons now actually submits.
+- `validateForm(form)` takes the form ref and awaits `validate()`, alerting only when `valid`.
+  Ref typed with a local `ValidatableForm` interface rather than importing `VForm`.
+- Field behaviour note: the original's `min:5` / `max:5` were vee-validate _value_ bounds renamed
+  in the UI as "Min/Max Length"; they are implemented here as length checks, matching the labels.
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical
