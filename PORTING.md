@@ -910,6 +910,18 @@ Status: done
 
 ---
 
+## P8.19 — views/dashboard/tables/RegularTables.vue
+
+Status: done
+
+- `v-simple-table` → `v-table` (rename in the PLAN table; same default-slot markup).
+- `text-left` → `text-start`.
+- `data()` → typed `Dessert[]` const; the original had no `name` field, so no `defineOptions`
+  — the filename infers `RegularTables`.
+- Bare screen: no container, no BaseVComponent, no style block — as in the original.
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical

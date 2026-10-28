@@ -88,7 +88,11 @@ export const routes: RouteRecordRaw[] = [
       { path: 'forms/extended', name: 'Extended Forms', component: Placeholder },
       { path: 'forms/validation', name: 'Validation Forms', component: Placeholder },
       { path: 'forms/wizard', name: 'Wizard', component: Placeholder },
-      { path: 'tables/regular-tables', name: 'Regular Tables', component: Placeholder },
+      {
+        path: 'tables/regular-tables',
+        name: 'Regular Tables',
+        component: () => import('@/views/dashboard/tables/RegularTables.vue'),
+      },
       { path: 'tables/extended-tables', name: 'Extended Tables', component: Placeholder },
       { path: 'tables/data-tables', name: 'Data Tables', component: Placeholder },
       {
