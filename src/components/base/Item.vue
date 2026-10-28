@@ -29,6 +29,7 @@ const computedText = computed(() =>
     :rel="href && href !== '#' ? 'noopener' : undefined"
     :target="href && href !== '#' ? '_blank' : undefined"
     :to="item.to"
+    :value="item.title"
     :title="item.title"
     :subtitle="item.subtitle"
     :active-class="`bg-primary ${current.dark ? 'text-white' : 'text-black'}`"

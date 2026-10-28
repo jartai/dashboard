@@ -233,7 +233,7 @@ whatever thresholds are configured.
 
 **Note:** Vuetify warns `Multiple nodes with the same ID` for the profile nav group.
 Non-fatal; the drawer renders.
-**Status:** pending — investigate at P10
+**Status:** resolved at P10.0c — cause was in `components/base/Item.vue`, not here
 
 ---
 
@@ -1245,6 +1245,28 @@ Status: done
   `VDefaultsProvider` and threw at P5.6.
 - If `ui.barImage` is empty the image element is absent and no gradient paints;
   same failure mode as the original.
+
+---
+
+## P10.0c — duplicate nested node ID
+
+Status: done
+
+- Vuetify's `VListItem` derives its nested id from `link.href` when `value` is
+  undefined, and `useNested().register()` warns when an id is already registered.
+  The profile children are stubs (`href: ''` and two `to: ''`), so the `href`
+  fallback collapsed all three to `'#'`; the `multi` → `example` child also
+  resolves to `'#'`. Four nodes, one id.
+- Fix: every `v-list-item` in `Item.vue` carries `:value="item.title"`. Titles are
+  unique across the whole nav tree, so the href-derived id is no longer consulted.
+- The group's own activator item needs no change — `useNestedGroupActivator` sets
+  `isGroupActivator`, which makes `useNestedItem` skip registration entirely.
+- Consequence: `isSelectable` becomes true for these items, so they gain
+  `aria-selected`. `role` stays `link` (isLink is checked first), and click
+  navigation is unchanged.
+- Values are translated titles, so a locale file with two keys sharing a value
+  would reintroduce the warning.
+- Stub `to: ''` / `href: ''` links are untouched; filling them in is P11.2.
 
 ---
 
