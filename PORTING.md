@@ -1212,6 +1212,24 @@ Status: done
 
 ---
 
+## P10.0 — parked legacy.scss selectors
+
+Status: done
+
+- `.v-tabs-bar` → `.v-slide-group__container`, 4 occurrences via sed. v3+ has no tabs bar; the
+  slide-group container is the element that carries height/padding, and `MaterialWizard.vue`
+  already styles it under that name.
+- `.v-list-item__content` — KEPT. The component was removed, not the class; `VListItem` still
+  renders it as the slot wrapper, so the chains resolve. Supersedes the P6b assumption.
+- `.v-picker.v-card` — KEPT. Still the `VDatePicker` root.
+- `.v-select-list.v-card` — KEPT, unresolved. Deferred to P10.3 for DOM verification against
+  v4's overlay-based select menu.
+- `.v-calendar-weekly__*` — KEPT, blocked on P10.0j (nothing registers `v-calendar`).
+- Also noted, not in the original park list: `.v-card__actions` (no hyphen) appears in
+  `.v-card--wizard` and is dead — `.v-card-actions` is the v3 class. P10.1.
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical

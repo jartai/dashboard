@@ -1075,7 +1075,7 @@ body {
 }
 
 .v-card--wizard {
-  .v-tabs-bar {
+  .v-slide-group__container {
     height: 42px;
   }
 
@@ -1196,7 +1196,7 @@ body {
 }
 
 .v-tabs {
-  .v-tabs-bar {
+  .v-slide-group__container {
     padding: 0 15px;
 
     .v-tab {
@@ -1268,7 +1268,7 @@ body {
   }
 }
 
-.v-tabs-bar {
+.v-slide-group__container {
   .v-slide-group__wrapper {
     overflow: visible;
     display: -webkit-inline-box;
@@ -1822,7 +1822,7 @@ body {
 .v-card--wizard {
   overflow: visible;
 
-  .v-tabs-bar {
+  .v-slide-group__container {
     height: 56px;
     padding: 0 8px;
   }
