@@ -772,6 +772,33 @@ Status: done
 
 ---
 
+## P8.13 — views/dashboard/component/Buttons.vue
+
+Status: done
+
+- `dark` dropped on all social buttons — no v4 prop; MD3 derives the on-colour from `:color`.
+- `rounded` → `rounded="pill"` on the two style buttons and the two rounded toggles.
+- `v-pagination :value` → `v-model` (page1/page2). `value` is not a prop in v4, so it would
+  have landed in `$attrs` and left both pagers inert. `circle` → `rounded="circle"`.
+- `v-btn small`/`large` → `size=`; `fab` → `icon`; `text` → `variant="text"`.
+- `v-icon left`/`right` → `start`/`end`; `v-text` on `v-icon` → interpolation.
+- `v-row dense` → `density="compact"`.
+- `v-btn-toggle` given `v-model` refs typed `unknown` — the emit type is `unknown | unknown[]`.
+- `:key` moved from the `v-col` onto the `<template v-for>`; the redundant `:key` on
+  `BaseSubheading` dropped (`v-if` sits on the child, not the loop).
+- Second colour list is `colors.slice(2)`, which cannot contain `'default'`, so the sentinel
+  ternary became `:color="color"` — the narrowed literal union otherwise trips TS2367.
+- `colors` / `directions` / `icons` are `as const`, so indexing stays exact under
+  `noUncheckedIndexedAccess`.
+- `name: 'DashboardButtons'` → `defineOptions({ name: 'Buttons' })`, matching the filename
+  convention set at P8.12.
+- No style block in the original; none added.
+- PENDING: the fourth social button renders an icon in the same colour as its own background —
+  near-invisible by design, same as the original. Verify at P10.
+- PENDING: `min-width="0" max-width="41"` no longer constrains v4 icon buttons. Verify at P10.
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical

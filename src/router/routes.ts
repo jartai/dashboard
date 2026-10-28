@@ -54,7 +54,11 @@ export const routes: RouteRecordRaw[] = [
         name: 'Timeline',
         component: () => import('@/views/dashboard/pages/Timeline.vue'),
       },
-      { path: 'components/buttons', name: 'Buttons', component: Placeholder },
+      {
+        path: 'components/buttons',
+        name: 'Buttons',
+        component: () => import('@/views/dashboard/component/Buttons.vue'),
+      },
       { path: 'components/grid-system', name: 'Grid System', component: Placeholder },
       { path: 'components/tabs', name: 'Tabs', component: Placeholder },
       { path: 'components/notifications', name: 'Notifications', component: Placeholder },
