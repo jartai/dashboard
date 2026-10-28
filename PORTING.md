@@ -225,8 +225,8 @@ whatever thresholds are configured.
 
 **Deviation:** `#image` slot dropped; `:image` prop used instead.
 **Reason:** The v4 slot is wrapped in a `VDefaultsProvider` and threw during render.
-**Status:** gradient overlay pending — P10
-**Date:** —
+**Status:** done — gradient overlay restored at P10.0b
+**Date:** 2026-10-28
 
 **Deviation:** `:right="$vuetify.rtl"` → `:location="isRtl ? 'end' : 'start'"`.
 **Date:** 2026-10-26
@@ -1227,6 +1227,24 @@ Status: done
 - `.v-calendar-weekly__*` — KEPT, blocked on P10.0j (nothing registers `v-calendar`).
 - Also noted, not in the original park list: `.v-card__actions` (no hyphen) appears in
   `.v-card--wizard` and is dead — `.v-card-actions` is the v3 class. P10.1.
+
+---
+
+## P10.0b — Drawer image gradient restored
+
+Status: done
+
+- The dropped `#image` slot is replaced by a `::after` pseudo-element on
+  `.v-navigation-drawer__image` carrying `linear-gradient(to bottom, var(--drawer-bar-color))`.
+  The original passed the same string to `v-img`'s `gradient` prop.
+- `barColor` reaches CSS through `:style` on the drawer, since it is a two-stop
+  gradient fragment (`rgba(0, 0, 0, .8), rgba(0, 0, 0, .8)`) and not a colour.
+- `.v-navigation-drawer__image` is `z-index: -1` in v4, so the overlay paints above
+  the photo and below the list without touching the content stacking order.
+- Restoring the slot itself is still not viable — it renders inside a
+  `VDefaultsProvider` and threw at P5.6.
+- If `ui.barImage` is empty the image element is absent and no gradient paints;
+  same failure mode as the original.
 
 ---
 

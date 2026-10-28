@@ -43,6 +43,7 @@ watch(smAndDown, (val) => {
     :expand-on-hover="ui.expandOnHover"
     :location="isRtl ? 'end' : 'start'"
     :image="ui.barImage"
+    :style="{ '--drawer-bar-color': ui.barColor }"
     mobile-breakpoint="md"
     width="260"
     v-bind="$attrs"
@@ -82,6 +83,16 @@ watch(smAndDown, (val) => {
 </template>
 
 <style lang="scss">
+/* Replaces the v2 #image slot, which throws in v4. The original passed
+   `to bottom, ${barColor}` to v-img's gradient prop. */
+#core-navigation-drawer .v-navigation-drawer__image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(to bottom, var(--drawer-bar-color));
+}
+
 #core-navigation-drawer.v-navigation-drawer--rail .v-list-item {
   justify-content: flex-start !important;
 }
