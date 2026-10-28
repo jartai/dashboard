@@ -1001,6 +1001,25 @@ Status: done
 
 ---
 
+## P8.23 — views/dashboard/forms/ValidationForms.vue
+
+Status: done
+
+- vee-validate 2 is still not installed, so `v-validate` / `data-vv-*` are carried verbatim and
+  `errors.collect()` is served by a local shim returning `[]`. Expect one
+  "Failed to resolve directive: validate" warning per field until P9.11.
+- `validateForm(scope)` → `validateForm()`; the scope argument only existed to drive
+  `$validator.validateAll`. Body is the original's `alert('Form Submitted!')`.
+- `\*` escapes → `*`; `body-2` → `text-body-2`; `body-1 grey--text` → `text-body-1 text-grey`;
+  `text-right` → `text-end`.
+- `v-row dense` → `density="compact"`; `default` on v-btn dropped.
+- `number` ref typed `number | null` (initial `null`, `type="number"`).
+- `name: 'DashboardFormsValidationForms'` → `defineOptions({ name: 'ValidationForms' })`.
+- No style block in the original.
+- PENDING: whole screen is unvalidated until P9.10 decides the approach and P9.11 rebuilds it.
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical
