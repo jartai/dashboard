@@ -786,8 +786,9 @@ Status: done
 - `v-btn-toggle` given `v-model` refs typed `unknown` — the emit type is `unknown | unknown[]`.
 - `:key` moved from the `v-col` onto the `<template v-for>`; the redundant `:key` on
   `BaseSubheading` dropped (`v-if` sits on the child, not the loop).
-- Second colour list is `colors.slice(2)`, which cannot contain `'default'`, so the sentinel
-  ternary became `:color="color"` — the narrowed literal union otherwise trips TS2367.
+- Second colour list is `colors.slice(2)`. `slice` on a readonly tuple returns the full element
+  union, so it still includes `'default'` even though the value can't appear — the sentinel
+  ternary stays dropped and the `icons` lookup needs `color as keyof typeof icons`.
 - `colors` / `directions` / `icons` are `as const`, so indexing stays exact under
   `noUncheckedIndexedAccess`.
 - `name: 'DashboardButtons'` → `defineOptions({ name: 'Buttons' })`, matching the filename

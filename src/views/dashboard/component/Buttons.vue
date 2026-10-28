@@ -109,7 +109,7 @@ const group3 = ref<unknown>()
                 :color="color"
                 class="ma-1"
               >
-                <v-icon start>{{ icons[color] }}</v-icon>
+                <v-icon start>{{ icons[color as keyof typeof icons] }}</v-icon>
                 {{ color }}
               </v-btn>
             </div>
