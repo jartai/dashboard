@@ -6,7 +6,7 @@ Baby-step port plan. One file per step.
 
 - **Green gate:** dev server compiles AND the step's verify passes before the next step.
 - **One branch per phase:** `p0-scaffold`, `p7-base`, `p8-screens`…
-- **Commit every 1–2 steps.** Conventional commits.
+- **Commit every 1–3 steps.** Conventional commits.
 - **Old app read-only** at `~/ref/md-pro-v2`. Live demo pinned in a browser tab.
 - **Log every deviation** in `PORTING.md`.
 - **Never more than two uncommitted files.**
@@ -17,7 +17,7 @@ Baby-step port plan. One file per step.
 
 ## Reference: typography mapping (v2 → v4)
 
-| Vuetify 2        | Vuetify 4             |
+| Vuetify 2        | Material 3 token      |
 | ---------------- | --------------------- |
 | `display-4`      | `text-display-large`  |
 | `display-3`      | `text-display-large`  |
@@ -35,27 +35,41 @@ Baby-step port plan. One file per step.
 | `primary--text`  | `text-primary`        |
 | `info--text`     | `text-info`           |
 
+**In practice we use `text-h*`, not the token names above.** The right-hand column is
+Material 3 vocabulary; Vuetify 4 ships `text-h1`–`text-h6` plus `text-body-*`,
+`text-caption`, `text-overline`. Shipped screens use:
+
+| Vuetify 2   | Used in the port |
+| ----------- | ---------------- |
+| `display-1` | `text-h4`        |
+| `display-2` | `text-h3`        |
+| `headline`  | `text-h5`        |
+
+Keep new work consistent with those. `subtitle-1` → `text-subtitle-1`, `body-2` →
+`text-body-2`, `overline` → `text-overline`, `caption` → `text-caption`.
+
 ## Reference: systemic renames
 
-| Vuetify 2                             | Vuetify 3/4                    |
-| ------------------------------------- | ------------------------------ |
-| `app` prop                            | removed — use `<v-layout>`     |
-| `outlined`/`text`/`plain`/`depressed` | single `variant` prop          |
-| `fab`                                 | `icon` prop                    |
-| `v-content`                           | `v-main`                       |
-| `v-simple-table`                      | `v-table`                      |
-| `v-list-item-content/title/subtitle`  | flat `v-list-item` props/slots |
-| `item-text`                           | `item-title`                   |
-| `v-stepper-step`                      | `v-stepper-item`               |
-| `v-expansion-panel-header/content`    | `-title` / `-text`             |
-| `v-tab-item`                          | `v-tabs-window-item`           |
-| `close` on chips                      | `closable`                     |
-| `hidden-*-and-*`                      | `d-*` classes                  |
-| `$vuetify.breakpoint.*`               | `useDisplay()`                 |
-| `$vuetify.rtl`                        | `v-locale-provider`            |
-| `v-slot:activator="{ attrs, on }"`    | `#activator="{ props }"`       |
-| global component registration         | removed — needs vite plugin    |
-| Sass variable names                   | almost all renamed             |
+| Vuetify 2                             | Vuetify 3/4                          |
+| ------------------------------------- | ------------------------------------ |
+| `app` prop                            | removed — use `<v-layout>`           |
+| `outlined`/`text`/`plain`/`depressed` | single `variant` prop                |
+| `fab`                                 | `icon` prop                          |
+| `v-content`                           | `v-main`                             |
+| `v-simple-table`                      | `v-table`                            |
+| `v-list-item-content/title/subtitle`  | flat `v-list-item` props/slots       |
+| `item-text`                           | `item-title`                         |
+| `v-stepper-step`                      | `v-stepper-item`                     |
+| `v-expansion-panel-header/content`    | `-title` / `-text`                   |
+| `v-tab-item`                          | `v-tabs-window-item`                 |
+| `close` on chips                      | `closable`                           |
+| `hidden-*-and-*`                      | `d-*` classes                        |
+| `$vuetify.breakpoint.*`               | `useDisplay()`                       |
+| `$vuetify.rtl`                        | `useLocale().current` + `locale.rtl` |
+| `v-slot:activator="{ attrs, on }"`    | `#activator="{ props }"`             |
+| header `text:` key                    | header `title:` key                  |
+| global component registration         | removed — needs vite plugin          |
+| Sass variable names                   | almost all renamed                   |
 
 ## Reference: `v-text` on components
 
@@ -66,7 +80,9 @@ Baby-step port plan. One file per step.
 
 ## Reference: app.scss selector renames
 
-See the table in `PORTING.md` under "P10 prep".
+No consolidated table exists. The renames were applied by two `sed` passes and are
+described in `PORTING.md` under `## src/styles/legacy.scss`; per-screen selector work
+is a P10 task.
 
 ---
 
@@ -128,78 +144,83 @@ See the table in `PORTING.md` under "P10 prep".
 - [x] P6b.5 Eyeball the shell, park the rest
 - [x] P6b.6 Commit
 
-## Phase 7 — Base components (one file per step)
+## Phase 7 — Base components — DONE
 
 Ordered smallest → largest.
 
-- [ ] P7.1 `components/base/Subheading.vue`
-- [ ] P7.2 `components/base/VComponent.vue`
-- [ ] P7.3 `components/base/MaterialTabs.vue`
-- [ ] P7.4 `components/base/MaterialSnackbar.vue`
-- [ ] P7.5 `components/base/MaterialAlert.vue`
-- [ ] P7.6 `components/base/MaterialTestimony.vue`
-- [ ] P7.7 `components/base/MaterialCard.vue`
-- [ ] P7.8 `components/base/MaterialStatsCard.vue`
-- [ ] P7.9 `components/base/MaterialChartCard.vue`
-- [ ] P7.10 `components/base/MaterialDropdown.vue`
-- [ ] P7.11 `components/base/MaterialWizard.vue`
-- [ ] P7.12 `components/base/index.ts` — `import.meta.glob` instead of `require.context`
-- [ ] P7.13 Verify a `Base*` component renders by name
-- [ ] P7.14 Commit `feat: base components`
+- [x] P7.1 `components/base/Subheading.vue`
+- [x] P7.2 `components/base/VComponent.vue`
+- [x] P7.3 `components/base/MaterialTabs.vue`
+- [x] P7.4 `components/base/MaterialSnackbar.vue`
+- [x] P7.5 `components/base/MaterialAlert.vue`
+- [x] P7.6 `components/base/MaterialTestimony.vue`
+- [x] P7.7 `components/base/MaterialCard.vue`
+- [x] P7.8 `components/base/MaterialStatsCard.vue`
+- [x] P7.9 `components/base/MaterialChartCard.vue`
+- [x] P7.10 `components/base/MaterialDropdown.vue`
+- [x] P7.11 `components/base/MaterialWizard.vue`
+- [x] P7.12 `plugins/base.ts` — `import.meta.glob` instead of `require.context`
+- [x] P7.13 Verify a `Base*` component renders by name
+- [x] P7.14 Commit `feat: base components`
 
-For each of P7.1–P
+## Phase 8 — Screens (one file per step)
+
+Each screen expands to five checkboxes: `Sn.1` … `Sn.5`.
 
 - Sn.1 markup only, hardcoded data → renders
 - Sn.2 state → script setup, ref/computed → renders
 - Sn.3 wiring: props, emits, routing → interactions work
-- Sn.4 scoped styles → matches live demo
+- Sn.4 styles → matches live demo
 - Sn.5 verify against live demo, commit
 
-**Order (difficulty-ramped):**
+After each screen: merge branch, open a new one.
 
-- [ ] S1 `Error.vue`
+**Order (difficulty-ramped). Done screens are struck from the queue.**
+
+- [x] S1 `Error.vue`
 - [ ] S2 `Typography.vue` — full class mapping
-- [ ] S3 `Heading.vue`
-- [ ] S4 `Btn.vue`
-- [ ] S5 `PlanCard.vue`
-- [ ] S6 `Lock.vue`
-- [ ] S7 `Login.vue`
-- [ ] S8 `Register.vue`
-- [ ] S9 `Pricing.vue`
-- [ ] S10 `Timeline.vue`
-- [ ] S11 `UserProfile.vue`
+- [x] S3 `Heading.vue`
+- [x] S4 `Btn.vue`
+- [x] S5 `PlanCard.vue`
+- [x] S6 `Lock.vue`
+- [x] S7 `Login.vue`
+- [x] S8 `Register.vue`
+- [x] S9 `Pricing.vue`
+- [x] S10 `Timeline.vue`
+- [x] S11 `UserProfile.vue`
 - [ ] S12 `RegularTables.vue` — `v-simple-table` → `v-table`
 - [ ] S13 `DataTables.vue` — headers format, slot names
 - [ ] S14 `RegularForms.vue`
-- [ ] S15 `Buttons.vue` — `variant` prop
+- [ ] S15 `Buttons.vue` — `variant` prop ← **next**
 - [ ] S16 `Icons.vue`
 - [ ] S17 `Grid.vue` — `dense` → `density`/`gap`
 - [ ] S18 `Tabs.vue` — `v-tabs-window-item`
 - [ ] S19 `Notifications.vue`
-- [ ] S20 `Widgets.vue`
-- [ ] S21 `Calendar.vue` — `v-calendar` is in labs
+- [x] S20 `Widgets.vue`
+- [x] S21 `Calendar.vue` — `v-calendar` is in labs
 - [ ] S22 `ExtendedTables.vue`
 - [ ] S23 `ExtendedForms.vue`
 - [ ] S24 `ValidationForms.vue` — vee-validate
 - [ ] S25 `Wizard.vue` — `v-stepper-item`
-- [ ] S26 `Charts.vue` — Phase 9
-- [ ] S27 `Rtl.vue` — Phase 9
-- [ ] S28 `Dashboard.vue` — 21KB, last
+- [x] S26 `Charts.vue` — Phase 9
+- [x] S27 `Rtl.vue` — Phase 9
+- [x] S28 `Dashboard.vue` — 21KB, last
 
-Each screen expands to five checkboxes: `Sn.1` … `Sn.5`.
-After each screen: merge branch, open a new one.
+Remaining: **13** (S2, S12–S19, S22–S25).
 
 ## Phase 9 — The hard parts
 
-- [ ] P9.1 Decide chartist-direct vs swap; log decision
-- [ ] P9.2 Rewrite `MaterialChartCard` against the choice
-- [ ] P9.3 Port `Charts.vue`
+P9.1–P9.3 are effectively settled: chartist was kept and `Charts.vue` is ported.
+
+- [x] P9.1 Decide chartist-direct vs swap; log decision — kept chartist
+- [x] P9.2 Rewrite `MaterialChartCard` against the choice
+- [x] P9.3 Port `Charts.vue`
 - [ ] P9.4 Decide world-map replacement
 - [ ] P9.5 Port the map widget in `Dashboard.vue`
 - [ ] P9.6 Replace `vue-world-map` plugin file
 - [ ] P9.7 Port `locales/ar.json` verbatim
-- [ ] P9.8 Wire `v-locale-provider` for RTL; add the Vuetify locale adapter
-- [ ] P9.9 Port `Rtl.vue`
+- [ ] P9.8 Add the Vuetify locale adapter; extend the `locale.rtl` map
+- [ ] P9.9 Verify `Rtl.vue` against the live demo (screen itself is ported)
 - [ ] P9.10 Decide vee-validate v4 vs Vuetify `rules`
 - [ ] P9.11 Rebuild validation in `ValidationForms.vue`
 - [ ] P9.12 Rebuild the Wizard form
@@ -212,6 +233,11 @@ After each screen: merge branch, open a new one.
 - [ ] P10.0b Add the drawer image gradient as a CSS overlay
 - [ ] P10.0c Investigate the duplicate node ID warning
 - [ ] P10.0d Revisit breakpoint fidelity if it matters
+- [ ] P10.0e Fix the auth backdrop photo (`View.vue`) — element is present, paints nothing
+- [ ] P10.0f Settle `card-title`, `body-3`, `elevation-12` — none are v4 classes
+- [ ] P10.0g Decide `scoped` vs unscoped on the per-screen style blocks
+- [ ] P10.0h Restore `purple-input` / `v-card-profile` styling (UserProfile.vue)
+- [ ] P10.0i De-duplicate `id="coloured-line"` in Charts.vue
 - [ ] P10.1 Extract remaining screen rules from `legacy.scss` into scoped blocks
 - [ ] P10.2 Delete anything MD3 defaults already handle
 - [ ] P10.3 Verify each screen vs live demo

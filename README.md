@@ -9,7 +9,7 @@ to Vue 3 / Vuetify 4 / TypeScript / Vite / Pinia.
 
 ## Status
 
-Phase 0 complete. See [PLAN.md](./PLAN.md) for the full plan and
+Phase 8 in progress. See [PLAN.md](./PLAN.md) for the full plan and
 [PROGRESS.md](./PROGRESS.md) for current position.
 
 ## Stack
