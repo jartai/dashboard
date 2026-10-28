@@ -922,6 +922,24 @@ Status: done
 
 ---
 
+## P8.20 — views/dashboard/tables/DataTables.vue
+
+Status: done
+
+- Headers: `text` → `title` (v4 dropped the alias) and annotated `DataTableHeader[]` per the
+  P8.7 rule; `items` annotated with a `Person` interface.
+- `:search.sync` → `v-model:search`; `search: undefined` → `ref('')`.
+- `sort-by` + `sort-desc` collapsed into a single `:sort-by` of `{ key, order }` objects —
+  `sort-desc` no longer exists. Declared with an inline `'asc' | 'desc'` union rather than
+  importing `SortItem`, whose export path is not guaranteed.
+- `single-line` on v-text-field dropped (default in v3+); `hide-details` kept.
+- `v-slot:after-heading` → `#after-heading`; display-2 → text-h3.
+- `name: 'DashboardDataTables'` → `defineOptions({ name: 'DataTables' })`.
+- No style block in the original; container stays non-`fluid` and keeps `id="data-tables"`.
+- PENDING: `multi-sort` behaviour unverified against v4's data-table. P10.
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical
