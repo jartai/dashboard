@@ -195,7 +195,7 @@ const totalSales = computed(() => sales.reduce((acc, val) => acc + val.salesInM,
             </v-tooltip>
           </template>
 
-          <h4 class="card-title font-weight-light mt-2 ml-2">Website Views</h4>
+          <h4 class="text-h6 font-weight-light mt-2 ml-2">Website Views</h4>
 
           <p class="d-inline-flex font-weight-light ml-2 mt-1">Last Campaign Performance</p>
 
@@ -251,7 +251,7 @@ const totalSales = computed(() => sales.reduce((acc, val) => acc + val.salesInM,
             </v-tooltip>
           </template>
 
-          <h4 class="card-title font-weight-light mt-2 ml-2">Daily Sales</h4>
+          <h4 class="text-h6 font-weight-light mt-2 ml-2">Daily Sales</h4>
 
           <p class="d-inline-flex font-weight-light ml-2 mt-1">
             <v-icon
@@ -315,7 +315,7 @@ const totalSales = computed(() => sales.reduce((acc, val) => acc + val.salesInM,
             </v-tooltip>
           </template>
 
-          <h3 class="card-title font-weight-light mt-2 ml-2">Completed Tasks</h3>
+          <h3 class="text-h6 font-weight-light mt-2 ml-2">Completed Tasks</h3>
 
           <p class="d-inline-flex font-weight-light ml-2 mt-1">Last Last Campaign Performance</p>
 

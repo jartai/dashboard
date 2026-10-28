@@ -405,8 +405,8 @@ Status: done
 - $slots accessed via useSlots() since <script setup> has no $slots binding.
 - Classes computed folded into an inline :class object.
 - Renames: display-1 → text-h4, headline → text-h5. Dropped dead `dark` on v-sheet.
-- Pending: `card-title` is not a v4 typography class — kept verbatim, review at P10.
-- Pending: elevation-12 on the avatar — verify v4 supports >5; remap if flat.
+- Closed: `card-title` is not a v4 typography class — kept verbatim, review at P10. → closed at P10.0f
+- Pending: elevation-12 on the avatar — verify v4 supports >5; remap if flat. → closed at P10.0f
 
 ---
 
@@ -615,7 +615,7 @@ Status: done
 - this.$chartist → import Chartist from 'chartist' + types/chartist.d.ts shim (chartist ships no types).
 - Deleted unreferenced data: headers, items, tabs, list, complete() — leftovers from a data-table version.
 - PENDING (Phase 9): <v-world-map> is unresolved. vue-world-map is a Vue 2 component; needs a replacement or adapter.
-- `card-title` kept verbatim (not a v4 class) — P10.
+- `card-title` kept verbatim (not a v4 class) — P10. → closed at P10.0f
 
 ---
 
@@ -740,7 +740,7 @@ Status: done
 - Renames: body-1 → text-body-1, display-1 → text-h4, display-2 → text-h3,
   grey--text → text-grey, black--text → text-black, text-right → text-end.
 - `card-title`, `purple-input`, `v-card-profile` kept verbatim — app.scss-era hooks, not
-  Vuetify classes. Pending: their styling is a P10 item.
+  Vuetify classes. → closed at P10.0f
 
 ---
 
@@ -1305,6 +1305,26 @@ Status: done
   `demos.creative-tim.com/material-dashboard-pro/...` 404s, so the remote URLs used
   elsewhere in the app are suspect too.
 - All of this is interim; localising real assets stays at P11.1.
+
+---
+
+## P10.0f — non-v4 class triage
+
+Status: done
+
+- `card-title` → `text-h6`. Never a Vuetify class in v2 or v4; app.scss set it to
+  1.125rem, `text-h6` is 1rem — nearest surviving step. Five sites: three headings
+  in Dashboard, one in UserProfile, one in MaterialCard.
+- `body-3` → `text-body-2`. Also app.scss-only (0.875rem, same as text-body-2).
+  One site in MaterialStatsCard.
+- `elevation-12` → `elevation-5`. v4 generates only `elevation-0`…`elevation-5`
+  (`styles/utilities/_elevation.scss`), and `$shadow-key` carries no key above 5,
+  so anything higher is a silent no-op rather than a broken value. One site, the
+  MaterialCard avatar.
+- `text-danger` → `text-error`. `danger` was never a theme colour; the Typography
+  row's label is now "Error Text" so the page documents the class it shows.
+- `purple-input` and `v-card-profile` are untouched — they are component hooks with
+  real styling to restore, tracked at P10.0h.
 
 ---
 

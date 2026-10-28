@@ -24,7 +24,7 @@ defineProps<{
     <template #after-heading>
       <div class="ml-auto text-end">
         <div
-          class="body-3 text-grey font-weight-light"
+          class="text-body-2 text-grey font-weight-light"
           v-text="title"
         />
 

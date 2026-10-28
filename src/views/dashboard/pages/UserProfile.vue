@@ -15,7 +15,7 @@ defineOptions({ name: 'DashboardPagesUserProfile' })
       >
         <BaseMaterialCard icon="mdi-account-outline">
           <template #after-heading>
-            <div class="font-weight-light card-title mt-2">
+            <div class="font-weight-light text-h6 mt-2">
               Edit Profile
               <span class="text-body-1">— Complete your profile</span>
             </div>

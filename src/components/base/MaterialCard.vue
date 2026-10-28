@@ -42,7 +42,7 @@ const hasHeading = computed(() => Boolean(slots.heading || props.title || props.
         v-if="avatar"
         color="grey"
         size="128"
-        class="mx-auto v-card--material__avatar elevation-12"
+        class="mx-auto v-card--material__avatar elevation-5"
       >
         <v-img :src="avatar" />
       </v-avatar>
@@ -105,7 +105,7 @@ const hasHeading = computed(() => Boolean(slots.heading || props.title || props.
         class="ml-4"
       >
         <div
-          class="card-title font-weight-light"
+          class="text-h6 font-weight-light"
           v-text="title"
         />
       </div>

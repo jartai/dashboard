@@ -22,7 +22,7 @@ const typography: Record<string, [string, string, string]> = {
   'text-info': ['Info Text', leaderShort, 'p'],
   'text-success': ['Success Text', leaderShort, 'p'],
   'text-warning': ['Warning Text', leaderShort, 'p'],
-  'text-danger': ['Danger Text', leaderShort, 'p'],
+  'text-error': ['Error Text', leaderShort, 'p'],
   small: ['Small Tag', small, 'h2'],
 }
 </script>
