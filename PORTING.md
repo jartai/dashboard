@@ -81,6 +81,13 @@ identical to the original keeps both file trees navigable during the port.
 **Reason:** The original had no `dark: true`; Vuetify 2 defaulted to light.
 **Date:** 2026-10-26
 
+**Deviation:** Added a `locale` block with `rtl: { ar: true }`.
+**Reason:** `$vuetify.rtl = true` is gone in v3+; `useRtl().isRtl` is a read-only
+computed. Direction is now derived from a locale→RTL map, so switching the Vuetify
+locale to `'ar'` flips the app and sets `dir="rtl"`.
+**Status:** also the mechanism P9.8 needs for `ar.json`
+**Date:** —
+
 ---
 
 ## src/plugins/vuetify.js
@@ -734,6 +741,34 @@ Status: done
   grey--text → text-grey, black--text → text-black, text-right → text-end.
 - `card-title`, `purple-input`, `v-card-profile` kept verbatim — app.scss-era hooks, not
   Vuetify classes. Pending: their styling is a P10 item.
+
+---
+
+## P8.12 — views/dashboard/pages/Rtl.vue
+
+Status: done
+
+- Widgets.vue's content in Arabic. Original `name: 'Widgets'` (copy-paste artefact)
+  → `name: 'Rtl'`.
+- RTL: `this.$vuetify.rtl = true` → `useLocale().current = 'ar'` plus the `rtl` map in
+  plugins/vuetify.ts. `useRtl().isRtl` is read-only and cannot be assigned.
+- `created` → `onMounted`; `beforeDestroy` → `onBeforeUnmount`.
+- `v-list-item-action` dropped — removed in v3+, and here it wrapped a checkbox
+  outside any v-list-item, so it would not have resolved at all.
+- Headers: `text` → `title` (v4 dropped the alias); `align: 'right'` → `'end'`;
+  annotated `DataTableHeader[]` per the P8.7 rule.
+- `tasks` → `reactive()`; `tasks[tabs]` → `computed currentTasks` with `?? []`.
+- v-tabs-items/v-tab-item → v-tabs-window/v-tabs-window-item; background-color →
+  bg-color; subheading → text-subtitle-1; text-right → text-end.
+- v-menu bottom/offset-y/right → location="bottom end" + origin="top left";
+  v-timeline align-top/dense → align="start"/density="compact".
+- v-icon left/right → start/end; v-text on v-icon and v-list-item-title →
+  interpolation.
+- Arabic strings transcribed from the GitHub API's base64 — a few letters may be
+  off. Original `data()` payload is plain JS and safe to paste verbatim if so.
+- No style block in the original.
+- PENDING: RTL direction unverified until tested; if `current.value = 'ar'` does not
+  mirror the page, fall back to `<v-locale-provider rtl>`.
 
 ---
 

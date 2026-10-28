@@ -20,6 +20,13 @@ export default createVuetify({
       mdi,
     },
   },
+  locale: {
+    locale: 'en',
+    fallback: 'en',
+    rtl: {
+      ar: true,
+    },
+  },
   theme: {
     defaultTheme: 'light',
     themes: {

@@ -8,18 +8,42 @@ export const routes: RouteRecordRaw[] = [
     path: '/pages',
     component: () => import('@/layouts/AuthLayout.vue'),
     children: [
-      { path: 'lock', name: 'Lock', component: () => import('@/views/pages/Lock.vue') },
-      { path: 'login', name: 'Login', component: () => import('@/views/pages/Login.vue') },
-      { path: 'pricing', name: 'Pricing', component: () => import('@/views/pages/Pricing.vue') },
-      { path: 'register', name: 'Register', component: () => import('@/views/pages/Register.vue') },
+      {
+        path: 'lock',
+        name: 'Lock',
+        component: () => import('@/views/pages/Lock.vue'),
+      },
+      {
+        path: 'login',
+        name: 'Login',
+        component: () => import('@/views/pages/Login.vue'),
+      },
+      {
+        path: 'pricing',
+        name: 'Pricing',
+        component: () => import('@/views/pages/Pricing.vue'),
+      },
+      {
+        path: 'register',
+        name: 'Register',
+        component: () => import('@/views/pages/Register.vue'),
+      },
     ],
   },
   {
     path: '/',
     component: () => import('@/layouts/DashboardLayout.vue'),
     children: [
-      { path: '', name: 'Dashboard', component: () => import('@/views/dashboard/Dashboard.vue') },
-      { path: 'pages/rtl', name: 'RTL', component: Placeholder },
+      {
+        path: '',
+        name: 'Dashboard',
+        component: () => import('@/views/dashboard/Dashboard.vue'),
+      },
+      {
+        path: 'pages/rtl',
+        name: 'RTL',
+        component: () => import('@/views/dashboard/pages/Rtl.vue'),
+      },
       {
         path: 'pages/user',
         name: 'User Profile',
