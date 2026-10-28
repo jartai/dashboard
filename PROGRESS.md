@@ -5,23 +5,20 @@
 
 ## Current position
 
-**Step:** Phase 8 **complete** — 28/28 screens. Next: P9.4 world-map decision
-**Branch:** `main` (`p8-screens` merged)
+**Step:** Phase 9 **complete** — 13/13. Next: P10.0 parked `legacy.scss` selectors
+**Branch:** `main` (`p9-hard-parts` merged)
 **Last session:** 2026-10-28
 
 ## Working
 
-- Phases 0–8 complete: scaffold, Vuetify 4, routes, store, nav data, i18n, shells, layouts,
-  global styles, all 14 base components, all 28 screens — lint and type clean
-- Zero `_Placeholder` routes left
-- `locale.rtl` map added to `plugins/vuetify.ts`; Rtl.vue mirrors correctly
+- Phases 0–9 complete: scaffold through all 28 screens, world map, Arabic locale, i18n adapter,
+  Vuetify `rules` validation — lint and type clean
+- `Rtl.vue` verified under the adapter; direction and logical utilities flip and revert correctly
 
 ## Broken / blocked
 
+- `v-calendar` has nothing registering it — P10.0j
 - `src/views/_Placeholder.vue` now unreferenced — delete at P11
-- `v-validate` unresolved on ValidationForms / Wizard until P9.10–P9.11
-- `v-calendar` has nothing registering it — P10
-- `v-world-map` in Dashboard.vue unresolved — P9.4 / P9.5
 - Auth backdrop photo not painting (`View.vue`) — parked for P10
 - Most of `app.scss` still targets components that don't exist yet — expected
 - Vuetify warns duplicate node ID for the profile nav group (non-fatal)
@@ -30,7 +27,7 @@
 
 ## Next up
 
-- P9.4 Decide world-map replacement
+- P10.0 Resolve parked `legacy.scss` selectors
 
 ---
 
@@ -52,6 +49,8 @@
 - `lodash` is **not** a dependency. String helpers are hand-rolled.
 - `chartist` + `vue-chartist` **are** dependencies (chartist is unmaintained;
   swapping it touches only `MaterialChartCard.vue`).
+- **`@svg-maps/world`** is a dependency (CC-BY-4.0, attributed in `WorldMap.vue`).
+- Validation is **Vuetify `rules`**; vee-validate is not adopted.
 - SFC block order is **script → template → style**. Every `<style>` is `lang="scss"`.
   Enforced by `vue/block-order` and `vue/block-lang`.
 - Component styles stay **inline** in the SFC. `src/styles/` is cross-cutting only.
@@ -89,11 +88,14 @@
   is not configured. Consume the argument or use a method.
 - **`slice()` on a readonly tuple keeps the full element union.** Narrowing by slicing
   does not narrow the type.
+- **Not every v2 slot survived.** `#footer` on a data table is `#bottom`; a file input's
+  selection slot is `{ fileNames, totalBytes, totalBytesReadable }`; a list item's
+  `#item` gets the raw value, not a `{ title }` wrapper.
 
 ## Conventions
 
 - **Green gate:** dev server compiles AND the step's verify passes before the next step.
-- **One branch per phase:** `p0-scaffold`, `p7-base`, `p8-screens`…
+- **One branch per phase:** `p0-scaffold`, `p7-base`, `p8-screens`, `p9-hard-parts`…
 - **Commit every 1–3 steps.** Conventional commits.
 - **Never more than two uncommitted files.**
 - Run `pnpm lint` before every commit — it enforces block order and style lang.
@@ -137,10 +139,9 @@
 
 Newest first. Two lines max per entry.
 
-- 2026-10-28 — Phase 8 closed: Buttons, Icons, Grid, Tabs, Notifications, RegularForms,
-  DataTables, ExtendedTables, ExtendedForms, ValidationForms, Wizard, Typography.
-- 2026-10-28 — Phase 8: Charts, Calendar, Timeline, UserProfile, Rtl. Added `locale.rtl`
-  map; fixed `<chartist>` binding shadowing; logged four type traps.
+- 2026-10-28 — Phase 9 closed: world map replaced, ar.json, i18n adapter, Rtl verified,
+  ValidationForms + Wizard rebuilt on `rules`. vee-validate dropped.
+- 2026-10-28 — Phase 8 closed: all 28 screens ported; `_Placeholder` retired from routes.
 - 2026-10-27 — Phase 8: Dashboard, Widgets. `v-world-map` parked for Phase 9.
 - 2026-10-27 — Phase 8: 5 auth screens; fixed catch-all routing, CoreView slot, v-footer stacking, transition prefix.
 - 2026-10-27 — Phase 7: 14 base components, glob barrel, scss + block-order conventions.
@@ -156,8 +157,8 @@ Copy this into a new chat:
     Repo: https://github.com/jartai/dashboard
 
     Read PLAN.md, PROGRESS.md and PORTING.md from that repo before answering.
-    Phase 8 is closed; we're at P9.4 (world-map replacement). Old app reference is
+    Phase 9 is closed; we're at P10.0 (parked legacy.scss selectors). Old app reference is
     github.com/kathirr007/Vuetify-md-pro-clone, cloned read-only at ~/ref/md-pro-v2.
 
     Don't re-litigate the locked decisions in PROGRESS.md.
-    One file per step, full file content, explicit paths
+    One file per step, full file content, explicit paths.

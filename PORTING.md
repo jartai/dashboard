@@ -1196,6 +1196,22 @@ Status: done
 
 ---
 
+## P9.13 — Phase 9 closed
+
+Status: done
+
+- `v-validate` / `data-vv-*` count in `src/`: 0. `v-world-map` / `vue-world-map`: 0.
+- Both temporary shims (`errors.collect`, `validationErrors`) deleted with their screens' rewrites.
+- Phase 9 outcomes: chartist kept, world map replaced with `@svg-maps/world`, vee-validate dropped
+  for Vuetify `rules`, Arabic locale ported, i18n adapter wired, Rtl verified.
+- `v-validate` / `data-vv-*` count in `src/`: 0. `v-world-map` / `vue-world-map`: 1 — the
+  `.vue-world-map` rule at `legacy.scss:1190`, now dead. Its `max-height: 350px` moved into
+  `WorldMap.vue`; its `.land` stroke is covered by the `strokeColor` default. Rule left for
+  P10.4 to delete.
+- Still open into Phase 10: `v-calendar` has nothing registering it (P10.0j).
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical
