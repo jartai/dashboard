@@ -1112,6 +1112,21 @@ Status: done
 
 ---
 
+## P9.8 — Vuetify locale adapter
+
+Status: done
+
+- Added `locale.adapter: createVueI18nAdapter({ i18n, useI18n })` from `vuetify/locale`. Vuetify
+  now reads its locale from the vue-i18n instance instead of the dropped `lang.t` bridge.
+- `locale.rtl` extended from `ar` to the rest of the RTL locales Vuetify ships: dv, fa, he, ku,
+  ps, sd, ug, ur, yi. Direction stays driven by this map — `useRtl().isRtl` is read-only.
+- Vuetify's _own_ strings (pagination labels, data-table "no data", etc.) still resolve in
+  English: `ar.json` carries no `$vuetify` subtree. Adding one is optional follow-up work.
+- PENDING: `createVueI18nAdapter` is unverified in v4 — if the export moved, the build fails
+  loudly at import, not silently.
+
+---
+
 ## Skipped files
 
 `src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical

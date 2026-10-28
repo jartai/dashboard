@@ -1,6 +1,9 @@
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 import { aliases, mdi } from 'vuetify/iconsets/mdi'
+import { createVueI18nAdapter } from 'vuetify/locale'
+import { useI18n } from 'vue-i18n'
+import i18n from './i18n'
 
 // Brand colours
 const brand = {
@@ -21,10 +24,20 @@ export default createVuetify({
     },
   },
   locale: {
+    adapter: createVueI18nAdapter({ i18n, useI18n }),
     locale: 'en',
     fallback: 'en',
     rtl: {
       ar: true,
+      dv: true,
+      fa: true,
+      he: true,
+      ku: true,
+      ps: true,
+      sd: true,
+      ug: true,
+      ur: true,
+      yi: true,
     },
   },
   theme: {
