@@ -33,8 +33,8 @@ const hasHeading = computed(() => Boolean(slots.heading || props.title || props.
     v-bind="$attrs"
     class="v-card--material pa-3"
     :class="{
-      'v-card--material--has-heading': hasHeading,
-      'v-card--material--hover-reveal': hoverReveal,
+      'v-card--material-has-heading': hasHeading,
+      'v-card--material-hover-reveal': hoverReveal,
     }"
   >
     <div class="d-flex grow flex-wrap">
@@ -138,9 +138,19 @@ const hasHeading = computed(() => Boolean(slots.heading || props.title || props.
     z-index: 1;
   }
 
-  &.v-card--material--hover-reveal:hover {
+  &.v-card--material-hover-reveal:hover {
     .v-card--material__heading {
       transform: translateY(-40px);
+    }
+  }
+
+  .v-img {
+    box-shadow:
+      0 5px 15px -8px rgba(0, 0, 0, 0.24),
+      0 8px 10px -5px rgba(0, 0, 0, 0.2);
+
+    .v-img__img {
+      border-radius: 6px;
     }
   }
 }

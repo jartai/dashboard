@@ -62,9 +62,23 @@ withDefaults(
   padding-bottom: 72px;
   margin-bottom: 64px;
 
+  .v-card-text {
+    color: #999 !important;
+  }
+
+  .text-h3 {
+    font-size: 18px !important;
+    color: #3c4858;
+  }
+
+  .text-body-2 {
+    font-weight: 500;
+    font-size: 12px !important;
+  }
+
   .v-avatar {
     position: absolute;
-    left: calc(50% - 64px);
+    left: calc(50% - 50px);
     top: calc(100% - 64px);
   }
 }

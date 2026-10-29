@@ -25,60 +25,6 @@ body {
   }
 }
 
-.v-card--material__avatar {
-  position: relative;
-  top: -64px;
-  margin-bottom: -32px;
-}
-
-.v-card--material__heading {
-  position: relative;
-  top: -40px;
-  -webkit-transition: 0.3s ease;
-  transition: 0.3s ease;
-  z-index: 1;
-}
-
-.v-card--material.v-card--material--hover-reveal:hover .v-card--material__heading {
-  -webkit-transform: translateY(-40px);
-  transform: translateY(-40px);
-}
-
-.v-card--material-chart {
-  p {
-    color: #999;
-  }
-
-  .v-card--material__heading {
-    max-height: 185px;
-
-    .ct-label {
-      color: inherit;
-      opacity: 0.7;
-      font-size: 0.975rem;
-      font-weight: 100;
-    }
-
-    .ct-grid {
-      stroke: hsla(0, 0%, 100%, 0.2);
-    }
-
-    .ct-series-a {
-      .ct-bar,
-      .ct-line,
-      .ct-point,
-      .ct-slice-donut {
-        stroke: hsla(0, 0%, 100%, 0.8);
-      }
-
-      .ct-area,
-      .ct-slice-pie {
-        fill: hsla(0, 0%, 100%, 0.4);
-      }
-    }
-  }
-}
-
 .v-snackbar--material {
   margin-top: 32px;
   margin-bottom: 32px;
@@ -91,74 +37,6 @@ body {
   .v-snackbar__content {
     overflow: visible;
     padding: 0;
-  }
-}
-
-.v-card--material-stats {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  position: relative;
-
-  > div:first-child {
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-  }
-
-  .v-card {
-    border-radius: 4px;
-    -webkit-box-flex: 0;
-    -ms-flex: 0 1 auto;
-    flex: 0 1 auto;
-  }
-
-  .v-card__text {
-    display: inline-block;
-    -webkit-box-flex: 1;
-    -ms-flex: 1 0 calc(100% - 120px);
-    flex: 1 0 calc(100% - 120px);
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 100%;
-  }
-
-  .v-card__actions {
-    -webkit-box-flex: 1;
-    -ms-flex: 1 0 100%;
-    flex: 1 0 100%;
-  }
-}
-
-.v-tabs--pill {
-  .v-tab {
-    border-radius: 24px;
-
-    &:before {
-      border-radius: 24px;
-    }
-  }
-
-  &.v-tabs--icons-and-text .v-tab {
-    border-radius: 4px;
-
-    &:before {
-      border-radius: 4px;
-    }
-  }
-}
-
-.v-card--testimony {
-  padding-bottom: 72px;
-  margin-bottom: 64px;
-
-  .v-avatar {
-    position: absolute;
-    left: calc(50% - 64px);
-    top: calc(100% - 64px);
   }
 }
 
@@ -1027,26 +905,9 @@ body {
   }
 }
 
-.v-card--material-chart .v-card--material__heading .ct-label {
-  font-weight: 300;
-}
-
 .v-btn--icon.v-size--default .v-icon,
 .v-btn--icon.v-size--default .v-icon {
   font-size: 18px;
-}
-
-.v-card--material .v-image {
-  -webkit-box-shadow:
-    0 5px 15px -8px rgba(0, 0, 0, 0.24),
-    0 8px 10px -5px rgba(0, 0, 0, 0.2);
-  box-shadow:
-    0 5px 15px -8px rgba(0, 0, 0, 0.24),
-    0 8px 10px -5px rgba(0, 0, 0, 0.2);
-
-  .v-image__image {
-    border-radius: 6px;
-  }
 }
 
 .v-card__title {
@@ -1072,79 +933,6 @@ body {
 
 .v-timeline-item .v-card {
   margin-top: 0;
-}
-
-.v-card--wizard {
-  .v-slide-group__container {
-    height: 42px;
-  }
-
-  .v-card__actions .v-btn {
-    margin-right: 0 !important;
-  }
-
-  .v-theme--light.v-tabs .v-tab--active:before {
-    opacity: 0;
-  }
-
-  .v-tabs {
-    .v-tab--active:hover:before,
-    .v-tab:hover:before {
-      opacity: 0;
-    }
-  }
-}
-
-.v-card--plan {
-  .text-body-medium {
-    font-weight: 500;
-    letter-spacing: 0 !important;
-    margin-top: 10px;
-    margin-bottom: 8px;
-  }
-
-  .text-display-medium {
-    margin-top: 30px;
-    color: #3c4858;
-  }
-
-  .v-card__text {
-    color: #999;
-    margin-bottom: 16px;
-  }
-
-  .v-btn {
-    margin-right: 0 !important;
-  }
-
-  .v-avatar {
-    margin-top: 10px;
-
-    .v-icon {
-      -webkit-box-shadow: none;
-      box-shadow: none;
-    }
-  }
-}
-
-.v-card--testimony {
-  .v-card__text {
-    color: #999 !important;
-  }
-
-  .text-display-medium {
-    font-size: 18px !important;
-    color: #3c4858;
-  }
-
-  .text-body-medium {
-    font-weight: 500;
-    font-size: 12px !important;
-  }
-
-  .v-avatar {
-    left: calc(50% - 50px);
-  }
 }
 
 .ct-square:before {
@@ -1185,14 +973,6 @@ body {
 
 .v-theme--light .v-data-table table thead tr th {
   color: #333;
-}
-
-.vue-world-map {
-  max-height: 350px;
-
-  .land {
-    stroke: #fff !important;
-  }
 }
 
 .v-tabs {
@@ -1819,28 +1599,3 @@ body {
   background-color: #eee;
 }
 
-.v-card--wizard {
-  overflow: visible;
-
-  .v-slide-group__container {
-    height: 56px;
-    padding: 0 8px;
-  }
-
-  .v-slide-group__wrapper {
-    overflow: visible;
-  }
-
-  .v-tabs-slider {
-    border-radius: 4px;
-    margin: 0 !important;
-    &-wrapper {
-      z-index: auto;
-      top: 2px;
-    }
-  }
-
-  .v-slide-group__wrapper {
-    contain: none;
-  }
-}

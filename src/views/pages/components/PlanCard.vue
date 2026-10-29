@@ -61,9 +61,35 @@ withDefaults(defineProps<{ plan?: Plan }>(), {
 
 <style lang="scss">
 .v-card--plan {
+  .text-body-2 {
+    font-weight: 500;
+    letter-spacing: 0 !important;
+    margin-top: 10px;
+    margin-bottom: 8px;
+  }
+
+  .text-h3 {
+    margin-top: 30px;
+    color: #3c4858;
+  }
+
+  .v-card-text {
+    color: #999;
+    margin-bottom: 16px;
+  }
+
+  .v-btn {
+    margin-right: 0 !important;
+  }
+
   .v-avatar {
     border-radius: 50%;
     border: 1px solid #e5e5e5;
+    margin-top: 10px;
+
+    .v-icon {
+      box-shadow: none;
+    }
   }
 }
 </style>

@@ -58,7 +58,9 @@ const step = computed({
         v-for="(item, i) in items"
         :key="i"
         :disabled="!availableSteps.includes(i)"
+        :hide-slider="false"
         :ripple="false"
+        :value="i"
       >
         {{ item }}
       </v-tab>
@@ -105,12 +107,31 @@ const step = computed({
     height: 56px;
     padding: 0 8px;
     overflow: visible;
-    contain: initial;
+    contain: none;
   }
 
-  .v-tabs__slider {
-    margin-top: 4px;
+  .v-card-actions .v-btn {
+    margin-right: 0 !important;
+  }
+
+  .v-theme--light.v-tabs .v-tab--active .v-btn__overlay {
+    opacity: 0;
+  }
+
+  .v-tab--active:hover .v-btn__overlay,
+  .v-tab:hover .v-btn__overlay {
+    opacity: 0;
+  }
+
+  .v-tab__slider {
+    margin: 0 !important;
     border-radius: 4px;
+    bottom: 0;
+    left: calc(50% - 25px);
+    right: auto;
+    width: 50px;
+    z-index: 1;
+    background: rgb(var(--v-theme-success));
   }
 }
 </style>
