@@ -184,8 +184,7 @@ const pie = {
         lg="6"
       >
         <BaseMaterialCard
-          id="coloured-line"
-          class="px-4 py-3"
+          class="px-4 py-3 coloured-line"
           color="info"
           icon="mdi-chart-timeline-variant"
         >
@@ -208,8 +207,7 @@ const pie = {
         <div class="py-3" />
 
         <BaseMaterialCard
-          id="coloured-line"
-          class="px-4 py-3"
+          class="px-4 py-3 coloured-line"
           color="warning"
           icon="mdi-chart-timeline-variant"
         >
@@ -313,7 +311,7 @@ const pie = {
 </template>
 
 <style lang="scss">
-#coloured-line {
+.coloured-line {
   .ct-series-a .ct-line,
   .ct-series-a .ct-point {
     stroke: #00cae3 !important;
