@@ -136,3 +136,20 @@ Status: done, no code change
 - No explicit import added; auto-import covers core components.
 
 ---
+
+## P10.0g — scoped vs unscoped
+
+**Deviation:** Style blocks stay **unscoped**, namespaced by a per-screen root selector.
+No `scoped`, no `:deep()`.
+**Reason:** Almost every rule in `legacy.scss` targets a child component's internals
+(`.v-list-item__content`, `.v-tabs__slider`, `.ct-series-a .ct-line`,
+`.v-calendar-weekly__day`). Scoping appends `[data-v-hash]` to the last compound
+selector, which only matches the screen's own elements, so each rule would need
+`:deep()` — identical output, more syntax, and a boundary that breaks on slot children.
+The original relied on global cascade, and every screen already carries a stable id
+(`#pages`, `#calendar`, `#dashboard`, `#user-profile`, `#alerts`, `#settings`,
+`#core-navigation-drawer`).
+**Status:** decided — P10.0g. Applies to every extraction in P10.1.
+**Date:** 2026-10-29
+
+---
