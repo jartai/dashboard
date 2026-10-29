@@ -39,7 +39,6 @@ defineOptions({ name: 'DashboardPagesUserProfile' })
                   md="4"
                 >
                   <v-text-field
-                    class="purple-input"
                     label="User Name"
                   />
                 </v-col>
@@ -49,7 +48,6 @@ defineOptions({ name: 'DashboardPagesUserProfile' })
                   md="4"
                 >
                   <v-text-field
-                    class="purple-input"
                     label="Email Address"
                   />
                 </v-col>
@@ -59,7 +57,6 @@ defineOptions({ name: 'DashboardPagesUserProfile' })
                   md="6"
                 >
                   <v-text-field
-                    class="purple-input"
                     label="First Name"
                   />
                 </v-col>
@@ -69,14 +66,12 @@ defineOptions({ name: 'DashboardPagesUserProfile' })
                   md="6"
                 >
                   <v-text-field
-                    class="purple-input"
                     label="Last Name"
                   />
                 </v-col>
 
                 <v-col cols="12">
                   <v-text-field
-                    class="purple-input"
                     label="Adress"
                   />
                 </v-col>
@@ -86,7 +81,6 @@ defineOptions({ name: 'DashboardPagesUserProfile' })
                   md="4"
                 >
                   <v-text-field
-                    class="purple-input"
                     label="City"
                   />
                 </v-col>
@@ -96,7 +90,6 @@ defineOptions({ name: 'DashboardPagesUserProfile' })
                   md="4"
                 >
                   <v-text-field
-                    class="purple-input"
                     label="Country"
                   />
                 </v-col>
@@ -106,7 +99,6 @@ defineOptions({ name: 'DashboardPagesUserProfile' })
                   md="4"
                 >
                   <v-text-field
-                    class="purple-input"
                     label="Postal Code"
                     type="number"
                   />
@@ -114,7 +106,6 @@ defineOptions({ name: 'DashboardPagesUserProfile' })
 
                 <v-col cols="12">
                   <v-textarea
-                    class="purple-input"
                     label="About Me"
                     model-value="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                   />
@@ -143,7 +134,6 @@ defineOptions({ name: 'DashboardPagesUserProfile' })
       >
         <BaseMaterialCard
           avatar="https://demos.creative-tim.com/vue-material-dashboard/img/marc.aba54d65.jpg"
-          class="v-card-profile"
         >
           <v-card-text class="text-center">
             <h6 class="text-h4 mb-1 text-grey">CEO / CO-FOUNDER</h6>

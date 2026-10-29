@@ -740,7 +740,7 @@ Status: done
 - Renames: body-1 → text-body-1, display-1 → text-h4, display-2 → text-h3,
   grey--text → text-grey, black--text → text-black, text-right → text-end.
 - `card-title`, `purple-input`, `v-card-profile` kept verbatim — app.scss-era hooks, not
-  Vuetify classes. → closed at P10.0f
+  Vuetify classes. Closed at P10.0h — neither is defined anywhere, so both were removed.
 
 ---
 
@@ -1325,6 +1325,24 @@ Status: done
   row's label is now "Error Text" so the page documents the class it shows.
 - `purple-input` and `v-card-profile` are untouched — they are component hooks with
   real styling to restore, tracked at P10.0h.
+
+---
+
+## P10.0h — purple-input / v-card-profile
+
+Status: done
+
+- Both classes removed. Verified against the original `src/assets/css/app.scss`
+  _and_ the compiled `app.css`: no rule for `.purple-input`, none for
+  `.v-card-profile`. They were markup-only hooks with no styling in either build.
+- Nine `purple-input` occurrences (eight text fields plus the About Me textarea)
+  and one `v-card-profile` on the profile card.
+- Nothing replaces them — the fields render with stock v4 input styling, which is
+  what the original did once the dead classes had no rule behind them.
+- Correction to P10.0f: that step deferred these expecting styling to port.
+- Still open on this screen: the `avatar` URL points at
+  `demos.creative-tim.com/vue-material-dashboard/...`, another host that no longer
+  serves the demo. P11.1.
 
 ---
 
