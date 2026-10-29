@@ -173,8 +173,7 @@ Status: done
   P8.7 headers fix.
 - Dropped unreferenced `disabled` and `focus` from data().
 - `lang="sass"` → `lang="scss"`, unscoped, `#calendar` root preserved.
-- PENDING: the style block targets v2's `.v-calendar-weekly__*` markup — verify
-  against v4's DOM at P10.
+- Resolved at P10.0j: `.v-calendar-weekly__*` markup is unchanged in v4, so the style block applies as written.
 
 ---
 

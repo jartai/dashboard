@@ -119,3 +119,20 @@ Status: done
 
 ---
 
+## P10.0j — v-calendar registration
+
+Status: done, no code change
+
+- `VCalendar` is a core v4 component — it is absent from `labs/index.ts` entirely.
+  `vite.config.ts` runs `vuetify({ autoImport: true })`, so `v-calendar` resolves
+  without an import; the "nothing registers it" note was written against v3 labs.
+- `VCalendarWeekly` still renders `v-calendar-weekly__head-weekday`,
+  `v-calendar-weekly__week` and `v-calendar-weekly__day`, so Calendar.vue's style
+  block and legacy.scss's two rules apply unchanged.
+- `next` / `prev` are returned from setup and re-exported via `forwardRefs`, so the
+  toolbar chevrons still drive the view. `modelValue`, `type`, `now` and `eventColor`
+  all survive as props.
+- Closes the P8.9 pending and the P10.0 park for `.v-calendar-weekly__*`.
+- No explicit import added; auto-import covers core components.
+
+---
