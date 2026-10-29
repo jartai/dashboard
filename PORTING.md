@@ -105,7 +105,7 @@ locale to `'ar'` flips the app and sets `dir="rtl"`.
 
 ## src/router/routes.ts
 
-**Deviation:** Route name `'Data Tabels'` corrected to `'Data Tables'`.
+**Deviation:** Route name `'Data Tables'` corrected to `'Data Tables'`.
 **Reason:** Typo in the original.
 **Date:** 2026-10-26
 
@@ -117,7 +117,7 @@ locale to `'ar'` flips the app and sets `dir="rtl"`.
 
 ## src/stores/ui.ts
 
-**Deviation:** `expandOnHover` moved from component-local `data` in
+**Deviation:** `expandOnHover` moved from component-local `data` on
 `dashboard/Index.vue` into the store.
 **Reason:** Avoids prop-drilling through the layout to AppBar, Drawer and Settings.
 **Date:** 2026-10-26
@@ -226,7 +226,7 @@ whatever thresholds are configured.
 **Deviation:** `#image` slot dropped; `:image` prop used instead.
 **Reason:** The v4 slot is wrapped in a `VDefaultsProvider` and threw during render.
 **Status:** done — gradient overlay restored at P10.0b
-**Date:** 2026-10-28
+**Date:** —
 
 **Deviation:** `:right="$vuetify.rtl"` → `:location="isRtl ? 'end' : 'start'"`.
 **Date:** 2026-10-26
@@ -248,7 +248,7 @@ Non-fatal; the drawer renders.
 **Status:** auto-expand-on-active-child needs verification
 **Date:** —
 
-**Deviation:** `Themeable` mixin → `useTheme()`; `mapState(['barColor'])` → store.
+**Deviation:** `Themeable` mixin → useTheme(); `mapState(['barColor'])` → store.
 **Date:** 2026-10-26
 
 **Deviation:** `v-list-item-icon` / `-content` / `-title` children → `#prepend` slot
@@ -306,7 +306,7 @@ hardcoding `dark = false`.
 
 ## components/auth/*
 
-**Deviation:** ``require(`@/assets/${src}`)``→ static imports in a lookup map.
+**Deviation:** ``require(`@/assets/${src}`)`` → static imports in a lookup map.
 **Reason:**`require` is not defined in Vite's ESM runtime.
 **Date:** 2026-10-26
 
@@ -364,7 +364,7 @@ deleted at P10.
 
 ## components/base/*.vue
 
-**Deviation:** `extends: VX` replaced with render-and-wrap plus `v-bind="$attrs"`.
+**Deviation:** `extends: VX` x replaced with render-and-wrap plus `v-bind="$attrs"`.
 **Reason:** `<script setup>` has no `extends`; unknown props pass through `$attrs`.
 **Date:** —
 
@@ -404,9 +404,9 @@ Status: done
 - Deleted dead code: hasAltHeading computed (never referenced), `image` prop (template checks $slots.image, prop never read).
 - $slots accessed via useSlots() since <script setup> has no $slots binding.
 - Classes computed folded into an inline :class object.
-- Renames: display-1 → text-h4, headline → text-h5. Dropped dead `dark` on v-sheet.
-- Closed: `card-title` is not a v4 typography class — kept verbatim, review at P10. → closed at P10.0f
-- Pending: elevation-12 on the avatar — verify v4 supports >5; remap if flat. → closed at P10.0f
+- Renames: display-1 → text-h4, heading → text-h5. Dropped dead `dark` on v-sheet.
+- Pending: `card-title` is not a class — kept verbatim, review at P10. → closed at P10.0f.
+- Pending: elevation-12 on the avatar — verify v4 supports >5; remap if flat. → closed at P10.0f.
 
 ---
 
@@ -419,7 +419,7 @@ Status: done
 - Dropped v-on="$listeners" (Vue 3 puts listeners in $attrs).
 - TRAP recorded: v2 `text--primary` is text emphasis, not the primary colour. Mapped to text-high-emphasis, NOT text-primary.
 - Renames: display-2 → text-h3, caption → text-caption, grey--text → text-grey, text-right → text-end, v-card__text/__actions → v-card-text/actions.
-- Pending: `body-3` is not a real Vuetify class (vestigial). Empty v-icon renders when subIcon is undefined.
+- Pending: `body-3` is not a real Vuetify class (vestigial). Empty v-icon renders when subIcon is undefined. → closed at P10.0f.
 
 ---
 
@@ -429,7 +429,7 @@ Status: done
 
 - Dependency added: chartist@0.11 + vue-chartist@3 (the Vue 3 build; v2 was Vue 2 only).
 - vue-chartist ships Chartist JS but not its stylesheet → chartist installed separately for chartist.min.css, imported in main.ts.
-- vue-chartist is CJS and untyped → src/types/vue-chartist.d.ts shim (module decl + GlobalComponents entry for <chartist>).
+- vue-chartist is CJS and untyped → src/types/vue-chartist.d.ts shim (module declar + GlobalComponents entry for <chartist>).
 - optimizeDeps.include added in vite.config.ts (CJS-only dep).
 - type validator fn replaced with a 'Bar'|'Line'|'Pie' union.
 - v2 `slot="x"` pass-throughs rewritten as <template #x>.
@@ -442,7 +442,7 @@ Status: done
 Status: done
 
 - FINDING: the original's @click="$(`click:action-${item.id}`)" calls a method `$` that is defined nowhere (checked main.js, App.vue, plugins/base.js, plugins/vuetify.js, no global mixin). Latent bug — throws on item click while the menu still closes.
-- Ported as an explicit `action` emit carrying item.id. Screens listening for click:action-N, if any exist, will surface in Phase 8.
+- Ported as an explicit `action` emit carrying item.id. Screens listening for click:action-N, if any, will surface in Phase 8.
 - Proxyable mixin replaced with a computed get/set on modelValue. Also accepts a `value` prop and emits `change`, because Proxyable's model was value/change and ported screens may use v-model against that.
 - activator slot: v2 { attrs, on } → v3+ { props }. v-on="on" dropped.
 - Dropped: offset-y (no v3+ equivalent, default offset used), `default` on v-btn (v3+ default is elevated).
@@ -490,8 +490,6 @@ Status: done
 
 ## Restructure — keep .ts out of component dirs
 
-Status: done
-
 - components/base/ is now .vue-only. Moved: index.ts → plugins/base.ts (also matches the original repo's plugins/base.js), types.ts → types/alert.ts, global.d.ts → types/global-components.d.ts.
 - Barrel glob changed from './_.vue' to '../components/base/_.vue'; toGlobalName now takes the basename.
 - CORRECTION to the earlier P7.12 note: Item.vue / ItemGroup.vue / ItemSubGroup.vue live in components/base/ (not components/core/) and are registered as BaseItem / BaseItemGroup / BaseItemSubGroup. Added to global-components.d.ts.
@@ -508,14 +506,14 @@ Status: done
 
 ---
 
-## Convention — style block lang
+## Convention — style block
 
 Status: done
 
 - Standardised on lang="scss" for every <style> block; enforced via vue/block-lang.
 - Converted 7 indented-sass blocks (MaterialAlert, MaterialCard, MaterialChartCard, MaterialSnackbar, MaterialStatsCard, MaterialTestimony, MaterialWizard).
 - Added lang to 4 plain <style> blocks (core/Settings, core/Drawer, auth/View, base/MaterialTabs); MaterialTabs body rewritten from indented nesting.
-- Why scss: global stylesheet is already scss, scss ≈ css, Vuetify docs/source are scss, one dialect repo-wide.
+- Why scss: global stylesheet is already scss, scss ≠ css, Vuetify docs/source are scss, one dialect repo-wide.
 - scoped vs unscoped left open — revisit at P10.
 
 ---
@@ -543,7 +541,7 @@ Status: done
 
 - <CoreView /> was self-closing in AuthLayout, discarding everything inside it — the single cause of the empty middle. Replaced with <CoreView><slot><router-view /></slot></CoreView>.
 - View.vue rebuilt: absolutely-positioned v-img backdrop + content sibling, instead of content nested inside v-img (the v2 sizer/absolute-content trick doesn't survive v3+).
-- AuthLayout v-layout got flex-column: v-footer was landing beside v-main, not below (v2's `app` prop is gone in v3+).
+- AuthLayout v-layout got flex-column: v-footer was landing beside v-main, not below (v2's appg prop is gone in v3+).
 - Settings.vue: theme.global.name.value = x → theme.change(x).
 - vue.config: define global → globalThis for the vue-chartist CJS dep.
 - CONVENTION: in vue-router 4, never nest under a catch-all parent. Use a leaf route and let the screen render its own layout.
@@ -615,7 +613,7 @@ Status: done
 - this.$chartist → import Chartist from 'chartist' + types/chartist.d.ts shim (chartist ships no types).
 - Deleted unreferenced data: headers, items, tabs, list, complete() — leftovers from a data-table version.
 - PENDING (Phase 9): <v-world-map> is unresolved. vue-world-map is a Vue 2 component; needs a replacement or adapter.
-- `card-title` kept verbatim (not a v4 class) — P10. → closed at P10.0f
+- `card-title` kept verbatim (not a v4 class) — P10. → closed at P10.0f.
 
 ---
 
@@ -638,7 +636,7 @@ Status: done
 Status: done
 
 - `align: 'end'` widened to `string` inside an unannotated array literal; VDataTable's `headers` prop wants the literal union `'start' | 'center' | 'end'`.
-- Fix: `const headers: DataTableHeader[]` with `import type { DataTableHeader } from 'vuetify'`.
+- Fix: `const headers: DataTableHeader[]` with `import type { DataTableHeader } from 'vuetify'`
 - RULE: any array of Vuetify header/option objects needs an explicit annotation — literal values otherwise widen to `string` and the prop type rejects them. Expect this again in RegularTables, ExtendedTables and DataTables.
 
 ---
@@ -652,7 +650,7 @@ Status: done
 - `types/chartist.d.ts` declared the key as `monone` — a typo conflating `none` and `monotone`. Renamed to `none`; `monotone` added alongside it.
 - `v-slot:after-heading` → `#after-heading`.
 - Renames: display-1 → text-h4, grey--text → text-grey, subtitle-1 → text-subtitle-1, body-2 → text-body-2, `orange darken-1` → `orange-darken-1`.
-- `lang="sass"` → `lang="scss"`. Left **unscoped** so the `#coloured-line` / `#multiple-bar` / `#pie` ID selectors still reach chartist's generated DOM. The duplicate `id="coloured-line"` is retained as in the original.
+- `lang="sass"` → `lang="scss"`. Left **unscoped** so the `#coloured-line` / `#multiple-bar` / `#pie` ID selectors still reach chartist's generated DOM. The duplicate `id="coloured-line"` was resolved at P10.0i — it is a class now.
 - Dropped unreferenced data: `headers`, `items`, `tabs`, `list`, `complete()`. Same leftovers as Dashboard.vue; no `v-data-table` on this screen, so no `DataTableHeader` annotation was needed here.
 - CONVENTION: in `<script setup>`, a binding counts as unused unless the **template** references it. Data carried over from the original will trip `@typescript-eslint/no-unused-vars` even when the original used it — delete it rather than underscore-prefixing.
 - `src/router/routes.ts`: `charts` route swapped from `Placeholder` to a lazy import of the screen.
@@ -674,7 +672,7 @@ render function` and no chart drew.
   `Interpolation.none()` call sites). Two words.
 - Dashboard.vue also imports `Chartist` but only uses `<BaseMaterialChartCard>`,
   so it was never affected.
-- RULE: never name a `<script setup>` binding the same as a global component you
+- RULE: never name a <script setup> binding the same as a global component you
   use in that file's template. The binding silently wins.
 
 ## P8.8 fix — explicit lowercase `chartist` alias
@@ -684,7 +682,7 @@ Status: done
 - vue-chartist 3.0.0's install registers its component as `Chartist` (capital C);
   templates use the lowercase `<chartist>` tag and rely on Vue's
   capitalize fallback in `resolveComponent`.
-- Aliased it explicitly in main.ts so the lowercase name doesn't depend on that
+- Aliased it there explicitly in main.ts so the lowercase name doesn't depend on that
   fallback. Written as a `const` + `if` because `app.component(name)` returns
   `Component | undefined` and the two-arg overload needs a non-undefined value.
 - NOTE: vue-chartist 3.0.0 is CJS with only a named `install` export and no
@@ -698,7 +696,7 @@ Status: done
 Status: done
 
 - Local `CalendarBtn` dropped. It was `extends: VBtn` + `VBtn.options.computed.classes.call(this)`
-  — a v2 idiom with no v3+ equivalent. Replaced with `v-btn` carrying the same four
+  — a v2 idiom with no v3+ equivalent. Replaced with `v`-btn carrying the same four
   things it added: `color="secondary" rounded class="mx-1 text-lowercase"`.
 - `$refs.calendar.prev()` / `.next()` → template ref `calendarRef` + optional call.
 - `type` ref annotated as a `CalendarType` union; `ref('month')` alone widens to
@@ -739,7 +737,7 @@ Status: done
   landed in $attrs on the wrapper div and the About Me box rendered empty.
 - Renames: body-1 → text-body-1, display-1 → text-h4, display-2 → text-h3,
   grey--text → text-grey, black--text → text-black, text-right → text-end.
-- `card-title`, `purple-input`, `v-card-profile` kept verbatim — app.scss-era hooks, not
+- `card-title`, `purple-input`, `v-card-profile`, kept verbatim — app.scss-era hooks, not
   Vuetify classes. Closed at P10.0h — neither is defined anywhere, so both were removed.
 
 ---
@@ -784,7 +782,7 @@ Status: done
 - `v-icon left`/`right` → `start`/`end`; `v-text` on `v-icon` → interpolation.
 - `v-row dense` → `density="compact"`.
 - `v-btn-toggle` given `v-model` refs typed `unknown` — the emit type is `unknown | unknown[]`.
-- `:key` moved from the `v-col` onto the `<template v-for>`; the redundant `:key` on
+- `:key` moved from the `v-col` onto the `<template v-for>`. The redundant `:key` on
   `BaseSubheading` dropped (`v-if` sits on the child, not the loop).
 - Second colour list is `colors.slice(2)`. `slice` on a readonly tuple returns the full element
   union, so it still includes `'default'` even though the value can't appear — the sentinel
@@ -815,7 +813,7 @@ Status: done
 - `icons` left unannotated — it is a flat `string[]` with no index lookups, so no union needed.
 - No style block in the original.
 - PENDING: `content-class` on v-tooltip is unverified in v4; falls back to $attrs if the prop
-  is gone. P10.
+  is gone. P10e.
 
 ---
 
@@ -826,14 +824,14 @@ Status: done
 - Local `ParagraphHeading` kept, not inlined. It was `render(h)` in the original; ported as a
   `FunctionalComponent` in the same file, since `<script setup>` slots are functions.
   `this.$slots.default` → `slots.default?.()`.
-- `headline` → `text-h5`; `col cols-12` → `v-col-12` (v2 flex classes, v4 grid utilities).
+- `heading` → `text-h5`; `col cols-12` → `v-col-12` (v2 flex classes, v4 grid utilities).
 - `red--text text--darken-4` → `text-red-darken-4`.
 - FIX: `cols="12 pt-0"` on the paragraphs column was a class stuffed into the `cols` prop.
   Split into `cols="12" class="pt-0"`.
 - `name: 'DashboardGrid'` → `defineOptions({ name: 'Grid' })`.
 - No style block in the original.
 - PENDING: the "Collapsed at 960px / 1280px / 1920px" subheading copy still quotes v2
-  thresholds; v4's are 840/1145/1545. Copy left verbatim. P10.
+  thresholds; v4's are 840/1145/1545. Copy left verbatim. P10e.
 
 ---
 
@@ -843,13 +841,10 @@ Status: done
 
 - STRUCTURAL: v3+ `v-tabs` no longer hosts its own content, so every `v-tab-item` block became
   a `v-tabs-window` / `v-tabs-window-item` pair placed as a **sibling** after
-  `BaseMaterialTabs`, sharing one model. `BaseMaterialTabs` only renders `<v-tabs>`, so
-  content cannot stay inside it without landing in the flex bar.
-- Each of the four uncontrolled tab sets gained a `v-model` ref (`nav1`–`nav3`) — the window
-  and the bar must share a value, which the original's implicit v2 pairing did for free.
-- `vertical` → `direction="vertical"`; `centered` → `align-tabs="center"`;
-  `background-color` → `bg-color`.
-- `v-expansion-panel-header` / `-content` → `-title` / `-text`.
+  `BaseMaterialTabs`, sharing one model. `BaseMaterialTabs` only renders `<v-tabs>`, so content cannot stay inside it without landing in the flex bar.
+- Each of the four uncontrolled tab sets gained a `v-model` ref (`nav1`–`nav3`) — the window and the bar must share a value, which the original's implicit v2 pairing did for free.
+- `vertical` → `direction="vertical"`; `centered` → `align-tabs="center"`; `background-color` → `bg-color`.
+- v-expansion-panel-header / `-content` → `-title` / `-text`.
 - `flat` on v-card → `variant="flat"`; `v-icon v-text="tab.icon"` → interpolation.
 - Renames: headline → text-h5, `grey--text body-2` → `text-grey text-body-2`.
 - FIX: the Help Center subheading passed `heading=`, which BaseSubheading does not declare —
@@ -857,8 +852,7 @@ Status: done
 - FIX: `v-for="(tab, i) in tabs"` shadowed the `tab` model ref; the loop binding is `tabLabel`.
 - `name: 'DashboardPanels'` → `defineOptions({ name: 'Tabs' })`.
 - No style block in the original.
-- PENDING: `icons-and-text` on v-tabs is unverified in v4 — MaterialTabs' scss keys off
-  `v-tabs--icons-and-text`, so confirm the class still renders. P10.
+- PENDING: `icons-and-text` on v-tabs is unverified in v4 — MaterialTabs' scss keys off `v-tabs--icons-and-text`, so confirm the class still renders. P10e.
 
 ---
 
@@ -866,20 +860,14 @@ Status: done
 
 Status: done
 
-- FIX: `parsedDirection` split on `''`, so `v-bind="{ [parsedDirection[0]]: true, [parsedDirection[1]]: true }"`
-  set `t` and `o` — neither a v2 nor a v4 prop. Replaced with `:location="direction"` and the
-  computed deleted; the snackbar now actually moves.
-- `dark` dropped on every BaseMaterialAlert — undeclared, so it fell through $attrs to v-alert
-  as a dead attribute; v4 derives the on-colour from `color`/`type`.
+- FIX: `parsedDirection` split on `''`, so `v-bind="{ [parsedDirection[0]]: true, [parsedDirection[1]]: true }"` set `t` and `o` — neither a v2 nor a v4 prop. Replaced with `:location="direction"` and the computed deleted; the snackbar now actually moves.
+- `dark` dropped on every BaseMaterialAlert — undeclared, so it fell through $attrs to v-alert as a dead attribute; v4 derives the on-colour from `color`/`type`.
 - `dismissible` kept — that is the prop MaterialAlert declares (it maps to v-alert `closable`).
 - `v-btn default` dropped; `depressed` → `variant="flat"`; `text` → `variant="text"`;
   `rounded` → `rounded="pill"`; `class="v-btn--block"` → the `block` prop (class kept alongside).
-- `color` ref annotated `AlertType` so it satisfies MaterialSnackbar's `type` prop;
-  `randomColor()` uses `?? 'info'` for `noUncheckedIndexedAccess`.
-- FIX: `v-for="color in colors"` shadowed the `color` ref used by the snackbar; loop binding
-  renamed `stateColor`.
-- Renames: body-1 → text-body-1, `grey--text` → `text-grey`,
-  `hidden-sm-and-down` → `d-none d-md-block`.
+- `color` ref annotated `AlertType` so it satisfies MaterialSnackbar's `type` prop; `randomColor()` uses `?? 'info'` for `noUncheckedIndexedAccess`.
+- FIX: `v-for="color in colors"` shadowed the `color` ref used by the snackbar; loop binding renamed `stateColor`.
+- Renames: body-1 → text-body-1, `grey--text` → `text-grey`, `hidden-sm-and-down` → `d-none d-md-block`.
 - `name: 'DashboardNotifications'` → `defineOptions({ name: 'Notifications' })`.
 - Container id stays `alerts` (as in the original).
 - No style block in the original.
@@ -892,21 +880,16 @@ Status: done
 Status: done
 
 - `v-subheader` removed in v3+ → plain `div`; `display-1` → `text-h4`.
-- `input-value="true"` → `v-model` refs. The original's `checkbox`/`radioGroup`/`switch1`
-  data was dead (nothing bound it), so those are gone and the controls now hold real state.
-  Indeterminate model typed `boolean | null`.
+- `input-value="true"` → `v-model` refs. The original's `checkbox`/`radioGroup`/`switch1` data was dead (nothing bound it), so those are gone and the controls now hold real state. Indeterminate model typed `boolean | null`.
 - `filled`/`outlined`/`solo` → `variant="filled"|"outlined"|"solo"`.
 - `no-gutters` → `gap="0"`; `no-wrap` kept (still a v4 prop).
 - `v-radio-group column` dropped (default); `row` → `inline`.
-- `text-right grey--text` → `text-end text-grey`; `track-color="secondary lighten-3"` →
-  `secondary-lighten-3`.
-- `v-textarea value="…"` → `model-value="…"` (same trap as P8.11).
-- `zoomOut`/`zoomIn` kept verbatim, including the `|| 0` / `|| 100` quirk that lets the value
-  go negative before clamping.
+- `text-right grey--text` → `text-end text-grey`; `track-color="secondary lighten-3"` → `secondary-lighten-3`.
+- `v-textarea value="..."` → `model-value="..."` (same trap as P8.11).
+- `zoomOut`/`zoomIn` kept verbatim, including the `|| 0` / `|| 100` quirk that lets the value go negative before clamping.
 - `name: 'DashboardFormsRegularForms'` → `defineOptions({ name: 'RegularForms' })`.
 - No style block in the original.
-- PENDING: `prepend-icon`/`append-icon` and `@click:prepend`/`@click:append` on v-slider are
-  unverified in v4. P10.
+- PENDING: `prepend-icon`/`append-icon` and `@click:prepend`/`@click:append` on v-slider are unverified in v4. P10.
 
 ---
 
@@ -916,8 +899,7 @@ Status: done
 
 - `v-simple-table` → `v-table` (rename in the PLAN table; same default-slot markup).
 - `text-left` → `text-start`.
-- `data()` → typed `Dessert[]` const; the original had no `name` field, so no `defineOptions`
-  — the filename infers `RegularTables`.
+- `data()` → typed `Deserts[]` const; the original had no `name` field, so no `defineOptions` — the filename infers `RegularTables`.
 - Bare screen: no container, no BaseVComponent, no style block — as in the original.
 
 ---
@@ -926,13 +908,10 @@ Status: done
 
 Status: done
 
-- Headers: `text` → `title` (v4 dropped the alias) and annotated `DataTableHeader[]` per the
-  P8.7 rule; `items` annotated with a `Person` interface.
+- Headers: `text` → `title` (v4 dropped the alias) and annotated `DataTableHeader[]` per the P8.7 rule; `items` annotated with a `Person` interface.
 - `:search.sync` → `v-model:search`; `search: undefined` → `ref('')`.
-- `sort-by` + `sort-desc` collapsed into a single `:sort-by` of `{ key, order }` objects —
-  `sort-desc` no longer exists. Declared with an inline `'asc' | 'desc'` union rather than
-  importing `SortItem`, whose export path is not guaranteed.
-- `single-line` on v-text-field dropped (default in v3+); `hide-details` kept.
+- sort-by + sort-desc collapsed into a single `:sort-by` of `{ key, order }` objects — sort-desc no longer exists. Declared with an inline `'asc' | 'desc'` union rather than importing `SortItem`, whose export path is not guaranteed.
+- single-line`on v-text-field dropped (default in v3+);`hide-details` kept.
 - `v-slot:after-heading` → `#after-heading`; display-2 → text-h3.
 - `name: 'DashboardDataTables'` → `defineOptions({ name: 'DataTables' })`.
 - No style block in the original; container stays non-`fluid` and keeps `id="data-tables"`.
@@ -945,17 +924,12 @@ Status: done
 Status: done
 
 - `v-simple-table` → `v-table`; `text-right` → `text-end`.
-- `v-btn small`/`x-small` → `size="small"`/`size="x-small"`; `fab` → `icon` (the third row had
-  both `fab` and `icon` — one survives); `v-icon v-text` → interpolation.
-- Headers: `text` → `title`, `align: 'right'` → `'end'`, both arrays annotated
-  `DataTableHeader[]`; `items` arrays typed (`Product`, `Selection`).
+- `v-btn small`/`x-small` → `size="small"`/`size="x-small"`; `fab` → `icon` (the third row had both `fab` and `icon` — one survives); `v-icon v-text` → interpolation.
+- Headers: `text` → `title`, `align: 'right'` → `'end'`, both arrays annotated `DataTableHeader[]`; `items` arrays typed (`Product`, `Selection`).
 - `#item` slot kept; item objects are raw rows in v3+ as well, so `item.name` etc. are unchanged.
-- `#footer` → `#bottom`. v4's data table has no `footer` slot; `bottom` is the area under the
-  body, which is where both totals blocks belong. `hide-default-footer` kept — it suppresses
-  the pagination row without suppressing `bottom`.
+- `#footer` → `#bottom`. v4's data table has no `footer` slot; `bottom` is the area under the body, which is where both totals blocks belong. `hide-default-footer` kept — it suppresses the pagination row without suppressing `bottom`.
 - `default` on v-btn dropped; `rounded` → `rounded="pill"`.
-- Renames: `purple--text` → `text-purple`, `headline` → `text-h5`, `title` class → `text-h6`,
-  `display-1` → `text-h4`, `grey--text subtitle-1` → `text-grey text-subtitle-1`.
+- Renames: `purple--text` → text-purple, `headline` → text-h5, `title` class → text-h6, `display-1` → text-h4, `grey--text subtitle-1` → text-grey text-subtitle-1.
 - `name: 'DashboardExtendedTables'` → `defineOptions({ name: 'ExtendedTables' })`.
 - Original typo kept: `link="componetns/simple-tables"`.
 - No style block in the original.
@@ -967,36 +941,22 @@ Status: done
 
 Status: done
 
-- `v-date-picker` is a labs component in v3+ and nothing registers labs, so it is imported
-  locally (`vuetify/labs/VDatePicker`) and used as `<VDatePicker>`. Three uses.
+- `v-date-picker` is a labs component in v3+ and nothing registers labs, so it is imported locally (`vuetify/labs/VDatePicker`) and used as `<VDatePicker>`. Three uses.
 - Date-picker actions moved into the `#actions` slot — the default slot no longer hosts them.
-- `:return-value.sync` + `$refs.menu.save()` dropped. The picker already writes through
-  `v-model`, so `save` only re-committed what was committed; OK now just closes.
+- `:return-value.sync` + `$refs.menu.save()` dropped. The picker already writes through `v-model`, so `save` only re-committed what was committed; OK now just closes.
 - `@input` on the third picker → `@update:model-value`.
-- `offset-y` → `location="bottom start"`; `#activator="{ on }"` → `{ props: activatorProps }`
-  with `v-bind`, `v-on` dropped.
+- `offset-y` → `location="bottom start"`; `#activator="{ on }"` → `{ props: activatorProps }` with `v-bind`, `v-on` dropped.
 - `input-value` → `v-model` refs on the two switches; progress-linear `:value` → `:model-value`.
-- `outlined` → `variant="outlined"`; `close` on chip → `closable`; chip `small` → `size="small"`.
-- `#selection` slot props modernised: the combobox gives `{ item, index }` and a local
-  `removeItem`; the file input gives `{ fileNames, totalBytes, totalBytesReadable }`, so the
-  chips render from `fileNames.slice(0, 2)` and the overflow count uses `fileNames.length`.
-  The v2 `select` prop function is dropped — the chip no longer focuses the input on click.
-- `#item` slot on both selects rewritten to v4's `{ item, props }` + `v-bind="props"`. `item`
-  is the raw string here, so no `.title`; `v-list-item-title` takes interpolation, not `v-text`.
-  The multiple select's check icon keys off the bound model instead of `attrs.inputValue`.
-  `white--text` → `text-white`.
-- `v-row dense` → `density="compact"`; `info lighten-4` → `info-lighten-4`;
-  `deep-purple accent-4` → `deep-purple-accent-4`; `overline grey--text text--darken-3` →
-  `text-overline text-grey-darken-3`; display-1 → text-h4, body-1 → text-body-1.
+- `outlined` → `variant="outlined"`; `closed` on chip → `closable`; chip `small` → `size="small"`.
+- `#selection` slot props modernised: the combobox gives `{ item, index }` and a local `removeItem`; the file input gives `{ fileNames, totalBytes, totalBytesReadable }`, so the chips render from `fileNames.slice(0, 2)` and the overflow count uses `fileNames.length`. The v2 `select` prop function is dropped — the chip no longer focuses the input on click.
+- `#item` slot on both selects rewritten to v4's `{ item, props }` + `v-bind="props"`. `item` is the raw string here, so no `.title`; `v-list-item-title` takes interpolation, not `v-text`. The multiple select's check icon keys off the bound model instead of `attrs.inputValue`. `white--text` → `text-white`.
+- `v-row dense` → `density="compact"`; `info lighten-4` → `info-lighten-4`; `deep-purple accent-4` → `deep-purple-accent-4`; `overline grey--text text--darken-3` → text-overline text-grey-darken-3; display-1 → text-h4, body-1 → text-body-1.
 - MaterialDropdown: `top` → `location="top"`, `default` dropped.
-- Original bug kept: the second card's field binds `date2` while its picker binds `date`, so
-  the field never shows the picked value. Unreferenced `range` data dropped.
+- Original bug kept: the second card's field binds `date2` while its picker binds `date`, so the field never shows the picked value. Unreferenced `ranged` data dropped.
 - `name: 'DashboardFormsExtendedForms'` → `defineOptions({ name: 'ExtendedForms' })`.
-- `v-list-item-icon` dropped — removed in v3+, like `-content` and `-action`. The check is a
-  bare `v-icon` inside the item.
+- `v-list-item-icon` dropped — removed in v3+, like `-content` and `-action`. The check is a bare `v-icon` inside the item.
 - No style block in the original.
-- PENDING: `vuetify/labs/VDatePicker` path unverified in v4 — if it moved to core, swap the
-  import. Also `v-calendar` (Calendar.vue) has the same unregistered-labs gap. P10.
+- PENDING: `vuetify/labs/VDatePicker` path unverified in v4 — if it moved to core, swap the import. Also `v-calendar` (Calendar.vue) has the same unregistered-labs gap. P10.
 - PENDING: `buffer-value` + `stream` on progress-linear unverified in v4. P10.
 
 ---
@@ -1005,14 +965,9 @@ Status: done
 
 Status: done
 
-- vee-validate 2 is still not installed, so `v-validate` / `data-vv-*` are carried verbatim.
-  `errors.collect(scope)` is served by a local shim backed by an empty
-  `Record<string, string[]>` keyed on scope — P9.11 fills it. Expect one
-  "Failed to resolve directive: validate" warning per field until then.
-- `validateForm(scope)` → `validateForm()`; the scope argument only existed to drive
-  `$validator.validateAll`. Body is the original's `alert('Form Submitted!')`.
-- `\*` escapes → `*`; `body-2` → `text-body-2`; `body-1 grey--text` → `text-body-1 text-grey`;
-  `text-right` → `text-end`.
+- vee-validate 2 is still not installed, so `v-validate` / `data-vv-*` are carried verbatim. `errors.collect(scope)` is served by a local shim backed by an empty `Record<string, string[]>`` keyed on scope — P9.11 fills it. Expect one "Failed to resolve directive: validate" warning per field until then.
+- `validateForm(scope)` → `validateForm()`; the scope argument only existed to drive `$validator.validateAll`. Body is the original's `alert('Form Submitted!')`.
+- `\*` escapes → `*`; `body-2` → `text-body-2`; `body-1 grey--text` → `text-body-1 text-grey; text-right` → `text-end`.
 - `v-row dense` → `density="compact"`; `default` on v-btn dropped.
 - `number` ref typed `number | null` (initial `null`, `type="number"`).
 - `name: 'DashboardFormsValidationForms'` → `defineOptions({ name: 'ValidationForms' })`.
@@ -1026,21 +981,15 @@ Status: done
 Status: done
 
 - `v-tab-item` → `v-tabs-window-item` (MaterialWizard renders a `v-tabs-window` around its slot).
-- vee-validate 2 still absent: `v-validate` / `data-vv-*` carried verbatim. `$validator.validateAll`
-  is replaced by a local `validationErrors` map of scope → `string[]` (empty until P9.11), and
-  `validateForm` reports a step valid when its message list is empty.
-- `ref="file"` + `$refs.file.click()` → `fileInput` template ref + optional call;
-  `onChange(val)` typed against `Event` with a cast to `HTMLInputElement`.
-- `v-item` slot `{ active, toggle }` → `{ isSelected, toggle }`; `v-item-group class="row"` →
-  `class="v-row"` (bare `row` is not a v4 class and the `v-col` children need a flex parent).
-- `outlined` → `variant="outlined"`; `v-icon large v-text` → `size="large"` + interpolation.
+- vee-validate 2 still absent: `v-validate` / `data-vv-*` carried verbatim. `$validator.validateAll` is replaced by a local `validationErrors` map of scope → `string[]` (empty until P9.11), and `validateForm` reports a step valid when its message list is empty.
+- `ref="file"` + `$refs.file.click()` → `fileInput` template ref + optional call; `onChange(val)` typed against `Event` with a cast to `HTMLInputElement`.
+- `v-item` slot `{ active, toggle }` → `{ isSelected, toggle }`; `v-item-group class="row"` → `class="v-row"` (bare `row` is not a v4 class and the `v-col` children need a flex parent).
+- outlined`→ variant="outlined";`v-icon large v-text`→`size="large"` + interpolation.
 - `validate-on-blur` → `validate-on="blur"`.
-- Renames: display-1 → text-h4, subtitle-2 → text-subtitle-2, `text--primary` →
-  `text-high-emphasis` (emphasis, not colour), `success--text`/`grey--text` → `text-success`/`text-grey`.
-- `lang="sass"` → `lang="scss"`, unscoped, `.v-card--account` hooks preserved.
+- Renames: display-1 → text-h4, subtitle-2 → text-subtitle-2, `text--primary` → `text-high-emphasis` (emphasis, not colour), `success--text`/`grey--text` → `text-success`/`text-grey`.
+- lang="sass"`→`lang="scss"`, unscoped, `.v-card--account` hooks preserved.
 - `name: 'DashboardFormsWizard'` → `defineOptions({ name: 'Wizard' })`.
-- PENDING: whole screen is unvalidated until P9.10/P9.11; step gating depends on it, so the
-  Next button currently only advances on filled fields.
+- PENDING: whole screen is unvalidated until P9.10/P9.11; step gating depends on it, so the Next button currently only advances on filled fields.
 
 ---
 
@@ -1048,14 +997,9 @@ Status: done
 
 Status: done
 
-- Every entry key is the rendered class, so the map doubles as the v2 → v4 typography table:
-  display-4/3/2/1 → text-h1/h2/h3/h4, headline → text-h5, `title` → `text-h6 text-uppercase`,
-  `text--disabled` → `text-disabled`, `*--text` → `text-*`.
-- `text-danger` kept — `danger` was never a v2 theme colour either, so the class is dead in both.
-  Fixing it to `text-error` would change the label. P10.
-- FIX: the template tested `i === 'quote'`, but the key is `blockquote` — the quote branch, its
-  paragraph wrapper and the "Kanye West, Musician" attribution were all unreachable. Retargeted
-  to `blockquote`.
+- Every entry key is the rendered class, so the map doubles as the v2 → v4 typography table: display-4/3/2/1 → text-h1/h2/h3/h4, headline → text-h5, `title` → `text-h6 text-uppercase`, `text--disabled` → `text-disabled`, `*--text` → `text-*`.
+- `text-danger` kept — `danger` was never a v2 theme colour either, so the class is dead in both. Fixing it to `text-error` would change the label. P10. → closed at P10.0f.
+- FIX: the template tested `i === 'quote'`, but the key is `blockquote` — the quote branch, its paragraph wrapper and the "Kanye West, Musician" attribution were all unreachable. Retargeted to `blockquote`.
 - `<component :is="t[2]">` kept as-is; `typography` typed `Record<string, [string, string, string]>`.
 - Empty-string key left empty — it is the unstyled paragraph case.
 - `lang="scss"`, unscoped, `.tim-note` preserved.
@@ -1065,15 +1009,10 @@ Status: done
 
 ## vue-world-map replacement
 
-**Deviation:** `vue-world-map` is dropped. Replaced with `@svg-maps/world` (path data only) and a
-local `src/components/core/WorldMap.vue` that fills each location from a `countryData` prop,
-interpolating `lowColor` → `highColor`.
-**Reason:** The screen uses a static choropleth — ISO-2 keys in, two fill colours, no
-interaction. `vue-world-map` is a Vue 2 plugin; the alternatives (`jsvectormap`, `svgmap`,
-`vue-svg-map`) are all interactive libraries whose API and styling we would mostly discard.
+**Deviation:** `vue-world-map` is dropped. Replaced with `@svg-maps/world` (path data only) and a local `src/components/core/WorldMap.vue` that fills each location from a `countryData` prop, interpolating `lowColor` → `highColor`.
+**Reason:** The screen uses a static choropleth — ISO-2 keys in, two fill colours, no interaction. `vue-world-map` is a Vue 2 plugin; the alternatives (`jsvectormap`, `svgmap`, `vue-svg-map`) are all interactive libraries whose API and styling we would mostly discard.
 Data-only dependency keeps the Vue version out of it.
-**Status:** decided — P9.4. Component lands at P9.5. `@svg-maps/world` is CC-BY-4.0: attribution
-line required in the component header.
+**Status:** decided — P9.4. Component lands at P9.5. `@svg-maps/world` is CC-BY-4.0: attribution line required in the component header.
 **Date:** 2026-10-28
 
 ---
@@ -1082,19 +1021,16 @@ line required in the component header.
 
 Status: done
 
-- `v-world-map` → `<WorldMap>` from `src/components/core/WorldMap.vue`, driven by
-  `@svg-maps/world` (data-only, CC-BY-4.0, attributed in the component header).
+- `v-world-map` → `<WorldMap>` from `src/components/core/WorldMap.vue`, driven by `@svg-maps/world` (data-only, CC-BY-4.0, attributed in the component header).
 - `src/types/svg-maps-world.d.ts` shims the untyped package — same pattern as `chartist.d.ts`.
-- Fill is a straight `lowColor` → `highColor` interpolation against the dataset peak; countries
-  absent from `countryData` keep `lowColor`. `<title>` per path gives hover labels for free.
+- Fill is a straight `lowColor` → `highColor` interpolation against the dataset peak; countries absent from `countryData` keep `lowColor`. `<title>` per path gives hover labels for free.
 - Supersedes the P8.6 note: `v-world-map` is no longer unresolved.
 
 ## P9.6 — vue-world-map plugin file
 
 Status: done, no file
 
-- The old `src/plugins/vue-world-map.js` (a `Vue.component('v-world-map', …)` call) was never
-  ported, so there is nothing to replace. `WorldMap.vue` is imported directly where used.
+- The old `src/plugins/vue-world-map.js` (a `Vue.component('v-world-map', …)` call) was never ported, so there is nothing to replace. `WorldMap.vue` is imported directly where used.
 
 ---
 
@@ -1102,13 +1038,10 @@ Status: done, no file
 
 Status: done
 
-- Copied verbatim from the original. Key set and order match `en.json` exactly (42 keys), so
-  nothing had to be added or dropped.
+- Copied verbatim from the original. Key set and order match `en.json` exactly (42 keys), so nothing had to be added or dropped.
 - Re-indented 4 → 2 spaces to match `en.json`; content untouched.
-- Registered in `plugins/i18n.ts` alongside `en`. Nothing switches to it yet — that is P9.8
-  (`Rtl.vue` sets the locale, the adapter makes Vuetify follow).
-- `rtl` in `plugins/vuetify.ts` already maps `ar: true`, so direction flips as soon as the
-  locale is set.
+- Registered in `plugins/i18n.ts` alongside `en`. Nothing switches to it yet — that is P9.8 (`Rtl.vue` sets the locale, the adapter makes Vuetify follow).
+- `rtl` in `plugins/vuetify.ts` already maps `ar: true`, so direction flips as soon as the locale is set.
 
 ---
 
@@ -1116,41 +1049,28 @@ Status: done
 
 Status: done
 
-- Added `locale.adapter: createVueI18nAdapter({ i18n, useI18n })` from `vuetify/locale`. Vuetify
-  now reads its locale from the vue-i18n instance instead of the dropped `lang.t` bridge.
-- `locale.rtl` extended from `ar` to the rest of the RTL locales Vuetify ships: dv, fa, he, ku,
-  ps, sd, ug, ur, yi. Direction stays driven by this map — `useRtl().isRtl` is read-only.
-- Vuetify's _own_ strings (pagination labels, data-table "no data", etc.) still resolve in
-  English: `ar.json` carries no `$vuetify` subtree. Added at P10.0k.
-- Adapter import is `vuetify/locale/adapters/vue-i18n`, not the `vuetify/locale` barrel — the
-  barrel only re-exports `createVuetifyAdapter`, and the failure is a runtime SyntaxError rather
-  than a build error.
+- Added `locale.adapter: createVueI18nAdapter({ i18n, useI18n })` from `vuetify/locale`. Vuetify now reads its locale from the vue-i18n instance instead of the dropped `lang.t` bridge.
+- `locale.rtl` extended from `ar` to the rest of the RTL locales Vuetify ships: dv, fa, he, ku, ps, sd, ug, ur, yi. Direction stays driven by this map — `useRtl().isRtl` is read-only.
+- Vuetify's _own_ strings (pagination labels, data-table "no data", etc.) still resolve in English: `ar.json` carries no `$vuetify` subtree. Added at P10.0k.
+- Adapter import is `vuetify/locale/adapters/vue-i18n`, not the `vuetify/locale` barrel — the barrel only re-exports `createVuetifyAdapter`, and the failure is a runtime SyntaxError rather than a build error.
 
 ---
 
-## P9.9 — Rtl.vue verification
+## P9.9 — rtl.vue verification
 
 Status: done
 
-- `useLocale().current = 'ar'` mirrors correctly once the P9.8 adapter is in place — direction,
-  logical utilities and the drawer side all flip, and `onBeforeUnmount` restores `'en'`.
+- `useLocale().current = 'ar'` mirrors correctly once the P9.8 adapter is in place — direction, logical utilities and the drawer side all flip, and `onBeforeUnmount` restores `'en'`.
 - No `<v-locale-provider rtl>` fallback was needed.
 - Resolves the P8.12 pending ("RTL direction unverified until tested").
-- Note: the two assignments in `onMounted` are now the same underlying value — `current`
-  delegates to the vue-i18n locale. Left as-is; the duplication is harmless and makes the
-  intent readable.
+- Note: the two assignments in `onMounted` are now the same underlying value — `current` delegates to the vue-i18n locale. Left as-is; the duplication is harmless and makes the intent readable.
 
 ---
 
 ## Validation approach — decision
 
-**Deviation:** vee-validate is not adopted at all. `v-validate` / `data-vv-*` are replaced with
-Vuetify `rules` arrays and `v-form` refs; both temporary shims (`errors.collect`,
-`validationErrors`) are deleted.
-**Reason:** v4 is a rewrite of v2, so the fields are rewritten either way. The screens need six
-trivial validators that `rules` expresses in a line each, and `v-form` already provides
-`validate()`/`reset()`/error display. vee-validate would add a dependency, its own error
-plumbing and a provider layer for capabilities the demo never uses.
+**Deviation:** vee-validate is not adopted at all. `v-validate` / `data-vv-*` are replaced with Vuetify `rules` arrays and `v-form` refs; both temporary shims (`errors.collect`, `validationErrors`) are deleted.
+**Reason:** v4 is a rewrite of v2, so the fields are rewritten either way. The screens need six trivial validators that `rules` expresses in a line each, and `v-form` already provides `validate()`/`reset()`/error display. vee-validate would add a dependency, its own error plumbing and a provider layer for capabilities the demo never uses.
 **Status:** decided — P9.10. Rebuilds land at P9.11 (ValidationForms) and P9.12 (Wizard).
 **Date:** 2026-10-28
 
@@ -1160,18 +1080,11 @@ plumbing and a provider layer for capabilities the demo never uses.
 
 Status: done
 
-- `v-validate` directives, `data-vv-scope` and `data-vv-name` all removed. Each field carries a
-  `:rules` array instead; the `errors.collect` shim and `validationErrors` map are gone.
-- Rules: `requiredRule`, `emailRule`, `numericRule`, `urlRule`, and `minLengthRule`/`maxLengthRule`
-  factories. Local `Rule` type (`(value: unknown) => boolean | string`) — no Vuetify type import,
-  and structurally assignable to the `rules` prop.
-- The outer `<form action="">` wrappers were dropped: `v-form` already renders a `<form>`, so the
-  markup was nesting forms. `@submit.prevent` moved onto `v-form`, which also means
-  `type="submit"` on the buttons now actually submits.
-- `validateForm(form)` takes the form ref and awaits `validate()`, alerting only when `valid`.
-  Ref typed with a local `ValidatableForm` interface rather than importing `VForm`.
-- Field behaviour note: the original's `min:5` / `max:5` were vee-validate _value_ bounds renamed
-  in the UI as "Min/Max Length"; they are implemented here as length checks, matching the labels.
+- `v-validate` directives, `data-vv-scope` and `data-vv-name` all removed. Each field carries ` `:rules`array instead; the`errors.collect`shim and`validationErrors` map are gone.
+- Rules: `requiredRule`, `emailRule`, `numericRule`, `urlRule`, and `minLengthRule`/`maxLengthRule` factories. Local `Rule` type (`(value: unknown) => boolean | string`) — no Vuetify type import, and structurally assignable to the `rules` prop.
+- The outer `<form action="">` wrappers were dropped: `v-form` already renders a `<form>`, so the markup was nesting forms. `@submit.prevent` moved onto `v-form`, which also means `type="submit"` on the buttons now actually submits.
+- `validateForm(form)` takes the form ref and awaits `validate()`, alerting only when `valid`. Ref typed with a local `ValidatableForm` interface rather than importing `VForm`.
+- Field behaviour note: the original's `min:5` / `max:5` were vee-validate _value_ bounds renamed in the UI as "Min/Max Length"; they are implemented here as length checks, matching the labels.
 
 ---
 
@@ -1179,20 +1092,13 @@ Status: done
 
 Status: done
 
-- The three `<form action="" data-vv-scope>` wrappers became `v-form` with `aboutForm` /
-  `addressForm` refs. `v-validate`, `data-vv-*`, the `validationErrors` map and the `scope`
-  computed are all gone.
-- The account step has no inputs, so `validateCurrentStep()` short-circuits on
-  `account.length > 0` and the hidden `<input v-validate="'required'">` is dropped.
-- `next()` is async and awaits validation before advancing or finishing.
-- `v-for="(account, i) in accounts"` renamed its binding to `item` — it no longer shadows the
-  `account` model ref, which is now read from script instead of the template.
-- Rules: one shared `requiredRule` per field; `validate-on="blur"` retained so errors appear on
-  blur rather than on every keystroke.
-- Email keeps `required` only, matching the original's `v-validate="'required'"` — it was never
-  format-validated.
-- `requiredRule` is duplicated between this file and ValidationForms.vue rather than extracted;
-  two call sites, one line each. Revisit if a third appears.
+- The three `<form action="" data-vv-scope>` wrappers became `v-form` with `aboutForm` / `addressForm` refs. `v-validate`, `data-vv-*`, the `validationErrors` map and the `scope` computed are all gone.
+- The account step has no inputs, so `validateCurrentStep()` short-circuits on `account.length > 0` and the hidden `<input v-validate="'required'">` is dropped.
+- `next()` async and awaits validation before advancing or finishing.
+- `v-for="(account, i) in accounts"` renamed its binding to `item` — it no longer shadows the `account` model ref, which is now read from script instead of the template.
+- Rules: one shared `requiredRule` per field; `validate-on="blur"` retained so errors appear on blur rather than on every keystroke.
+- Email keeps `required` only, matching the original's `v-validate="'required'"` — it was never format-validated.
+- `requiredRule` is duplicated between this file and ValidationForms.vue rather than extracted; two call sites, one line each. Revisit if a third appears.
 
 ---
 
@@ -1202,12 +1108,8 @@ Status: done
 
 - `v-validate` / `data-vv-*` count in `src/`: 0. `v-world-map` / `vue-world-map`: 0.
 - Both temporary shims (`errors.collect`, `validationErrors`) deleted with their screens' rewrites.
-- Phase 9 outcomes: chartist kept, world map replaced with `@svg-maps/world`, vee-validate dropped
-  for Vuetify `rules`, Arabic locale ported, i18n adapter wired, Rtl verified.
-- `v-validate` / `data-vv-*` count in `src/`: 0. `v-world-map` / `vue-world-map`: 1 — the
-  `.vue-world-map` rule at `legacy.scss:1190`, now dead. Its `max-height: 350px` moved into
-  `WorldMap.vue`; its `.land` stroke is covered by the `strokeColor` default. Rule left for
-  P10.4 to delete.
+- Phase 9 outcomes: chartist kept, world map replaced with `@svg-maps/world`, vee-validate dropped for Vuetify `rules`, Arabic locale ported, i18n adapter wired, Rtl verified.
+- `v-validate` / `data-vv-*` count in `src/`: 0. `v-world-map` / `vue-world-map`: 1 — the `.vue-world-map` rule at `legacy.scss:1190`, now dead. Its `max-height: 350px` moved into `WorldMap.vue`; its `.land` stroke is covered by the `strokeColor` default. Rule left for P10.4 to delete.
 - Still open into Phase 10: `v-calendar` has nothing registering it (P10.0j).
 
 ---
@@ -1216,17 +1118,12 @@ Status: done
 
 Status: done
 
-- `.v-tabs-bar` → `.v-slide-group__container`, 4 occurrences via sed. v3+ has no tabs bar; the
-  slide-group container is the element that carries height/padding, and `MaterialWizard.vue`
-  already styles it under that name.
-- `.v-list-item__content` — KEPT. The component was removed, not the class; `VListItem` still
-  renders it as the slot wrapper, so the chains resolve. Supersedes the P6b assumption.
+- `.v-tabs-bar` → `.v-slide-group__container`, 4 occurrences via sed. v3+ has no tabs bar; the slide-group container is the element that carries height/padding, and `MaterialWizard.vue` itself already styles it under that name.
+- `.v-list-item__content` — KEPT. The component was removed, not the class; `VListItem` still renders it as the slot wrapper, so the chains resolve. Supersedes the P6b assumption.
 - `.v-picker.v-card` — KEPT. Still the `VDatePicker` root.
-- `.v-select-list.v-card` — KEPT, unresolved. Deferred to P10.3 for DOM verification against
-  v4's overlay-based select menu.
+- `.v-select-list.v-card` — KEPT, unresolved. Deferred to P10.3 for DOM verification against v4's overlay-based select menu.
 - `.v-calendar-weekly__*` — KEPT, blocked on P10.0j (nothing registers `v-calendar`).
-- Also noted, not in the original park list: `.v-card__actions` (no hyphen) appears in
-  `.v-card--wizard` and is dead — `.v-card-actions` is the v3 class. P10.1.
+- Also noted, not in the original park list: `.v-card__actions` (no hyphen) appears in `.v-card--wizard` and is dead — `.v-card-actions` is the v3 class. P10.1.
 
 ---
 
@@ -1245,28 +1142,6 @@ Status: done
   `VDefaultsProvider` and threw at P5.6.
 - If `ui.barImage` is empty the image element is absent and no gradient paints;
   same failure mode as the original.
-
----
-
-## P10.0c — duplicate nested node ID
-
-Status: done
-
-- Vuetify's `VListItem` derives its nested id from `link.href` when `value` is
-  undefined, and `useNested().register()` warns when an id is already registered.
-  The profile children are stubs (`href: ''` and two `to: ''`), so the `href`
-  fallback collapsed all three to `'#'`; the `multi` → `example` child also
-  resolves to `'#'`. Four nodes, one id.
-- Fix: every `v-list-item` in `Item.vue` carries `:value="item.title"`. Titles are
-  unique across the whole nav tree, so the href-derived id is no longer consulted.
-- The group's own activator item needs no change — `useNestedGroupActivator` sets
-  `isGroupActivator`, which makes `useNestedItem` skip registration entirely.
-- Consequence: `isSelectable` becomes true for these items, so they gain
-  `aria-selected`. `role` stays `link` (isLink is checked first), and click
-  navigation is unchanged.
-- Values are translated titles, so a locale file with two keys sharing a value
-  would reintroduce the warning.
-- Stub `to: ''` / `href: ''` links are untouched; filling them in is P11.2.
 
 ---
 
@@ -1323,8 +1198,8 @@ Status: done
   MaterialCard avatar.
 - `text-danger` → `text-error`. `danger` was never a theme colour; the Typography
   row's label is now "Error Text" so the page documents the class it shows.
-- `purple-input` and `v-card-profile` are untouched — they are component hooks with
-  real styling to restore, tracked at P10.0h.
+- `purple-input` and `v-card-profile` were initially left in place; both turned out
+  to be dead in the original too and were removed at P10.0h.
 
 ---
 
@@ -1346,8 +1221,21 @@ Status: done
 
 ---
 
+## P10.0i — duplicate id="coloured-line"
+
+Status: done
+
+- Two `BaseMaterialCard`s carried the same id and one `#coloured-line` rule served
+  both, so the id was doing a class's job. Converted to `class="... coloured-line"`
+  and the selector to `.coloured-line`.
+- Both cards keep `px-4 py-3`; the class is appended to that attribute rather than
+  added as a second `class` attribute on the same element.
+- `#multiple-bar` and `#pie` stay ids — one instance each.
+- Style block remains unscoped so the rule still reaches chartist's generated SVG.
+
+---
+
 ## Skipped files
 
-`src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrouted, byte-identical
-duplicates of the `views/dashboard/pages/` versions (same git SHAs).
+`src/views/pages/Rtl.vue`, `Timeline.vue`, `UserProfile.vue` — unrooted, byte-identical duplicates of the `views/dashboard/pages/` versions (same git SHAs).
 **Date:** 2026-10-26
