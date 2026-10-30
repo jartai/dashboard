@@ -107,20 +107,20 @@ const socials = [
                   <v-text-field
                     color="secondary"
                     label="First Name..."
-                    prepend-icon="mdi-face"
+                    prepend-inner-icon="mdi-face"
                   />
 
                   <v-text-field
                     color="secondary"
                     label="Email..."
-                    prepend-icon="mdi-email"
+                    prepend-inner-icon="mdi-email"
                   />
 
                   <v-text-field
                     class="mb-8"
                     color="secondary"
                     label="Password..."
-                    prepend-icon="mdi-lock-outline"
+                    prepend-inner-icon="mdi-lock-outline"
                   />
 
                   <v-checkbox
