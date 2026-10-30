@@ -2,6 +2,7 @@
 import { computed, ref, watch } from 'vue'
 import { useTheme } from 'vuetify'
 
+import { useUiStore } from '@/stores/ui'
 import sidebar1 from "@/assets/sidebar-1.jpg"
 import sidebar2 from "@/assets/sidebar-2.jpg"
 import sidebar3 from "@/assets/sidebar-3.jpg"
