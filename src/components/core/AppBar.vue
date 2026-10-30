@@ -19,10 +19,10 @@ const notifications = [
 ]
 
 const profile = [
-  { title: 'Profile' },
-  { title: 'Settings' },
+  { title: 'Profile', to: '/pages/user' },
+  { title: 'Settings', to: '/pages/user' },
   { divider: true },
-  { title: 'Log out' },
+  { title: 'Log out', to: '/' },
 ]
 
 function toggle() {
@@ -150,7 +150,7 @@ function toggle() {
           <AppBarItem
             v-else
             :title="p.title"
-            to="/"
+            :to="p.to"
           />
         </template>
       </v-list>
