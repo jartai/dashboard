@@ -2,6 +2,9 @@
 import { ref } from 'vue'
 import type { AlertType } from '@/types/alert'
 
+import card1 from '@/assets/card-1.jpg'
+import card2 from '@/assets/card-2.jpg'
+
 defineOptions({ name: 'Notifications' })
 
 const color = ref<AlertType>('info')
@@ -288,7 +291,7 @@ function randomColor() {
             >
               <v-sheet>
                 <v-img
-                  src="https://demos.creative-tim.com/material-dashboard-pro/assets/img/card-1.jpg"
+                  :src="card1"
                   height="100"
                   width="200"
                 />
@@ -318,7 +321,7 @@ function randomColor() {
             >
               <v-sheet>
                 <v-img
-                  src="https://demos.creative-tim.com/material-dashboard-pro/assets/img/card-2.jpg"
+                  :src="card2"
                   height="100"
                   width="200"
                 />
