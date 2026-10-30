@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import avatarSrc from '@/assets/avatar.jpg'
+
 defineOptions({ name: 'BaseMaterialTestimony' })
 
 withDefaults(
@@ -10,8 +12,7 @@ withDefaults(
   }>(),
   {
     author: '',
-    avatar:
-      'https://demos.creative-tim.com/material-dashboard-pro/assets/img/faces/card-profile1-square.jpg',
+    avatar: avatarSrc,
     blurb: '',
     handle: '',
   },
