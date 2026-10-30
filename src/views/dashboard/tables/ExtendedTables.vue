@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import type { DataTableHeader } from 'vuetify'
 
+import product1 from '@/assets/product-1.jpg'
+import product2 from '@/assets/product-2.jpg'
+import product3 from '@/assets/product-3.jpg'
+
 defineOptions({ name: 'ExtendedTables' })
 
 interface Action {
@@ -55,7 +59,7 @@ const productHeaders: DataTableHeader[] = [
 
 const products: Product[] = [
   {
-    src: 'https://demos.creative-tim.com/material-dashboard-pro/assets/img/product1.jpg',
+    src: product1,
     name: 'Spring Jacket',
     brand: 'Dolce & Gabbana',
     color: 'Red',
@@ -65,7 +69,7 @@ const products: Product[] = [
     qty: 1,
   },
   {
-    src: 'https://demos.creative-tim.com/material-dashboard-pro/assets/img/product2.jpg',
+    src: product2,
     name: 'Short Pants',
     brand: 'Pucca',
     color: 'Purple',
@@ -75,7 +79,7 @@ const products: Product[] = [
     qty: 2,
   },
   {
-    src: 'https://demos.creative-tim.com/material-dashboard-pro/assets/img/product3.jpg',
+    src: product3,
     name: 'Pencil Skirt',
     brand: 'Valentino',
     color: 'White',
