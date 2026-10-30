@@ -156,4 +156,16 @@ const socials = [
   line-clamp: initial;
   -webkit-box-orient: initial;
 }
+
+#register .v-card {
+  .v-list-item-title {
+    font-size: 18px;
+    color: #3c4858;
+  }
+
+  .v-list-item-subtitle {
+    line-height: 1.5;
+    margin-bottom: 15px;
+  }
+}
 </style>
