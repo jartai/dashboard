@@ -3,6 +3,16 @@ import * as Chartist from 'chartist'
 import { computed } from 'vue'
 import WorldMap from '@/components/core/WorldMap.vue'
 
+import flagUS from '@/assets/flag-us.png'
+import flagDE from '@/assets/flag-de.png'
+import flagAU from '@/assets/flag-au.png'
+import flagGB from '@/assets/flag-gb.png'
+import flagRO from '@/assets/flag-ro.png'
+import flagBR from '@/assets/flag-br.png'
+import card1 from '@/assets/card-1.jpg'
+import card2 from '@/assets/card-2.jpg'
+import card3 from '@/assets/card-3.jpg'
+
 defineOptions({ name: 'DashboardDashboard' })
 
 const countryData = {
@@ -69,32 +79,32 @@ const emailsSubscriptionChart = {
 const sales = [
   {
     country: 'USA',
-    flag: 'https://demos.creative-tim.com/vue-material-dashboard-pro/img/flags/US.png',
+    flag: flagUS,
     salesInM: 2920,
   },
   {
     country: 'Germany',
-    flag: 'https://demos.creative-tim.com/vue-material-dashboard-pro/img/flags/DE.png',
+    flag: flagDE,
     salesInM: 1300,
   },
   {
     country: 'Australia',
-    flag: 'https://demos.creative-tim.com/vue-material-dashboard-pro/img/flags/AU.png',
+    flag: flagAU,
     salesInM: 760,
   },
   {
     country: 'United Kingdom',
-    flag: 'https://demos.creative-tim.com/vue-material-dashboard-pro/img/flags/GB.png',
+    flag: flagGB,
     salesInM: 690,
   },
   {
     country: 'Romania',
-    flag: 'https://demos.creative-tim.com/vue-material-dashboard-pro/img/flags/RO.png',
+    flag: flagRO,
     salesInM: 600,
   },
   {
     country: 'Brasil',
-    flag: 'https://demos.creative-tim.com/vue-material-dashboard-pro/img/flags/BR.png',
+    flag: flagBR,
     salesInM: 550,
   },
 ]
@@ -413,7 +423,7 @@ const totalSales = computed(() => sales.reduce((acc, val) => acc + val.salesInM,
           image
         >
           <template #image>
-            <v-img src="https://demos.creative-tim.com/vue-material-dashboard-pro/img/card-2.jpg" />
+            <v-img :src="card2" />
           </template>
 
           <template #reveal-actions>
@@ -494,7 +504,7 @@ const totalSales = computed(() => sales.reduce((acc, val) => acc + val.salesInM,
           image
         >
           <template #image>
-            <v-img src="https://demos.creative-tim.com/vue-material-dashboard-pro/img/card-3.jpg" />
+            <v-img :src="card3" />
           </template>
 
           <template #reveal-actions>
@@ -573,7 +583,7 @@ const totalSales = computed(() => sales.reduce((acc, val) => acc + val.salesInM,
           image
         >
           <template #image>
-            <v-img src="https://demos.creative-tim.com/vue-material-dashboard-pro/img/card-1.jpg" />
+            <v-img :src="card1" />
           </template>
 
           <template #reveal-actions>
