@@ -213,27 +213,27 @@ After each screen: merge branch, open a new one.
 
 Remaining: **0** — Phase 8 closed.
 
-## Phase 9 — The hard parts
+## Phase 9 — The hard parts — DONE
 
 P9.1–P9.3 are settled: chartist was kept and `Charts.vue` is ported.
 
 - [x] P9.1 Decide chartist-direct vs swap; log decision — kept chartist
 - [x] P9.2 Rewrite `MaterialChartCard` against the choice
 - [x] P9.3 Port `Charts.vue`
-- [ ] P9.4 Decide world-map replacement ← **next**
-- [ ] P9.5 Port the map widget in `Dashboard.vue`
-- [ ] P9.6 Replace `vue-world-map` plugin file
-- [ ] P9.7 Port `locales/ar.json` verbatim
-- [ ] P9.8 Add the Vuetify locale adapter; extend the `locale.rtl` map
-- [ ] P9.9 Verify `Rtl.vue` against the live demo (screen itself is ported)
-- [ ] P9.10 Decide vee-validate v4 vs Vuetify `rules`
-- [ ] P9.11 Rebuild validation in `ValidationForms.vue` and `Wizard.vue`
-- [ ] P9.12 Rebuild the Wizard form
-- [ ] P9.13 Commit `feat: hard parts`
+- [x] P9.4 Decide world-map replacement
+- [x] P9.5 Port the map widget in `Dashboard.vue`
+- [x] P9.6 Replace `vue-world-map` plugin file
+- [x] P9.7 Port `locales/ar.json` verbatim
+- [x] P9.8 Add the Vuetify locale adapter; extend the `locale.rtl` map
+- [x] P9.9 Verify `Rtl.vue` against the live demo (screen itself is ported)
+- [x] P9.10 Decide vee-validate v4 vs Vuetify `rules`
+- [x] P9.11 Rebuild validation in `ValidationForms.vue` and `Wizard.vue`
+- [x] P9.12 Rebuild the Wizard form
+- [x] P9.13 Commit `feat: hard parts`
 
-## Phase 10 — Styles: screen-specific
+## Phase 10 — Styles: screen-specific — DONE
 
-**Status: in progress.** P10.0a–k and P10.1 closed. Shared-skin retargets done: select content, field variant/state, timeline divider, calendar events. Remaining: tail selectors, `-webkit-` sweep, then P10.4 rename.
+**Status: closed.** P10.0a–k and P10.1–P10.4 all done; `legacy.scss` is now `src/styles/app.scss`.
 
 - [x] P10.0 Resolve parked `legacy.scss` selectors: `.v-list-item__content`,
       `.v-tabs-bar`, `.v-calendar-weekly`, `.v-picker`, `.v-select-list`
@@ -247,10 +247,10 @@ P9.1–P9.3 are settled: chartist was kept and `Charts.vue` is ported.
 - [x] P10.0i De-duplicate `id="coloured-line"` in Charts.vue
 - [x] P10.0j Register `v-calendar` or replace it
 - [x] P10.1 Extract remaining screen rules from `legacy.scss` into scoped blocks
-- [ ] P10.2 Delete anything MD3 defaults already handle
-- [ ] P10.3 Verify each screen vs live demo
-- [ ] P10.4 Rename `src/styles/legacy.scss` to `src/styles/app.scss` (shared skins need a permanent home)
-- [ ] P10.5 Commit `refactor: screen styles`
+- [x] P10.2 Delete anything MD3 defaults already handle
+- [x] P10.3 Verify each screen vs live demo
+- [x] P10.4 Rename `src/styles/legacy.scss` to `src/styles/app.scss` (shared skins need a permanent home)
+- [x] P10.5 Commit `refactor: screen styles`
 
 ## Phase 11 — Polish & cutover
 
