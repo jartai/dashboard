@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import avatar from '@/assets/avatar.jpg'
+
 defineOptions({ name: 'DashboardPagesUserProfile' })
 </script>
 
@@ -38,60 +40,46 @@ defineOptions({ name: 'DashboardPagesUserProfile' })
                   cols="12"
                   md="4"
                 >
-                  <v-text-field
-                    label="User Name"
-                  />
+                  <v-text-field label="User Name" />
                 </v-col>
 
                 <v-col
                   cols="12"
                   md="4"
                 >
-                  <v-text-field
-                    label="Email Address"
-                  />
+                  <v-text-field label="Email Address" />
                 </v-col>
 
                 <v-col
                   cols="12"
                   md="6"
                 >
-                  <v-text-field
-                    label="First Name"
-                  />
+                  <v-text-field label="First Name" />
                 </v-col>
 
                 <v-col
                   cols="12"
                   md="6"
                 >
-                  <v-text-field
-                    label="Last Name"
-                  />
+                  <v-text-field label="Last Name" />
                 </v-col>
 
                 <v-col cols="12">
-                  <v-text-field
-                    label="Adress"
-                  />
+                  <v-text-field label="Adress" />
                 </v-col>
 
                 <v-col
                   cols="12"
                   md="4"
                 >
-                  <v-text-field
-                    label="City"
-                  />
+                  <v-text-field label="City" />
                 </v-col>
 
                 <v-col
                   cols="12"
                   md="4"
                 >
-                  <v-text-field
-                    label="Country"
-                  />
+                  <v-text-field label="Country" />
                 </v-col>
 
                 <v-col
@@ -132,9 +120,7 @@ defineOptions({ name: 'DashboardPagesUserProfile' })
         cols="12"
         md="4"
       >
-        <BaseMaterialCard
-          avatar="https://demos.creative-tim.com/vue-material-dashboard/img/marc.aba54d65.jpg"
-        >
+        <BaseMaterialCard :avatar="avatar">
           <v-card-text class="text-center">
             <h6 class="text-h4 mb-1 text-grey">CEO / CO-FOUNDER</h6>
 
