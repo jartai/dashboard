@@ -5,7 +5,7 @@
 
 ## Current position
 
-**Step:** Phase 10 **closed** — P10.0a–k, P10.1, P10.2, P10.3 verify and P10.4 rename all done.
+**Step:** Phase 11 **in progress** — P11.1 closed (all assets local). Next: P11.2 nav stubs.
 `legacy.scss` is now `src/styles/app.scss`. Next: Phase 11.
 **Branch:** `main`
 **Last session:** 2026-10-30
@@ -23,12 +23,10 @@
 - Wizard step-one fields overlap the avatar — collapsed `v-row`/`v-col`
 - `availableSteps` arrives as `[0]`: PREVIOUS and NEXT disabled, only step 1 reachable
 - `profileNav` children are stubs (`href: ''` / `to: ''`); User Profile route is `/pages/user`
-- P11.1: dead `demos.creative-tim.com` asset URLs still in place, including the UserProfile avatar
-- Register/Login cards run ~97% of viewport width; `v-col cols="9"` looks inert, unconfirmed in devtools
 
 ## Next up
 
-- P11.1 localise `barImage` and the UserProfile avatar, P11.2 nav stubs, P11.3–4 tests,
+- P11.2 nav stubs, P11.3–4 tests,
   P11.5 lint, P11.6 build, P11.7 Pages deploy, P11.8 side-by-side walk, P11.9 tick the inventory
 
 ---
