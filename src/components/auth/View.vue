@@ -3,17 +3,24 @@ import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useTheme } from 'vuetify'
 
+import lockBg from '@/assets/lock.jpg'
+import loginBg from '@/assets/login.jpg'
+import pricingBg from '@/assets/pricing.jpg'
+import registerBg from '@/assets/register.jpg'
+
 defineOptions({ name: 'PagesCoreView' })
 
 const route = useRoute()
 const theme = useTheme()
 
-// The local `src/assets/*.jpg` files are webpack module stubs, not images, and the
-// creative-tim demo host is unreachable. Interim source until the assets are
-// re-exported at P11.1.
-const seed = computed(() => route.path.replace(/^\//, '').replace(/\//g, '-'))
+const backgrounds: Record<string, string> = {
+  Lock: lockBg,
+  Login: loginBg,
+  Pricing: pricingBg,
+  Register: registerBg,
+}
 
-const src = computed(() => `https://picsum.photos/seed/md-pro-${seed.value}/1600/1200`)
+const src = computed(() => backgrounds[String(route.name)] ?? loginBg)
 </script>
 
 <template>
@@ -59,6 +66,5 @@ const src = computed(() => `https://picsum.photos/seed/md-pro-${seed.value}/1600
 
 #pages .page-content {
   position: relative;
-  padding: 64px 0 88px;
 }
 </style>
