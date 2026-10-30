@@ -29,9 +29,9 @@ const sections = [
 ]
 
 const socials = [
-  { href: '#', icon: 'mdi-twitter', iconColor: '#1DA1F2' },
-  { href: '#', icon: 'mdi-dribbble', iconColor: '#ea4c89' },
-  { href: '#', icon: 'mdi-facebook', iconColor: '#3B5998' },
+  { href: 'https://x.com', icon: 'mdi-twitter', iconColor: '#1DA1F2' },
+  { href: 'https://dribbble.com', icon: 'mdi-basketball', iconColor: '#ea4c89' },
+  { href: 'https://facebook.com', icon: 'mdi-facebook', iconColor: '#3B5998' },
 ]
 </script>
 
@@ -91,6 +91,8 @@ const socials = [
                     :key="i"
                     class="my-2 mr-1"
                     :color="social.iconColor"
+                    rel="noopener"
+                    target="_blank"
                     icon
                     size="small"
                     variant="flat"
