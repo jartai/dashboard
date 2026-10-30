@@ -35,5 +35,9 @@ defineOptions({ name: 'PagesError' })
 <style lang="scss">
 .error-page h1 {
   font-size: 12rem;
+  letter-spacing: 14px;
+  font-weight: 700;
+  margin-top: 60px;
+  margin-bottom: 100px;
 }
 </style>
