@@ -233,21 +233,23 @@ P9.1–P9.3 are settled: chartist was kept and `Charts.vue` is ported.
 
 ## Phase 10 — Styles: screen-specific
 
-- [ ] P10.0 Resolve parked `legacy.scss` selectors: `.v-list-item__content`,
+**Status: in progress.** P10.0a–k and P10.1 closed. Shared-skin retargets done: select content, field variant/state, timeline divider, calendar events. Remaining: tail selectors, `-webkit-` sweep, then P10.4 rename.
+
+- [x] P10.0 Resolve parked `legacy.scss` selectors: `.v-list-item__content`,
       `.v-tabs-bar`, `.v-calendar-weekly`, `.v-picker`, `.v-select-list`
-- [ ] P10.0b Add the drawer image gradient as a CSS overlay
-- [ ] P10.0c Investigate the duplicate node ID warning
-- [ ] P10.0d Revisit breakpoint fidelity if it matters
-- [ ] P10.0e Fix the auth backdrop photo (`View.vue`) — element is present, paints nothing
-- [ ] P10.0f Settle `card-title`, `body-3`, `elevation-12`, `text-danger` — none are v4 classes
-- [ ] P10.0g Decide `scoped` vs unscoped on the per-screen style blocks
-- [ ] P10.0h Restore `purple-input` / `v-card-profile` styling (UserProfile.vue)
-- [ ] P10.0i De-duplicate `id="coloured-line"` in Charts.vue
-- [ ] P10.0j Register `v-calendar` or replace it
-- [ ] P10.1 Extract remaining screen rules from `legacy.scss` into scoped blocks
+- [x] P10.0b Add the drawer image gradient as a CSS overlay
+- [x] P10.0c Investigate the duplicate node ID warning
+- [x] P10.0d Revisit breakpoint fidelity if it matters
+- [x] P10.0e Fix the auth backdrop photo (`View.vue`) — element is present, paints nothing
+- [x] P10.0f Settle `card-title`, `body-3`, `elevation-12`, `text-danger` — none are v4 classes
+- [x] P10.0g Decide `scoped` vs unscoped on the per-screen style blocks
+- [x] P10.0h Restore `purple-input` / `v-card-profile` styling (UserProfile.vue)
+- [x] P10.0i De-duplicate `id="coloured-line"` in Charts.vue
+- [x] P10.0j Register `v-calendar` or replace it
+- [x] P10.1 Extract remaining screen rules from `legacy.scss` into scoped blocks
 - [ ] P10.2 Delete anything MD3 defaults already handle
 - [ ] P10.3 Verify each screen vs live demo
-- [ ] P10.4 Delete `src/styles/legacy.scss`
+- [ ] P10.4 Rename `src/styles/legacy.scss` to `src/styles/app.scss` (shared skins need a permanent home)
 - [ ] P10.5 Commit `refactor: screen styles`
 
 ## Phase 11 — Polish & cutover

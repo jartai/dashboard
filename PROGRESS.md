@@ -5,29 +5,31 @@
 
 ## Current position
 
-**Step:** Phase 9 **complete** — 13/13. Next: P10.0 parked `legacy.scss` selectors
-**Branch:** `main` (`p9-hard-parts` merged)
-**Last session:** 2026-10-28
+**Step:** Phase 10 **in progress** — P10.0a–k and P10.1 closed, shared-skin retargets done.
+Next: P10.2 tail selectors (`#register`, `#login`, `.error-page`, `.v-content`), then P10.4 rename.
+**Branch:** `main`
+**Last session:** 2026-10-30
 
 ## Working
 
-- Phases 0–9 complete: scaffold through all 28 screens, world map, Arabic locale, i18n adapter,
-  Vuetify `rules` validation — lint and type clean
-- `Rtl.vue` verified under the adapter; direction and logical utilities flip and revert correctly
+- Phases 0–10.1 complete. Legacy rules are being retargeted to v4 rather than deleted; `legacy.scss` is
+  down from 1859 to ~1380 lines. Component styles stay inline; `src/styles/` is cross-cutting only.
+- Wizard tab slider, timeline dot colours and calendar event shadows all verified in the browser.
+- Retargets are verified against the library source before each edit, never against appearance.
 
 ## Broken / blocked
 
-- `v-calendar` has nothing registering it — P10.0j
 - `src/views/_Placeholder.vue` now unreferenced — delete at P11
-- Auth backdrop photo not painting (`View.vue`) — parked for P10
-- Most of `app.scss` still targets components that don't exist yet — expected
-- Vuetify warns duplicate node ID for the profile nav group (non-fatal)
-- Parked for P10: `card-title`, `body-3`, `elevation-12`, `text-danger`, `scoped` vs unscoped,
-  duplicate `id="coloured-line"`, `purple-input`/`v-card-profile`, `.v-calendar-weekly__*`
+- Wizard step-one fields overlap the avatar — collapsed `v-row`/`v-col`
+- `availableSteps` arrives as `[0]`: PREVIOUS and NEXT disabled, only step 1 reachable
+- `profileNav` children are stubs (`href: ''` / `to: ''`); User Profile route is `/pages/user`
+- P11.1: dead `demos.creative-tim.com` asset URLs still in place, including the UserProfile avatar
 
 ## Next up
 
-- P10.0 Resolve parked `legacy.scss` selectors
+- P10.2 Tail: `#register`, `#login`, `.error-page`, `.v-content` → `.v-main`, `.v-btn` padding,
+  duplicated `:not(.v-btn--icon)` pairs, `.v-btn--router`
+- P10.2 `-webkit-` sweep, then P10.3 verify, P10.4 **rename** to `src/styles/app.scss`, P10.5 commit
 
 ---
 
@@ -38,7 +40,7 @@
 - **One app**, not separate apps per screen. Screens are isolated routes until they work.
 - This app has **no backend** and no API. PHP comes later, separately.
 - Do **not** port `app.scss` verbatim. Two passes: P6b (done), P10 (pending).
-- `legacy.scss` is **temporary** and **unlayered on purpose**. Deleted at P10.
+- `legacy.scss` is **temporary** and **unlayered on purpose**. Renamed to `src/styles/app.scss` at P10.4.
 - Vuetify 4's **lowered breakpoints are adopted**. Don't restore v3 thresholds.
 - Typography class mapping (v2 → v4) is in `PLAN.md`. Use it; don't guess.
 - The `register → pricing` nav bug is **fixed**, logged in `PORTING.md`.
@@ -139,6 +141,12 @@
 
 Newest first. Two lines max per entry.
 
+- 2026-10-30 — Phase 10: P10.0a–k, PORTING split per phase, P10.1 extraction (245 lines, 3 merges), P10.2 shared-skin retargets.
+  Tab slider, timeline dots and calendar events repaired and verified; P10.4 changed to a rename.
+- 2026-10-30 — Phase 10: P10.0a–k, PORTING split per phase, P10.1 extraction (245 lines, 3 merges), P10.2 shared-skin retargets.
+  Tab slider, timeline dots and calendar events repaired and verified; P10.4 changed to a rename.
+- 2026-10-30 — Phase 10: P10.0a–k, PORTING split per phase, P10.1 extraction (245 lines, 3 merges), P10.2 shared-skin retargets.
+  Tab slider, timeline dots and calendar events repaired and verified; P10.4 changed to a rename.
 - 2026-10-28 — Phase 9 closed: world map replaced, ar.json, i18n adapter, Rtl verified,
   ValidationForms + Wizard rebuilt on `rules`. vee-validate dropped.
 - 2026-10-28 — Phase 8 closed: all 28 screens ported; `_Placeholder` retired from routes.
@@ -157,7 +165,7 @@ Copy this into a new chat:
     Repo: https://github.com/jartai/dashboard
 
     Read PLAN.md, PROGRESS.md and PORTING.md from that repo before answering.
-    Phase 9 is closed; we're at P10.0 (parked legacy.scss selectors). Old app reference is
+    Phase 10 is in progress at P10.2 (tail legacy selectors). Old app reference is
     github.com/kathirr007/Vuetify-md-pro-clone, cloned read-only at ~/ref/md-pro-v2.
 
     Don't re-litigate the locked decisions in PROGRESS.md.
