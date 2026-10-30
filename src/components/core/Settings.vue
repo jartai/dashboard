@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import { useTheme } from 'vuetify'
-import { useUiStore } from '@/stores/ui'
+
+import sidebar1 from "@/assets/sidebar-1.jpg"
+import sidebar2 from "@/assets/sidebar-2.jpg"
+import sidebar3 from "@/assets/sidebar-3.jpg"
+import sidebar4 from "@/assets/sidebar-4.jpg"
 
 defineOptions({ name: 'DashboardCoreSettings' })
 
@@ -14,12 +18,12 @@ const saveImage = ref('')
 const color = ref('#E91E63')
 const colors = ['#9C27b0', '#00CAE3', '#4CAF50', '#ff9800', '#E91E63', '#FF5252']
 
-const image = ref('https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-1.jpg')
+const image = ref(sidebar1)
 const images = [
-  'https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-1.jpg',
-  'https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-2.jpg',
-  'https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-3.jpg',
-  'https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-4.jpg',
+  sidebar1,
+  sidebar2,
+  sidebar3,
+  sidebar4,
 ]
 
 const scrim = ref('rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)')

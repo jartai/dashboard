@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
-import barImageSrc from '@/assets/sidebar.jpg'
+import barImageSrc from '@/assets/sidebar-1.jpg'
 
 export const useUiStore = defineStore('ui', () => {
   // Sidebar gradient, mirrored from the original Vuex state.
