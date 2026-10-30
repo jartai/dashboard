@@ -105,5 +105,84 @@ const events = [
   .v-calendar-weekly__week:last-child .v-calendar-weekly__day {
     border-bottom: none;
   }
+
+  .v-sheet .v-icon {
+    color: #fff;
+  }
+
+  .v-calendar-weekly__day {
+    border-bottom: none;
+  }
+
+  .v-calendar-weekly__head-weekday {
+    font-weight: 700;
+  }
+
+  .v-calendar-weekly__head-weekday.v-present {
+    color: #333 !important;
+  }
+
+  .v-calendar-weekly .v-calendar-weekly__head-weekday {
+    border-right: none;
+    border-bottom: 1px solid #e0e0e0;
+
+    &.v-outside {
+      background: #fff;
+    }
+  }
+
+  .v-calendar-weekly__day-label {
+    .v-btn.transparent {
+      margin-right: 0 !important;
+
+      .v-btn__content {
+        color: #333 !important;
+      }
+    }
+
+    .v-btn--icon {
+      margin-right: 0 !important;
+
+      .v-btn__content {
+        color: #fff !important;
+      }
+    }
+  }
+
+  .v-event.v-event-end {
+    width: 100%;
+  }
+
+  .v-event {
+    &.bg-primary {
+      box-shadow:
+        0 4px 20px 0 rgba(0, 0, 0, 0.14),
+        0 7px 10px -5px rgba(156, 39, 176, 0.4);
+    }
+
+    &.bg-secondary {
+      box-shadow:
+        0 4px 20px 0 rgba(0, 0, 0, 0.14),
+        0 7px 10px -5px rgba(156, 39, 176, 0.4);
+    }
+
+    &.bg-info {
+      box-shadow:
+        0 4px 20px 0 rgba(0, 0, 0, 0.14),
+        0 7px 10px -5px rgba(0, 188, 212, 0.4);
+    }
+
+    &.bg-success {
+      box-shadow:
+        0 4px 20px 0 rgba(0, 0, 0, 0.14),
+        0 7px 10px -5px rgba(76, 175, 80, 0.4);
+    }
+
+    &.bg-warning {
+      box-shadow:
+        0 4px 20px 0 rgba(0, 0, 0, 0.14),
+        0 7px 10px -5px rgba(255, 152, 0, 0.4);
+    }
+  }
 }
 </style>

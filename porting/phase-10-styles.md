@@ -217,3 +217,50 @@ The original relied on global cascade, and every screen already carries a stable
 - **Wizard step-one fields overlap the avatar** — the `v-row`/`v-col` pair under the picture collapses to one column. Markup, not CSS. `Status: pending — P10.1`
 - **`availableSteps` arrives as `[0]`** — PREVIOUS and NEXT both disabled, only ABOUT reachable. `Status: pending — P10.1`
 - **User Profile nav entries are stubs** — `href: ''` / `to: ''` on all three `profileNav` children while the route exists at `/pages/user`; first child also uses `href` where the other two use `to`. `Status: pending — P11.2`
+
+## P10.2 — retarget shared skins, wizard slider, timeline and calendar
+
+### Wizard tab slider
+
+The slider was invisible for five stacked reasons, each found by reading the library rather than the page:
+
+- `hideSlider: Boolean` has no default, so `VTab` renders the slider unconditionally — the per-tab `:hide-slider="false"` is redundant and kept only as documentation.
+- `v-tab` had no `value`, so `useGroupItem`'s `selectedClass` never fired and the tab was never `--selected`. `:value="i"` added; this also makes `v-model` and `v-tabs-window` agree.
+- `VTab.css` sets `background: currentColor`; with `color="white"` on the tabs the bar was white on white. The rule now sets `background: rgb(var(--v-theme-success))`.
+- `bottom: -2px` at the theme's 2px height put the bar entirely outside the tab, where it clipped. Settled on `bottom: 0`.
+- `slider-size` is inert — `VTabs` declares `sliderSize`, `VTab` never reads it. The 50px moved to CSS with `left: calc(50% - 25px); right: auto`.
+
+### `.v-select-list.v-card`
+
+Fully dead. `VSelect` applies `v-select__content` to its menu content (VSelect.js:503), so the rule retargets there and keeps `margin: 0` and the squared top corners.
+
+### `.v-picker.v-card`
+
+Dead. The `VDatePicker` root is built from `v-date-picker` only — no `v-picker`, no `v-card`. Block deleted.
+
+### Field variant and state selectors
+
+- `.v-input--is-disabled` no longer exists; disabled moved to `.v-field--disabled`. The `:not()` cannot stay on `.v-input` and moved to `.v-field`.
+- `input, textarea` became `.v-field__input`, the class the element actually carries.
+- `v-field--variant-solo` is composed onto the field (VField.js:223), not the root, so the box-shadow selector moved onto `.v-field`.
+- `solo-flat` was dropped in v3, so the `:not(.v-field--variant-solo-flat)` guard was permanently true and came off.
+- `.v-select__selections` → `.v-select__selection`.
+
+### Timeline
+
+- `v-timeline-item__inner-dot` → `v-timeline-divider__inner-dot`; the divider is its own component and the dot sits under `.v-timeline-divider`.
+- The line is `.v-timeline-divider:before`, not a `:before` on `.v-timeline`.
+- `backgroundColorClasses` emits `bg-*`, so the six state pairs key off `&.bg-error` and siblings, not `&.error`.
+- **Screen fix:** `Timeline.vue` bound `:color`, but `VTimelineItem` has no `color` prop — the divider owns `dotColor` (VTimelineDivider.js:37). Binding changed to `:dot-color`. `iconColor` colours the icon; `dotColor` colours the dot.
+
+### Calendar
+
+- `#calendar` rules merged into the `#calendar` block already in `Calendar.vue`; two of them were already there.
+- `.v-event { &.__primary }` does not exist — `eventColor` goes through `getColorProps` → `computeColor`, which emits both a `bg-*` class and an inline style. The five pairs key off `&.bg-primary` and siblings.
+- `event-color="primary"` is a single fixed value, so only `bg-primary` is reachable; the other four are kept for future per-event colours.
+- The broad `.v-theme--light` wrapper at 1438-1495 was flattened; `#calendar` scopes the calendar rules tighter, and `#pages`, `#app`, `.v-ripple__container` and `.v-btn--router` survived at top level.
+- The empty `.v-toolbar__content > .v-btn` rule was dropped — it had no declarations.
+
+### Plan change
+
+P10.4 no longer deletes `legacy.scss`. It renames to `src/styles/app.scss`, because shared skins (select content, field variants, counters, ripple, router buttons) have no single owning component and need a permanent home.

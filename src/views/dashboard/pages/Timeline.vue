@@ -65,7 +65,7 @@ const timelines: Timeline[] = [
           <v-timeline-item
             v-for="(timeline, i) in timelines"
             :key="i"
-            :color="timeline.color"
+            :dot-color="timeline.color"
             fill-dot
             :icon="timeline.icon"
             size="large"
@@ -73,7 +73,7 @@ const timelines: Timeline[] = [
             <v-card class="pa-6">
               <v-chip
                 class="text-overline mb-3"
-                :color="timeline.color"
+                :dot-color="timeline.color"
                 size="small"
               >
                 {{ timeline.chip }}
