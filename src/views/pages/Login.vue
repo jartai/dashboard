@@ -4,9 +4,9 @@ import PagesBtn from '@/views/pages/components/Btn.vue'
 defineOptions({ name: 'PagesLogin' })
 
 const socials = [
-  { href: '#', icon: 'mdi-facebook-box' },
-  { href: '#', icon: 'mdi-twitter' },
-  { href: '#', icon: 'mdi-github-box' },
+  { href: 'https://facebook.com', icon: 'mdi-facebook' },
+  { href: 'https://x.com', icon: 'mdi-twitter' },
+  { href: 'https://github.com', icon: 'mdi-github' },
 ]
 </script>
 
