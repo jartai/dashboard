@@ -5,6 +5,8 @@ import BaseItem from './Item.vue'
 import BaseItemSubGroup from './ItemSubGroup.vue'
 import type { NavItem } from '@/config/navigation'
 
+import avatar from '@/assets/avatar.jpg'
+
 defineOptions({ name: 'ItemGroup', inheritAttrs: false })
 
 const props = withDefaults(defineProps<{ item: NavItem; subgroup?: boolean; text?: boolean }>(), {
@@ -50,9 +52,7 @@ const children = computed(() => props.item.children ?? [])
             class="align-self-center"
             color="grey"
           >
-            <v-img
-              src="https://demos.creative-tim.com/material-dashboard-pro/assets/img/faces/avatar.jpg"
-            />
+            <v-img :src="avatar" />
           </v-avatar>
         </template>
         <v-list-item-title>{{ item.title }}</v-list-item-title>

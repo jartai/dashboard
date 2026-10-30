@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import PagesBtn from '@/views/pages/components/Btn.vue'
 
+import avatar from '@/assets/avatar.jpg'
+
 defineOptions({ name: 'PagesLock' })
 </script>
 
@@ -23,9 +25,7 @@ defineOptions({ name: 'PagesLock' })
               color="grey"
               size="88"
             >
-              <v-img
-                src="https://demos.creative-tim.com/material-dashboard-pro/assets/img/faces/avatar.jpg"
-              />
+              <v-img :src="avatar" />
             </v-avatar>
 
             <div class="text-h3 font-weight-light mb-3 text-grey-darken-2">Tania Andrew</div>
