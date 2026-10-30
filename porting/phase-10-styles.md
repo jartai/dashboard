@@ -264,3 +264,52 @@ Dead. The `VDatePicker` root is built from `v-date-picker` only — no `v-picker
 ### Plan change
 
 P10.4 no longer deletes `legacy.scss`. It renames to `src/styles/app.scss`, because shared skins (select content, field variants, counters, ripple, router buttons) have no single owning component and need a permanent home.
+
+## P10.2 — tail selectors, field icons, prefix sweep, rename
+
+Status: done
+
+### Selector retargets
+
+- `.v-size--default` / `-large` / `-small` → `.v-btn--size-*`, 9 sites. `useSize`
+  (`composables/size.ts`) builds `--size-*` from `predefinedSizes`; the v2 names matched
+  nothing. They had also been suppressing three padding rules, so the retarget moved button
+  padding app-wide — toolbar buttons `10px 15px`, other sheet buttons `12px 30px` and
+  `18px 36px` when large, everything else `0 30px`, all from existing specificity.
+- `:not(.v-btn--icon):not(.v-btn--icon)` → one `:not()`, 8 sites. The pair never was a
+  deliberate specificity bump.
+- `.v-btn--router` → `a.v-btn`. **Deviation:** v4 emits no router class — `useLink` returns
+  only `href` / `aria-*` / `tabindex`, and `VBtn` renders a bare `<a>`. The rule was dead.
+  `a.v-btn` is the structural equivalent, but it also catches plain `href` buttons, which
+  v2 did not.
+- `.v-content` → `.v-main`. `components/core/View.vue` renders `<v-main>`.
+- `.error-page h1.title` → `.error-page h1`. The h1 carries `text-h6 font-weight-black` and
+  no `title`, so the rule never matched — it was rendering at `text-h6` size. Merged into
+  the rule already in `Error.vue`; `12rem` kept as the equivalent of 192px and the
+  `!important`s dropped, `.error-page h1` being `0,1,1` against `0,1,0`.
+- Deleted `.v-btn.v-btn--size-default` / `-large { padding: 10px 15px }`. Same specificity as
+  the later `padding: 0 30px` block and earlier in the file, so it never won once retargeted.
+
+### Field icons
+
+- `prepend-icon` → `prepend-inner-icon`, 3 sites each in Register and Login. v2 drew
+  `prepend-icon` inside the control; v4 split it and the old prop now targets
+  `v-input__prepend`, outside the field. The icons were orphaned in the margin.
+
+### Prefix sweep
+
+- Removed every `-webkit-box-shadow` (each duplicated the `box-shadow` directly beneath), the
+  single `-webkit-transition` and the single `-ms-flex-item-align`. `display:
+  -webkit-inline-box` → `inline-flex`, the only prefix with no unprefixed twin.
+
+### Rename
+
+- `src/styles/legacy.scss` → `src/styles/app.scss`, `main.ts` import updated. Once the file
+  holds only cross-cutting skins with no owning component, "legacy" stops describing it.
+
+### Process
+
+- Two `sed` passes no-opped and exited 0: the `.error-page h1.title` selector, then the entire
+  P10.1 retarget block on a later step. Both surfaced in the step's own verification `grep`.
+  Replayed whole rather than hand-patched, since a partial replay was what produced the second
+  failure.

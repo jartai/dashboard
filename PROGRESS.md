@@ -5,16 +5,16 @@
 
 ## Current position
 
-**Step:** Phase 10 **in progress** — P10.0a–k and P10.1 closed, shared-skin retargets done.
-Next: P10.2 tail selectors (`#register`, `#login`, `.error-page`, `.v-content`), then P10.4 rename.
+**Step:** Phase 10 **closed** — P10.0a–k, P10.1, P10.2, P10.3 verify and P10.4 rename all done.
+`legacy.scss` is now `src/styles/app.scss`. Next: Phase 11.
 **Branch:** `main`
 **Last session:** 2026-10-30
 
 ## Working
 
-- Phases 0–10.1 complete. Legacy rules are being retargeted to v4 rather than deleted; `legacy.scss` is
-  down from 1859 to ~1380 lines. Component styles stay inline; `src/styles/` is cross-cutting only.
-- Wizard tab slider, timeline dot colours and calendar event shadows all verified in the browser.
+- Phases 0–10 complete. `src/styles/app.scss` holds cross-cutting skins only and is unlayered on
+  purpose; screen rules live in each screen's own unscoped block. Component styles stay inline.
+- Prefix sweep done; the file carries no `-webkit-`/`-ms-` declarations.
 - Retargets are verified against the library source before each edit, never against appearance.
 
 ## Broken / blocked
@@ -24,12 +24,12 @@ Next: P10.2 tail selectors (`#register`, `#login`, `.error-page`, `.v-content`),
 - `availableSteps` arrives as `[0]`: PREVIOUS and NEXT disabled, only step 1 reachable
 - `profileNav` children are stubs (`href: ''` / `to: ''`); User Profile route is `/pages/user`
 - P11.1: dead `demos.creative-tim.com` asset URLs still in place, including the UserProfile avatar
+- Register/Login cards run ~97% of viewport width; `v-col cols="9"` looks inert, unconfirmed in devtools
 
 ## Next up
 
-- P10.2 Tail: `#register`, `#login`, `.error-page`, `.v-content` → `.v-main`, `.v-btn` padding,
-  duplicated `:not(.v-btn--icon)` pairs, `.v-btn--router`
-- P10.2 `-webkit-` sweep, then P10.3 verify, P10.4 **rename** to `src/styles/app.scss`, P10.5 commit
+- P11.1 localise `barImage` and the UserProfile avatar, P11.2 nav stubs, P11.3–4 tests,
+  P11.5 lint, P11.6 build, P11.7 Pages deploy, P11.8 side-by-side walk, P11.9 tick the inventory
 
 ---
 
@@ -39,8 +39,8 @@ Next: P10.2 tail selectors (`#register`, `#login`, `.error-page`, `.v-content`),
 - Package manager is **pnpm**. Sass is **`sass-embedded`**.
 - **One app**, not separate apps per screen. Screens are isolated routes until they work.
 - This app has **no backend** and no API. PHP comes later, separately.
-- Do **not** port `app.scss` verbatim. Two passes: P6b (done), P10 (pending).
-- `legacy.scss` is **temporary** and **unlayered on purpose**. Renamed to `src/styles/app.scss` at P10.4.
+- Do **not** port `app.scss` verbatim. Two passes: P6b (done), P10 (done).
+- `src/styles/app.scss` is **unlayered on purpose**. Renamed from `legacy.scss` at P10.4.
 - Vuetify 4's **lowered breakpoints are adopted**. Don't restore v3 thresholds.
 - Typography class mapping (v2 → v4) is in `PLAN.md`. Use it; don't guess.
 - The `register → pricing` nav bug is **fixed**, logged in `PORTING.md`.
@@ -93,6 +93,8 @@ Next: P10.2 tail selectors (`#register`, `#login`, `.error-page`, `.v-content`),
 - **Not every v2 slot survived.** `#footer` on a data table is `#bottom`; a file input's
   selection slot is `{ fileNames, totalBytes, totalBytesReadable }`; a list item's
   `#item` gets the raw value, not a `{ title }` wrapper.
+- **A `sed` that misses exits 0.** Every substitution step gets a verification `grep`
+  that must come back empty; treat a hit as a stop, not a note.
 
 ## Conventions
 
@@ -141,10 +143,8 @@ Next: P10.2 tail selectors (`#register`, `#login`, `.error-page`, `.v-content`),
 
 Newest first. Two lines max per entry.
 
-- 2026-10-30 — Phase 10: P10.0a–k, PORTING split per phase, P10.1 extraction (245 lines, 3 merges), P10.2 shared-skin retargets.
-  Tab slider, timeline dots and calendar events repaired and verified; P10.4 changed to a rename.
-- 2026-10-30 — Phase 10: P10.0a–k, PORTING split per phase, P10.1 extraction (245 lines, 3 merges), P10.2 shared-skin retargets.
-  Tab slider, timeline dots and calendar events repaired and verified; P10.4 changed to a rename.
+- 2026-10-30 — Phase 10 closed: P10.2 tail retargets, screen-style extractions (register, login,
+  error), prefix sweep, rename to `app.scss`. Both `sed` no-ops caught by the step greps.
 - 2026-10-30 — Phase 10: P10.0a–k, PORTING split per phase, P10.1 extraction (245 lines, 3 merges), P10.2 shared-skin retargets.
   Tab slider, timeline dots and calendar events repaired and verified; P10.4 changed to a rename.
 - 2026-10-28 — Phase 9 closed: world map replaced, ar.json, i18n adapter, Rtl verified,
@@ -165,8 +165,8 @@ Copy this into a new chat:
     Repo: https://github.com/jartai/dashboard
 
     Read PLAN.md, PROGRESS.md and PORTING.md from that repo before answering.
-    Phase 10 is in progress at P10.2 (tail legacy selectors). Old app reference is
-    github.com/kathirr007/Vuetify-md-pro-clone, cloned read-only at ~/ref/md-pro-v2.
+    Phase 10 is closed; Phase 11 starts at P11.1 (localise assets).
+    Old app reference is github.com/kathirr007/Vuetify-md-pro-clone, cloned read-only at ~/ref/md-pro-v2.
 
     Don't re-litigate the locked decisions in PROGRESS.md.
     One file per step, full file content, explicit paths.
