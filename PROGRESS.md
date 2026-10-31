@@ -23,6 +23,8 @@
 - Wizard step-one fields overlap the avatar — collapsed `v-row`/`v-col`
 - `availableSteps` arrives as `[0]`: PREVIOUS and NEXT disabled, only step 1 reachable
 
+- **P11.7 deploy half is open.** `base` is committed; no Pages source is configured and no workflow exists.
+  Set the repo Pages source before P11.10, or the tag ships a build nothing serves.
 ## Next up
 
 - P11.5 lint, P11.6 build, P11.7 Pages deploy, P11.8 side-by-side walk, P11.9 tick the inventory
