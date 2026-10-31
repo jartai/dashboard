@@ -259,7 +259,7 @@ P9.1–P9.3 are settled: chartist was kept and `Charts.vue` is ported.
 - [x] P11.3 Vitest tests for 3 shared components
 - [x] P11.4 Tests for the store
 - [x] P11.5 `pnpm lint` clean
-- [ ] P11.6 `pnpm build` succeeds
+- [x] P11.6 `pnpm build` succeeds
 - [ ] P11.7 Set `base: '/dashboard/'` in `vite.config.ts`, deploy to GitHub Pages
 - [ ] P11.8 Walk every route side-by-side vs live demo
 - [ ] P11.9 Tick off the inventory in `PORTING.md`
