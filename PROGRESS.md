@@ -5,7 +5,7 @@
 
 ## Current position
 
-**Step:** Phase 11 **in progress** — P11.1 closed (all assets local). Next: P11.2 nav stubs.
+**Step:** Phase 11 **in progress** — P11.1 and P11.2 closed. Next: P11.3 tests.
 `legacy.scss` is now `src/styles/app.scss`. Next: Phase 11.
 **Branch:** `main`
 **Last session:** 2026-10-30
@@ -22,11 +22,10 @@
 - `src/views/_Placeholder.vue` now unreferenced — delete at P11
 - Wizard step-one fields overlap the avatar — collapsed `v-row`/`v-col`
 - `availableSteps` arrives as `[0]`: PREVIOUS and NEXT disabled, only step 1 reachable
-- `profileNav` children are stubs (`href: ''` / `to: ''`); User Profile route is `/pages/user`
 
 ## Next up
 
-- P11.2 nav stubs, P11.3–4 tests,
+- P11.3–4 tests,
   P11.5 lint, P11.6 build, P11.7 Pages deploy, P11.8 side-by-side walk, P11.9 tick the inventory
 
 ---
@@ -91,6 +90,9 @@
 - **Not every v2 slot survived.** `#footer` on a data table is `#bottom`; a file input's
   selection slot is `{ fileNames, totalBytes, totalBytesReadable }`; a list item's
   `#item` gets the raw value, not a `{ title }` wrapper.
+- **MDI 7 dropped the brand and `-box` glyphs the v2 source used.** `mdi-facebook-box`, `mdi-github-box`,
+  `mdi-dribbble` and 20 others render as empty boxes, not errors. Check any icon taken from the old
+  templates with `grep -c "mdi-<name>:" node_modules/@mdi/font/css/materialdesignicons.css` first.
 - **A `sed` that misses exits 0.** Every substitution step gets a verification `grep`
   that must come back empty; treat a hit as a stop, not a note.
 
