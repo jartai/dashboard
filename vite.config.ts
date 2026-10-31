@@ -7,6 +7,8 @@ import vuetify from 'vite-plugin-vuetify'
 
 // https://vite.dev/config/
 export default defineConfig({
+  // Served from a GitHub Pages project path, not a domain root.
+  base: '/dashboard/',
   plugins: [
     vue(),
     vueDevTools(),
