@@ -39,3 +39,21 @@ Status: done
   (2) and one each in Register, Login, Wizard and Charts. Every substitute was verified against
   `node_modules/@mdi/font` before writing. `mdi-face` → `mdi-face-man` shifts meaning slightly; the
   rest are shape-for-shape or letter tiles where no brand mark survives.
+
+## P11.3 / P11.4 — tests
+
+Status: done
+
+- Harness: `src/test/setup.ts` installs Vuetify through `config.global.plugins`; `vitest.config.ts`
+  registers it via `setupFiles` and inlines `vuetify` under `server.deps.inline`. `tsconfig.vitest.json`
+  gains `src/test/**/*` so the setup file is type-checked — it is the one file the default include
+  misses, and a typo in its import would otherwise only surface at runtime.
+- Setup lives in `src/test/`, not `src/__tests__/`: the collector pattern is `src/**/__tests__/*` and a
+  suite with no `it()` fails with "No test suite found". Specs go in `__tests__/` beside each component.
+- `vitest.config.ts` imports `./vite.config.ts` with the extension. `allowImportingTsExtensions` was
+  already set in `tsconfig.node.json`, so this beat the `VITE_CONFIG_NATIVE_IGNORE_WARNING` env var,
+  which was never applied.
+- Four suites, nineteen cases: Subheading, MaterialAlert, VComponent, `stores/ui`. `MaterialAlert`
+  declares no `emits`, so the close listener is asserted through an `onClick:close` attr spy rather than
+  `emitted()` — the event reaches the parent by `v-bind="$attrs"`, not by re-emit.
+- Icon assertions use `classes()`: MDI glyphs are `::before` content and the element text is empty.

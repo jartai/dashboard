@@ -5,8 +5,8 @@
 
 ## Current position
 
-**Step:** Phase 11 **in progress** — P11.1 and P11.2 closed. Next: P11.3 tests.
-`legacy.scss` is now `src/styles/app.scss`. Next: Phase 11.
+**Step:** Phase 11 **in progress** — P11.1–P11.4 closed. Next: P11.5 lint, P11.6 build.
+`legacy.scss` is now `src/styles/app.scss`.
 **Branch:** `main`
 **Last session:** 2026-10-30
 
@@ -25,8 +25,7 @@
 
 ## Next up
 
-- P11.3–4 tests,
-  P11.5 lint, P11.6 build, P11.7 Pages deploy, P11.8 side-by-side walk, P11.9 tick the inventory
+- P11.5 lint, P11.6 build, P11.7 Pages deploy, P11.8 side-by-side walk, P11.9 tick the inventory
 
 ---
 
@@ -90,6 +89,16 @@
 - **Not every v2 slot survived.** `#footer` on a data table is `#bottom`; a file input's
   selection slot is `{ fileNames, totalBytes, totalBytesReadable }`; a list item's
   `#item` gets the raw value, not a `{ title }` wrapper.
+- **`vi.fn()` needs a signature** — `vi.fn<() => void>()`. `vitest/require-mock-type-parameters`
+  fails the lint otherwise.
+- **Never assert icon text.** MDI glyphs are `::before` content, so the element text is empty. Assert
+  `classes()` contains the `mdi-*` name, and scope the selector — a bare `.v-icon` matches whatever
+  Vuetify renders first.
+- **A component test that renders a Vuetify component needs `test.server.deps.inline: [x27vuetifyx27]`**
+  in `vitest.config.ts`. Without it Node tries to load the packagex27s `.css` and throws
+  `Unknown file extension ".css"` — naming a component file, not the config.
+- **`allowImportingTsExtensions` is on.** `vitest.config.ts` imports `./vite.config.ts` with the
+  extension so the native config loader stays quiet.
 - **MDI 7 dropped the brand and `-box` glyphs the v2 source used.** `mdi-facebook-box`, `mdi-github-box`,
   `mdi-dribbble` and 20 others render as empty boxes, not errors. Check any icon taken from the old
   templates with `grep -c "mdi-<name>:" node_modules/@mdi/font/css/materialdesignicons.css` first.

@@ -254,10 +254,10 @@ P9.1–P9.3 are settled: chartist was kept and `Charts.vue` is ported.
 
 ## Phase 11 — Polish & cutover
 
-- [ ] P11.1 Add `barImage` as a local asset, update store
-- [ ] P11.2 Fix remaining `href="#"` / empty `to` nav stubs
-- [ ] P11.3 Vitest tests for 3 shared components
-- [ ] P11.4 Tests for the store
+- [x] P11.1 Add `barImage` as a local asset, update store
+- [x] P11.2 Fix remaining `href="#"` / empty `to` nav stubs
+- [x] P11.3 Vitest tests for 3 shared components
+- [x] P11.4 Tests for the store
 - [ ] P11.5 `pnpm lint` clean
 - [ ] P11.6 `pnpm build` succeeds
 - [ ] P11.7 Set `base: '/dashboard/'` in `vite.config.ts`, deploy to GitHub Pages
