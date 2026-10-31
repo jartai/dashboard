@@ -223,7 +223,7 @@ function onChange(event: Event) {
                 :rules="[requiredRule]"
                 color="secondary"
                 label="First Name*"
-                prepend-icon="mdi-face"
+                prepend-icon="mdi-face-man"
                 validate-on="blur"
               />
 

@@ -33,7 +33,7 @@ export const navItems: NavItem[] = [
     children: [
       {
         title: 'multi',
-        children: [{ title: 'example', href: '#' }],
+        children: [{ title: 'example', to: '/components/buttons' }],
       },
       { title: 'buttons', to: '/components/buttons' },
       { title: 'grid', to: '/components/grid-system' },
@@ -67,13 +67,13 @@ export const navItems: NavItem[] = [
   { icon: 'mdi-calendar-range', title: 'calendar', to: '/calendar' },
 ]
 
-// Stub links (empty href/to in the original) — fixed at P11.2.
+// Profile menu — all three land on the only route behind it.
 export const profileNav: NavItem = {
   avatar: true,
   title: 'avatar',
   children: [
-    { title: 'my-profile', href: '' },
-    { title: 'edit-profile', to: '' },
-    { title: 'settings', to: '' },
+    { title: 'my-profile', to: '/pages/user' },
+    { title: 'edit-profile', to: '/pages/user' },
+    { title: 'settings', to: '/pages/user' },
   ],
 }

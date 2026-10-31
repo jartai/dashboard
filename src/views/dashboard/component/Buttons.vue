@@ -29,10 +29,10 @@ const social: SocialButton[] = [
   { color: '#0976B4', icon: 'mdi-linkedin', text: 'Connect with LinkedIn' },
   { color: '#CC2127', icon: 'mdi-pinterest', text: 'Pint It - 212' },
   { color: '#E52D27', icon: 'mdi-youtube', text: 'View on Youtube' },
-  { color: '#35465C', icon: 'mdi-tumblr', text: 'Repost' },
-  { color: '#333333', icon: 'mdi-github-circle', text: 'Connect with Github' },
-  { color: '#1769FF', icon: 'mdi-behance', text: 'Follow Us' },
-  { color: '#EA4C89', icon: 'mdi-dribbble', text: 'Follow us on Dribbble' },
+  { color: '#35465C', icon: 'mdi-alpha-t-box', text: 'Repost' },
+  { color: '#333333', icon: 'mdi-github', text: 'Connect with Github' },
+  { color: '#1769FF', icon: 'mdi-briefcase', text: 'Follow Us' },
+  { color: '#EA4C89', icon: 'mdi-basketball', text: 'Follow us on Dribbble' },
   { color: '#FF4500', icon: 'mdi-reddit', text: 'Repost - 232' },
 ]
 

@@ -236,7 +236,7 @@ const pie = {
           id="multiple-bar"
           class="px-4 py-3"
           color="success"
-          icon="mdi-poll-box"
+          icon="mdi-poll"
         >
           <template #after-heading>
             <div class="text-h4 mt-2 font-weight-light">

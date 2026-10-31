@@ -80,7 +80,7 @@ watch(showImg, (val) => {
       min-width="100"
       style="position: fixed; top: 115px; right: -35px; border-radius: 8px"
     >
-      <v-icon size="large">mdi-settings</v-icon>
+      <v-icon size="large">mdi-cog</v-icon>
     </v-card>
 
     <v-menu

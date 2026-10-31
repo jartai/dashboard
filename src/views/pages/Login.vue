@@ -49,7 +49,7 @@ const socials = [
               class="mt-10"
               color="secondary"
               label="First Name..."
-              prepend-inner-icon="mdi-face"
+              prepend-inner-icon="mdi-face-man"
             />
 
             <v-text-field
