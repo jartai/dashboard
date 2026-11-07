@@ -1,11 +1,11 @@
 <template>
   <v-app>
-    <v-main>
+    <DashboardLayout>
       <router-view />
-    </v-main>
+    </DashboardLayout>
   </v-app>
 </template>
 
-<script lang="ts" setup>
-  //
+<script setup lang="ts">
+  import DashboardLayout from '@/layouts/DashboardLayout.vue'
 </script>
