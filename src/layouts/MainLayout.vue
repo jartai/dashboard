@@ -74,14 +74,6 @@ function toggleLeftDrawer() {
 
           <q-item-section>Notifications</q-item-section>
         </q-item>
-
-        <q-item to="/upgrade" clickable v-ripple>
-          <q-item-section avatar>
-            <q-icon name="upgrade" />
-          </q-item-section>
-
-          <q-item-section>Upgrade</q-item-section>
-        </q-item>
       </q-list>
     </q-drawer>
 

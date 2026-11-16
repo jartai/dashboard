@@ -40,11 +40,6 @@ const routes: RouteRecordRaw[] = [
         name: 'Notifications',
         component: () => import('@/pages/NotificationsPage.vue'),
       },
-      {
-        path: 'upgrade',
-        name: 'Upgrade',
-        component: () => import('@/pages/UpgradePage.vue'),
-      },
     ],
   },
 
