@@ -35,6 +35,11 @@ const routes: RouteRecordRaw[] = [
         name: 'Google Maps',
         component: () => import('@/pages/GoogleMapsPage.vue'),
       },
+      {
+        path: 'components/notifications',
+        name: 'Notifications',
+        component: () => import('@/pages/NotificationsPage.vue'),
+      },
     ],
   },
 

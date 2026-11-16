@@ -66,6 +66,14 @@ function toggleLeftDrawer() {
 
           <q-item-section>Google Maps</q-item-section>
         </q-item>
+
+        <q-item to="/components/notifications" clickable v-ripple>
+          <q-item-section avatar>
+            <q-icon name="notifications" />
+          </q-item-section>
+
+          <q-item-section>Notifications</q-item-section>
+        </q-item>
       </q-list>
     </q-drawer>
 
