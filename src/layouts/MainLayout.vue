@@ -17,7 +17,33 @@ function toggleLeftDrawer() {
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" show-if-above bordered />
+    <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
+      <q-list>
+        <q-item to="/" exact clickable v-ripple>
+          <q-item-section avatar>
+            <q-icon name="dashboard" />
+          </q-item-section>
+
+          <q-item-section>Dashboard</q-item-section>
+        </q-item>
+
+        <q-item to="/pages/user" clickable v-ripple>
+          <q-item-section avatar>
+            <q-icon name="person" />
+          </q-item-section>
+
+          <q-item-section>User Profile</q-item-section>
+        </q-item>
+
+        <q-item to="/tables/regular-tables" clickable v-ripple>
+          <q-item-section avatar>
+            <q-icon name="table_chart" />
+          </q-item-section>
+
+          <q-item-section>Regular Tables</q-item-section>
+        </q-item>
+      </q-list>
+    </q-drawer>
 
     <q-page-container>
       <router-view />
