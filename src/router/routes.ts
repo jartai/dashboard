@@ -20,6 +20,11 @@ const routes: RouteRecordRaw[] = [
         name: 'Regular Tables',
         component: () => import('@/pages/RegularTablesPage.vue'),
       },
+      {
+        path: 'components/typography',
+        name: 'Typography',
+        component: () => import('@/pages/TypographyPage.vue'),
+      },
     ],
   },
 
