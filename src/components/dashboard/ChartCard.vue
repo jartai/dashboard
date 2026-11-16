@@ -9,6 +9,7 @@ defineProps<{
   <q-card>
     <q-card-section>
       <div class="text-h6">{{ title }}</div>
+
       <div>
         <slot />
       </div>
@@ -17,15 +18,15 @@ defineProps<{
     <q-separator />
 
     <q-card-actions>
-      <q-icon name="schedule" size="xs" />
+      <q-icon name="mdi-clock-outline" size="xs" />
       <span class="text-caption">{{ updated }}</span>
       <q-space />
 
-      <q-btn flat round dense icon="refresh" color="info">
+      <q-btn flat round dense icon="mdi-refresh" color="info">
         <q-tooltip>Refresh</q-tooltip>
       </q-btn>
 
-      <q-btn flat round dense icon="edit">
+      <q-btn flat round dense icon="mdi-pencil">
         <q-tooltip>Change Date</q-tooltip>
       </q-btn>
     </q-card-actions>

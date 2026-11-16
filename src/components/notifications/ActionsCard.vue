@@ -123,6 +123,7 @@ function showNotice(position: NotifyPosition) {
         <div class="row q-col-gutter-md items-center">
           <div class="col-12 col-md-8 text-left">
             <div class="text-weight-bold">1. Register</div>
+
             <div class="text-grey-7">
               The first step is to create an account at Creative Tim. You can choose a social
               network or go for the classic version, whatever works best for you.
@@ -139,6 +140,7 @@ function showNotice(position: NotifyPosition) {
 
           <div class="col-12 col-md-8 text-left">
             <div class="text-weight-bold">2. Apply</div>
+
             <div class="text-grey-7">
               The first step is to create an account at
               <a href="https://www.creative-tim.com/" target="_blank" rel="noopener">Creative Tim</a

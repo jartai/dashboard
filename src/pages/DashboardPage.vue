@@ -1,45 +1,69 @@
 <script setup lang="ts">
 import ChartCard from '@/components/dashboard/ChartCard.vue';
-import EmployeesCard from '@/components/dashboard/EmployeesCard.vue';
+import ListingCard from '@/components/dashboard/ListingCard.vue';
+import SalesCard from '@/components/dashboard/SalesCard.vue';
 import StatCard from '@/components/dashboard/StatCard.vue';
-import TasksCard from '@/components/dashboard/TasksCard.vue';
 
 const stats = [
   {
     title: 'Followers',
     value: '+245',
-    icon: 'groups',
+    icon: 'mdi-twitter',
     color: 'info',
-    subIcon: 'schedule',
+    subIcon: 'mdi-clock',
     subColor: 'grey',
     subText: 'Just Updated',
   },
   {
     title: 'Website Visits',
     value: '75.521',
-    icon: 'bar_chart',
+    icon: 'mdi-poll',
     color: 'primary',
-    subIcon: 'local_offer',
+    subIcon: 'mdi-tag',
     subColor: 'grey',
     subText: 'Tracked from Google Analytics',
   },
   {
     title: 'Revenue',
-    value: '$34,245',
-    icon: 'store',
+    value: '$ 34,245',
+    icon: 'mdi-store',
     color: 'positive',
-    subIcon: 'calendar_today',
+    subIcon: 'mdi-calendar',
     subColor: 'grey',
     subText: 'Last 24 Hours',
   },
   {
     title: 'Bookings',
     value: '184',
-    icon: 'weekend',
+    icon: 'mdi-sofa',
     color: 'orange',
-    subIcon: 'warning',
+    subIcon: 'mdi-alert',
     subColor: 'negative',
     subText: 'Get More Space...',
+  },
+];
+
+const listings = [
+  {
+    title: 'Cozy 5 Stars Apartment',
+    text: 'The place is close to Barceloneta Beach and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the life in Barcelona.',
+    image: 'https://demos.creative-tim.com/vue-material-dashboard-pro/img/card-2.jpg',
+    price: '$899/night',
+    place: 'Barcelona, Spain',
+  },
+  {
+    title: 'Office Studio',
+    text: 'The place is close to Metro Station and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the night life in London, UK.',
+    image: 'https://demos.creative-tim.com/vue-material-dashboard-pro/img/card-3.jpg',
+    price: '$1.119/night',
+    place: 'London, UK',
+  },
+  {
+    title: 'Beautiful Castle',
+    text: 'The place is close to Metro Station and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the main night life in Milan.',
+    image: 'https://demos.creative-tim.com/vue-material-dashboard-pro/img/card-1.jpg',
+    price: '$459/night',
+    place: 'Milan, Italy',
   },
 ];
 </script>
@@ -47,6 +71,10 @@ const stats = [
 <template>
   <q-page padding>
     <div class="row q-col-gutter-md">
+      <div class="col-12">
+        <SalesCard />
+      </div>
+
       <div class="col-12 col-lg-4">
         <ChartCard title="Website Views" updated="updated 10 minutes ago">
           Last Campaign Performance
@@ -55,7 +83,7 @@ const stats = [
 
       <div class="col-12 col-lg-4">
         <ChartCard title="Daily Sales" updated="updated 4 minutes ago">
-          <q-icon name="arrow_upward" color="positive" size="xs" />
+          <q-icon name="mdi-arrow-up" color="positive" size="xs" />
           <span class="text-positive">55%</span>
           increase in today's sales
         </ChartCard>
@@ -71,12 +99,12 @@ const stats = [
         <StatCard v-bind="stat" />
       </div>
 
-      <div class="col-12 col-md-6">
-        <EmployeesCard />
+      <div class="col-12">
+        <div class="text-h5">Manage Listings</div>
       </div>
 
-      <div class="col-12 col-md-6">
-        <TasksCard />
+      <div v-for="listing in listings" :key="listing.title" class="col-12 col-md-4">
+        <ListingCard v-bind="listing" />
       </div>
     </div>
   </q-page>

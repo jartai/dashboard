@@ -45,7 +45,7 @@ const aboutMe = ref('Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
         </div>
 
         <div class="col-12">
-          <q-input v-model="address" label="Address" />
+          <q-input v-model="address" label="Adress" />
         </div>
 
         <div class="col-12 col-md-4">

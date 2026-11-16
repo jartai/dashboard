@@ -100,14 +100,24 @@ export default defineConfigWithVueTs(
       'object-curly-newline': [
         'error',
         {
-          ObjectExpression: 'always',
-          ObjectPattern: 'always',
+          ObjectExpression: {
+            multiline: true,
+            minProperties: 2,
+            consistent: true,
+          },
+          ObjectPattern: {
+            multiline: true,
+            minProperties: 2,
+            consistent: true,
+          },
           ImportDeclaration: {
             multiline: true,
+            minProperties: 3,
             consistent: true,
           },
           ExportDeclaration: {
             multiline: true,
+            minProperties: 3,
             consistent: true,
           },
         },
@@ -125,21 +135,6 @@ export default defineConfigWithVueTs(
             blankLine: 'always',
             prev: '*:multi-line',
             next: '*:multi-line',
-          },
-          {
-            blankLine: 'always',
-            prev: '*:multi-line',
-            next: '*:single-line',
-          },
-          {
-            blankLine: 'always',
-            prev: '*:single-line',
-            next: '*:multi-line',
-          },
-          {
-            blankLine: 'never',
-            prev: '*:single-line',
-            next: '*:single-line',
           },
         ],
       ],

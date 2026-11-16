@@ -19,7 +19,7 @@ export default defineConfig((/* ctx */) => {
     // https://github.com/quasarframework/quasar/tree/dev/extras
     extras: [
       // 'ionicons-v4',
-      // 'mdi-v7',
+      'mdi-v7',
       // 'fontawesome-v7',
       // 'eva-icons',
       // 'themify',
@@ -72,7 +72,9 @@ export default defineConfig((/* ctx */) => {
               useFlatConfig: true,
             },
           },
-          { server: false },
+          {
+            server: false,
+          },
         ],
       ],
     },
@@ -87,6 +89,14 @@ export default defineConfig((/* ctx */) => {
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#framework
     framework: {
       config: {},
+
+      iconMapFn: (iconName: string) => {
+        if (iconName.startsWith('mdi-')) {
+          return {
+            cls: `mdi ${iconName}`,
+          };
+        }
+      },
 
       // iconSet: 'material-icons', // Quasar icon set
       // lang: 'en-US', // Quasar language pack

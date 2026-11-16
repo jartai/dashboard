@@ -7,6 +7,7 @@
         <q-card>
           <q-card-section>
             <div class="text-h4">Vuetify Material Dashboard</div>
+
             <div class="text-subtitle1">
               Are you looking for more components? Please check our Premium Version of Vuetify
               Material Dashboard
@@ -45,9 +46,11 @@
 
               <tr>
                 <th class="text-left">Login, Register, Pricing, Lock Pages</th>
+
                 <td>
                   <q-icon name="close" color="negative" />
                 </td>
+
                 <td>
                   <q-icon name="check" color="positive" />
                 </td>
@@ -55,9 +58,11 @@
 
               <tr>
                 <th class="text-left">Premium Support</th>
+
                 <td>
                   <q-icon name="close" color="negative" />
                 </td>
+
                 <td>
                   <q-icon name="check" color="positive" />
                 </td>
@@ -71,9 +76,11 @@
 
               <tr>
                 <th />
+
                 <td>
                   <q-btn color="grey" label="Current Version" disable />
                 </td>
+
                 <td>
                   <q-btn
                     color="positive"
