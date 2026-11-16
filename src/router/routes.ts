@@ -30,6 +30,11 @@ const routes: RouteRecordRaw[] = [
         name: 'Icons',
         component: () => import('@/pages/IconsPage.vue'),
       },
+      {
+        path: 'maps/google-maps',
+        name: 'Google Maps',
+        component: () => import('@/pages/GoogleMapsPage.vue'),
+      },
     ],
   },
 
