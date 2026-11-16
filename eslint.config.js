@@ -38,7 +38,12 @@ export default defineConfigWithVueTs(
   {
     files: ['**/*.ts', '**/*.vue'],
     rules: {
-      '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports' }],
+      '@typescript-eslint/consistent-type-imports': [
+        'error',
+        {
+          prefer: 'type-imports',
+        },
+      ],
     },
   },
   // https://github.com/vuejs/eslint-config-typescript
@@ -66,6 +71,13 @@ export default defineConfigWithVueTs(
       'prefer-promise-reject-errors': 'off',
       // slots use the "#" shorthand everywhere, as in the Quasar docs
       'vue/v-slot-style': ['warn', 'shorthand'],
+      // <script> before <template> before <style>
+      'vue/block-order': [
+        'error',
+        {
+          order: ['script', 'template', 'style'],
+        },
+      ],
 
       // allow debugger during development only
       'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
@@ -82,4 +94,49 @@ export default defineConfigWithVueTs(
   },
 
   prettierSkipFormatting,
+
+  {
+    rules: {
+      'object-curly-newline': [
+        'error',
+        {
+          ObjectExpression: 'always',
+          ObjectPattern: 'always',
+          ImportDeclaration: 'never',
+          ExportDeclaration: 'never',
+        },
+      ],
+      'object-property-newline': [
+        'error',
+        {
+          allowAllPropertiesOnSameLine: false,
+        },
+      ],
+      'vue/padding-line-between-tags': [
+        'error',
+        [
+          {
+            blankLine: 'always',
+            prev: '*:multi-line',
+            next: '*:multi-line',
+          },
+          {
+            blankLine: 'always',
+            prev: '*:multi-line',
+            next: '*:single-line',
+          },
+          {
+            blankLine: 'always',
+            prev: '*:single-line',
+            next: '*:multi-line',
+          },
+          {
+            blankLine: 'never',
+            prev: '*:single-line',
+            next: '*:single-line',
+          },
+        ],
+      ],
+    },
+  },
 );
