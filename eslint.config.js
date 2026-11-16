@@ -102,8 +102,14 @@ export default defineConfigWithVueTs(
         {
           ObjectExpression: 'always',
           ObjectPattern: 'always',
-          ImportDeclaration: 'never',
-          ExportDeclaration: 'never',
+          ImportDeclaration: {
+            multiline: true,
+            consistent: true,
+          },
+          ExportDeclaration: {
+            multiline: true,
+            consistent: true,
+          },
         },
       ],
       'object-property-newline': [
