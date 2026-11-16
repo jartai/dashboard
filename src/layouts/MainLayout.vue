@@ -50,6 +50,14 @@ function toggleLeftDrawer() {
 
           <q-item-section>Typography</q-item-section>
         </q-item>
+
+        <q-item to="/components/icons" clickable v-ripple>
+          <q-item-section avatar>
+            <q-icon name="sentiment_satisfied" />
+          </q-item-section>
+
+          <q-item-section>Icons</q-item-section>
+        </q-item>
       </q-list>
     </q-drawer>
 

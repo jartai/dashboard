@@ -25,6 +25,11 @@ const routes: RouteRecordRaw[] = [
         name: 'Typography',
         component: () => import('@/pages/TypographyPage.vue'),
       },
+      {
+        path: 'components/icons',
+        name: 'Icons',
+        component: () => import('@/pages/IconsPage.vue'),
+      },
     ],
   },
 
