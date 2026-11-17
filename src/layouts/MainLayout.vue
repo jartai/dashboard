@@ -51,6 +51,14 @@ function toggleLeftDrawer() {
           <q-item-section>Regular Tables</q-item-section>
         </q-item>
 
+        <q-item to="/components/buttons" clickable v-ripple>
+          <q-item-section avatar>
+            <q-icon name="smart_button" />
+          </q-item-section>
+
+          <q-item-section>Buttons</q-item-section>
+        </q-item>
+
         <q-item to="/components/typography" clickable v-ripple>
           <q-item-section avatar>
             <q-icon name="text_fields" />

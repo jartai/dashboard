@@ -45,6 +45,11 @@ const routes: RouteRecordRaw[] = [
         name: 'Timeline',
         component: () => import('@/pages/TimelinePage.vue'),
       },
+      {
+        path: 'components/buttons',
+        name: 'Buttons',
+        component: () => import('@/pages/ButtonsPage.vue'),
+      },
     ],
   },
 
