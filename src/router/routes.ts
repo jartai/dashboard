@@ -40,6 +40,11 @@ const routes: RouteRecordRaw[] = [
         name: 'Notifications',
         component: () => import('@/pages/NotificationsPage.vue'),
       },
+      {
+        path: 'pages/timeline',
+        name: 'Timeline',
+        component: () => import('@/pages/TimelinePage.vue'),
+      },
     ],
   },
 

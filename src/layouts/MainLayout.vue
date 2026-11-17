@@ -35,6 +35,14 @@ function toggleLeftDrawer() {
           <q-item-section>User Profile</q-item-section>
         </q-item>
 
+        <q-item to="/pages/timeline" clickable v-ripple>
+          <q-item-section avatar>
+            <q-icon name="mdi-history" />
+          </q-item-section>
+
+          <q-item-section>Timeline</q-item-section>
+        </q-item>
+
         <q-item to="/tables/regular-tables" clickable v-ripple>
           <q-item-section avatar>
             <q-icon name="table_chart" />
