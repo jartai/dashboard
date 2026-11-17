@@ -17,6 +17,7 @@ const grids = [
     title: 'SM Grid',
     caption: 'Collapsed at 600px',
     columnClass: 'col-12 col-sm-4',
+    label: 'col-sm-4',
     count: 3,
   },
   {
