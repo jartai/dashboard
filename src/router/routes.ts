@@ -55,6 +55,11 @@ const routes: RouteRecordRaw[] = [
         name: 'Grid System',
         component: () => import('@/pages/GridPage.vue'),
       },
+      {
+        path: 'components/tabs',
+        name: 'Tabs',
+        component: () => import('@/pages/TabsPage.vue'),
+      },
     ],
   },
 

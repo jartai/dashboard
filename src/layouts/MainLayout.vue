@@ -75,6 +75,14 @@ function toggleLeftDrawer() {
           <q-item-section>Icons</q-item-section>
         </q-item>
 
+        <q-item to="/components/tabs" clickable v-ripple>
+          <q-item-section avatar>
+            <q-icon name="tab" />
+          </q-item-section>
+
+          <q-item-section>Tabs</q-item-section>
+        </q-item>
+
         <q-item to="/maps/google-maps" clickable v-ripple>
           <q-item-section avatar>
             <q-icon name="map" />
