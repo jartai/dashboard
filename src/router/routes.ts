@@ -65,6 +65,11 @@ const routes: RouteRecordRaw[] = [
         name: 'Regular Forms',
         component: () => import('@/pages/RegularFormsPage.vue'),
       },
+      {
+        path: 'forms/extended',
+        name: 'Extended Forms',
+        component: () => import('@/pages/ExtendedFormsPage.vue'),
+      },
     ],
   },
 
