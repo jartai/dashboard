@@ -99,6 +99,14 @@ function toggleLeftDrawer() {
           <q-item-section>Extended Forms</q-item-section>
         </q-item>
 
+        <q-item to="/forms/validation" clickable v-ripple>
+          <q-item-section avatar>
+            <q-icon name="rule" />
+          </q-item-section>
+
+          <q-item-section>Validation Forms</q-item-section>
+        </q-item>
+
         <q-item to="/maps/google-maps" clickable v-ripple>
           <q-item-section avatar>
             <q-icon name="map" />
