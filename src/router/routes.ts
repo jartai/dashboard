@@ -60,6 +60,11 @@ const routes: RouteRecordRaw[] = [
         name: 'Tabs',
         component: () => import('@/pages/TabsPage.vue'),
       },
+      {
+        path: 'forms/regular',
+        name: 'Regular Forms',
+        component: () => import('@/pages/RegularFormsPage.vue'),
+      },
     ],
   },
 
